@@ -1,17 +1,13 @@
 # Clean URLs untuk halaman produk
-/pages/bisnis    /pages/bisnis.html   200
-/pages/flexi     /pages/flexi.html    200
-/pages/miuhc     /pages/miuhc.html    200
-/pages/miucc     /pages/miucc.html    200
-/pages/mccp      /pages/mccp.html     200
-/pages/mdla      /pages/mdla.html     200
-/pages/mdwa      /pages/mdwa.html     200
-/pages/mifip     /pages/mifip.html    200
-/pages/mpds      /pages/mpds.html     200
-/pages/mpps      /pages/mpps.html     200
-/pages/msp       /pages/msp.html      200
-/pages/pap       /pages/pap.html      200
-/pages/magna     /pages/magna.html    200
+/pages/pap      /pages/pap.html      200
+/pages/mpds     /pages/mpds.html     200
+/pages/miuhc    /pages/miuhc.html    200
+/pages/mdla     /pages/mdla.html     200
+/pages/flexi    /pages/flexi.html    200
+/pages/mifip    /pages/mifip.html    200
+/pages/bisnis   /pages/bisnis.html   200
+/pages/contact  /pages/contact.html  200
+/pages/tentang  /pages/tentang.html  200
 
-# Fallback: redirect semua route yang tidak dikenal ke index.html
+# Fallback: semua route tak dikenal → index.html (SPA-like)
 /*    /index.html   200
