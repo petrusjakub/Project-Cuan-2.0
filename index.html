@@ -1,250 +1,286 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Beranda | @petrusjakub - Financial Buddy</title>
-    <meta name="description" content="Pusat solusi asuransi dan perencanaan keuangan bersama Petrus Jakub. Cerdas Finansial, Tenang Masa Depan.">
-    
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-    
-    <style>
-        .hero-section { background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; padding: 6rem 2rem 4rem; text-align: center; border-radius: 0 0 30px 30px; box-shadow: 0 10px 30px rgba(30, 113, 69, 0.2); margin-bottom: 3rem; }
-        .hero-title { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.2; }
-        .hero-subtitle { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 2rem; }
-        
-        .quick-nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-top: -5rem; position: relative; z-index: 10; padding: 0 20px; }
-        .nav-card { background: var(--card-bg); padding: 1.5rem 2rem; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); text-decoration: none; color: var(--text-color); font-weight: 700; display: flex; align-items: center; gap: 10px; transition: transform 0.3s ease, box-shadow 0.3s ease; border-bottom: 4px solid var(--primary); }
-        .nav-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 167, 88, 0.15); }
-        
-        .category-title { text-align: center; font-size: 1.8rem; color: var(--primary); margin: 4rem 0 2rem; position: relative; }
-        .category-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; }
-
-        .produk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; padding: 0 20px; max-width: 1200px; margin: 0 auto; }
-        .produk-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); transition: all 0.3s ease; text-decoration: none; color: inherit; display: flex; flex-direction: column; border: 1px solid rgba(128,128,128,0.1); }
-        .produk-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0, 167, 88, 0.15); border-color: var(--primary); }
-        .produk-card .card-header { padding: 20px; background: rgba(37, 99, 235, 0.03); border-bottom: 1px solid rgba(128,128,128,0.1); }
-        .produk-card .card-body { padding: 20px; flex-grow: 1; }
-        .produk-title { font-size: 1.4rem; font-weight: 800; color: var(--primary); margin-bottom: 5px; }
-        .produk-desc { font-size: 0.95rem; color: var(--text-color); opacity: 0.8; line-height: 1.6; }
-        .badge-special { background: linear-gradient(135deg, #F59E0B, #D97706); color: white; font-size: 0.75rem; padding: 4px 10px; border-radius: 20px; font-weight: 700; display: inline-block; margin-bottom: 10px; }
-        
-        .floating-wa { position:fixed; bottom:25px; right:25px; background:#25D366; color:#fff; border-radius:50%; width:60px; height:60px; display:flex; align-items:center; justify-content:center; text-decoration:none; box-shadow:0 4px 15px rgba(37,211,102,0.4); z-index:9999; transition:transform .2s; }
-        .floating-wa:hover { transform:scale(1.1); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project Cuan | Cerdas Finansial, Tenang Masa Depan ✨</title>
+  <meta name="description" content="Proteksi keuangan & peluang bisnis asuransi gaya Gen-Z. Yuk, upgrade hidupmu bareng Petrus Jakub!"/>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+  
+  <!-- CSS -->
+  <link rel="stylesheet" href="assets/css/style.css"/>
+  
+  <!-- Icons (Lucide via CDN - ringan) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Schema.org untuk SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FinancialService",
+    "name": "Project Cuan",
+    "description": "Edukasi asuransi & peluang bisnis bersama Petrus Jakub",
+    "url": "https://projectcuan.petrusjakub.workers.dev",
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+62-877-8189-6087",
+      "contactType": "customer service"
+    }
+  }
+  </script>
 </head>
 <body>
-    
-    <header class="hero-section">
-        <div class="badge-special" style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); font-size: 1rem; margin-bottom: 1.5rem;">
-            Halo! Saya @petrusjakub
+
+  <!-- Navbar akan di-inject di sini -->
+  <div id="navbar-container"></div>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <span class="badge">✨ Financial Buddy-mu</span>
+      <h1 class="hero-title">
+        Gaji Naik Belum Tentu Kaya.<br/>
+        <span class="highlight">Punya Proteksi Baru Bikin Tenang.</span>
+      </h1>
+      <p class="hero-desc">        Hey! Aku Petrus. Aku bantu kamu bangun <strong>proteksi keuangan</strong> + <strong>income exponential</strong> lewat bisnis asuransi. Santai, edukatif, no pressure. 💙
+      </p>
+      <div class="hero-cta">
+        <a href="#assessment" class="btn btn-primary">
+          <i data-lucide="sparkles"></i> Assessment Gratis
+        </a>
+        <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20mau%20ngobrol%20soal%20proteksi%20keuangan%20dong%20%F0%9F%98%8A" class="btn btn-outline" target="_blank">
+          <i data-lucide="message-circle"></i> Chat Aku
+        </a>
+      </div>
+    </div>
+    <div class="hero-float">
+      <div class="float-card">🛡️ Proteksi</div>
+      <div class="float-card">💰 Income</div>
+      <div class="float-card">🚀 Freedom</div>
+    </div>
+  </section>
+
+  <!-- PROBLEM HOOK -->
+  <section class="section problem">
+    <div class="container">
+      <h2 class="section-title">Pernah Kepikiran Nggak Sih... 🤔</h2>
+      <div class="problem-grid">
+        <div class="problem-card">
+          <i data-lucide="heart-pulse"></i>
+          <h3>Kalo besok masuk RS?</h3>
+          <p>Biaya ICU bisa 10-50 juta/hari. Tabunganmu aman?</p>
         </div>
-        <h1 class="hero-title">Financial Buddy Anda</h1>
-        <p class="hero-subtitle">Membangun peta jalan keamanan finansial untuk Anda dan keluarga. <strong>Cerdas Finansial, Tenang Masa Depan.</strong></p>
-    </header>
+        <div class="problem-card">
+          <i data-lucide="graduation-cap"></i>
+          <h3>Kalo anak mau kuliah?</h3>
+          <p>Biaya kuliah naik 15%/tahun. Siap?</p>
+        </div>
+        <div class="problem-card">
+          <i data-lucide="piggy-bank"></i>
+          <h3>Kalo pensiun nanti?</h3>
+          <p>Mau bergantung sama anak? Atau punya passive income?</p>
+        </div>
+      </div>
+      <p class="problem-cta">Risiko nggak pernah minta izin. Tapi kamu bisa siap dari sekarang. ✨</p>
+    </div>
+  </section>
 
-    <!-- Menu Navigasi Ekosistem -->
-    <nav class="quick-nav">
-        <a href="company-profile.html" class="nav-card">
-            <span style="font-size: 1.5rem;">🏢</span> Profil Manulife
+  <!-- PRODUK GRID -->
+  <section id="produk" class="section products">
+    <div class="container">
+      <h2 class="section-title">Produk Proteksi & Investasi 🎯</h2>
+      <p class="section-subtitle">Klik card buat lihat detail. Semua produk dari Manulife Indonesia.</p>
+      
+      <div class="product-grid">        <!-- PAP -->
+        <a href="pages/pap.html" class="product-card">
+          <div class="card-icon">🎯</div>
+          <h3>PAP</h3>
+          <p>Pendapatan Asuransi Proteksi. Proteksi jiwa + tabungan. Cocok buat kamu yang mau aman + punya dana cair.</p>
+          <span class="card-tag">Proteksi + Tabungan</span>
         </a>
-        <a href="testimonial.html" class="nav-card">
-            <span style="font-size: 1.5rem;">⭐</span> Testimonial Klien
-        </a>
-        <a href="bisnis.html" class="nav-card" style="border-bottom-color: var(--accent);">
-            <span style="font-size: 1.5rem;">💼</span> Peluang Bisnis (Partner)
-        </a>
-    </nav>
-
-    <main style="padding-bottom: 4rem;">
         
-        <!-- KATEGORI 1: KESEHATAN & PENYAKIT KRITIS -->
-        <h2 class="category-title">Solusi Kesehatan & Kritis</h2>
-        <div class="produk-grid">
-            <a href="miuhc.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--primary);">As Charge / Sesuai Tagihan</div>
-                    <div class="produk-title">MiUHC</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Mi Ultimate Healthcare. Proteksi kesehatan premium yang membayar tagihan rumah sakit di seluruh dunia secara penuh.</p>
-                </div>
-            </a>
+        <!-- MPDS -->
+        <a href="pages/mpds.html" class="product-card">
+          <div class="card-icon">🏥</div>
+          <h3>MPDS</h3>
+          <p>Manulife Proteksi Disease Shield. Proteksi 45+ penyakit kritis. Deteksi dini, biaya ditanggung.</p>
+          <span class="card-tag">Penyakit Kritis</span>
+        </a>
+        
+        <!-- MIUHC -->
+        <a href="pages/miuhc.html" class="product-card featured">
+          <div class="card-icon">⭐</div>
+          <h3>MIUHC</h3>
+          <p>Mi Ultimate Healthcare. Asuransi kesehatan "as charged". Rawat inap/jalan di RS mana pun, sesuai tagihan.</p>
+          <span class="card-tag">Best Seller ✨</span>
+        </a>
+        
+        <!-- MDLA -->
+        <a href="pages/mdla.html" class="product-card">
+          <div class="card-icon">👨‍👩‍👧‍👦</div>
+          <h3>MDLA</h3>
+          <p>Manulife Dana Lifestage Advantage. Dana pendidikan anak yang terencana. Masa depan anak, prioritas.</p>
+          <span class="card-tag">Dana Pendidikan</span>
+        </a>
+        
+        <!-- FLEXI -->
+        <a href="pages/flexi.html" class="product-card">
+          <div class="card-icon">💼</div>
+          <h3>MPS Flexi</h3>
+          <p>Proteksi jiwa fleksibel. Premi bisa disesuaikan. Cocok buat freelancer & entrepreneur.</p>
+          <span class="card-tag">Fleksibel</span>
+        </a>
+        
+        <!-- MIFIP -->
+        <a href="pages/mifip.html" class="product-card">
+          <div class="card-icon">📈</div>
+          <h3>MIFIP</h3>
+          <p>Manulife Investment Fund. Investasi reksadana + proteksi. Growth potential + keamanan.</p>
+          <span class="card-tag">Investasi</span>
+        </a>
+      </div>
+      
+      <div class="view-all">        <a href="#semua-produk" class="btn btn-text">Lihat Semua Produk →</a>
+      </div>
+    </div>
+  </section>
 
-            <a href="magna.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special">Keluarga Termurah</div>
-                    <div class="produk-title">Magna Sehat</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Perlindungan kesehatan satu polis untuk 5 anggota keluarga (Suami, Istri, 3 Anak). Sangat ekonomis, premi mulai dari Rp 4 Juta/tahun.</p>
-                </div>
-            </a>
-
-            <a href="miucc.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--success);">110% Uang Kembali</div>
-                    <div class="produk-title">MiUCC</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Mi Ultimate Critical Care. Uang tunai langsung cair jika terdiagnosis penyakit kritis. Tetap sehat? 110% total premi dikembalikan.</p>
-                </div>
-            </a>
-
-            <a href="mccp.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special">Proteksi Komprehensif</div>
-                    <div class="produk-title">MCCP</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Manulife Comprehensive Critical Protection. Tameng finansial yang komprehensif menghadapi berbagai tahap risiko penyakit kritis.</p>
-                </div>
-            </a>
+  <!-- PELUANG BISNIS -->
+  <section id="bisnis" class="section business">
+    <div class="container">
+      <div class="business-content">
+        <span class="badge badge-purple">🚀 Career Upgrade</span>
+        <h2 class="section-title">Gaji Numpang Lewat? <br/>Bangun Aset Income-mu!</h2>
+        <p class="section-desc">
+          Bayangin: Income nggak lagi dibatasin jam kantor. Kamu bisa kerja dari mana aja, kapan aja. 
+          Bonus, komisi, residual income — semua mungkin. Plus skill public speaking, leadership, personal branding. 
+          <strong>Ini bukan sekadar "jualan". Ini bangun bisnis.</strong>
+        </p>
+        <ul class="benefit-list">
+          <li><i data-lucide="check-circle"></i> Extra & Passive Income</li>
+          <li><i data-lucide="check-circle"></i> Networking & Mentorship</li>
+          <li><i data-lucide="check-circle"></i> Time & Location Freedom</li>
+          <li><i data-lucide="check-circle"></i> Skill Development Gratis</li>
+        </ul>
+        <a href="pages/bisnis.html" class="btn btn-primary">
+          <i data-lucide="rocket"></i> Mau Tahu Caranya?
+        </a>
+      </div>
+      <div class="business-visual">
+        <div class="visual-card">
+          <i data-lucide="trending-up"></i>
+          <h4>Income Growth</h4>
+          <p>Dari 0 → 10jt → 50jt/bulan</p>
         </div>
-
-        <!-- KATEGORI 2: PERSIAPAN DANA & PENDIDIKAN -->
-        <h2 class="category-title">Tabungan & Pendidikan Masa Depan</h2>
-        <div class="produk-grid">
-            <a href="mifip.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--primary);">Garansi 800%</div>
-                    <div class="produk-title">MiFIP</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">MiFuture Income Protector. Mesin pencetak *passive income* dengan total manfaat pasti hingga 800% dari Dana Mapan.</p>
-                </div>
-            </a>
-
-            <a href="mpps.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--success);">Syariah & Pasti Kembali</div>
-                    <div class="produk-title">MPPS</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Manulife Perlindungan Pendidikan Syariah. Dana pendidikan cair sesuai jadwal masuk sekolah anak. Bebas risiko dan dijamin syariah.</p>
-                </div>
-            </a>
-
-            <a href="msp.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special">Pasti Untung</div>
-                    <div class="produk-title">MSP</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Manulife Saving Protector. Asuransi Dwiguna cerdas. Bayar 5 tahun, nikmati dana tunai berkala, plus 500% di akhir kontrak.</p>
-                </div>
-            </a>
-
-            <a href="mdwa.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--primary);">Wealth Accumulation</div>
-                    <div class="produk-title">MDWA</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Manulife Dynamic Wealth Assurance. Tabungan terstruktur tanpa risiko pasar dengan 3 pilihan plan: Anuitas, Beasiswa, atau Combo.</p>
-                </div>
-            </a>
+        <div class="visual-card">
+          <i data-lucide="clock"></i>
+          <h4>Time Freedom</h4>
+          <p>Kerja sesuai energimu</p>
         </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- KATEGORI 3: PROTEKSI JIWA TERBAIK -->
-        <h2 class="category-title">Proteksi Jiwa & Warisan</h2>
-        <div class="produk-grid">
-            <a href="mdla.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--primary);">Warisan Fleksibel</div>
-                    <div class="produk-title">MDLA</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Manulife Dynamic Life Assurance. Asuransi jiwa tradisional seumur hidup dengan perlindungan murni dan opsi pengembalian dana.</p>
-                </div>
-            </a>
-
-            <a href="mpds.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--success);">Tolong Menolong</div>
-                    <div class="produk-title">MPDS</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Manulife Perlindungan Diri Syariah. Asuransi jiwa berlandaskan prinsip syariah dengan pengembalian kontribusi di akhir masa polis.</p>
-                </div>
-            </a>
-
-            <a href="pap.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special">Term Life (Berjangka)</div>
-                    <div class="produk-title">ProActive Plus (PAP)</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Perlindungan jiwa murni berjangka waktu dengan premi sangat terjangkau mulai dari Rp 380 ribu/bulan. Solusi proteksi tinggi berbiaya rendah.</p>
-                </div>
-            </a>
-
-            <a href="flexi.html" class="produk-card">
-                <div class="card-header">
-                    <div class="badge-special">Sangat Adaptif</div>
-                    <div class="produk-title">Flexi</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Solusi asuransi jiwa fleksibel yang dapat dengan mudah disesuaikan mengikuti perubahan tahapan dan kebutuhan hidup Anda.</p>
-                </div>
-            </a>
+  <!-- ASSESSMENT QUIZ -->
+  <section id="assessment" class="section assessment">
+    <div class="container">
+      <h2 class="section-title">Cek Skor Proteksimu 🎯</h2>
+      <p class="section-subtitle">10 pertanyaan cepat. Hasil instan. Rekomendasi personal.</p>
+      
+      <div class="quiz-container glassmorphism">
+        <div id="quiz-step-1" class="quiz-step active">
+          <p class="quiz-question">1. Umur kamu sekarang?</p>          <div class="quiz-options">
+            <button class="quiz-option" data-answer="18-25">18-25 tahun</button>
+            <button class="quiz-option" data-answer="26-35">26-35 tahun</button>
+            <button class="quiz-option" data-answer="36-45">36-45 tahun</button>
+            <button class="quiz-option" data-answer="46+">46+ tahun</button>
+          </div>
         </div>
-
-        <!-- KATEGORI 4: ASURANSI UMUM -->
-        <h2 class="category-title">Asuransi Umum</h2>
-        <div class="produk-grid">
-            <a href="asuransiumum.html" class="produk-card" style="border: 2px solid var(--accent);">
-                <div class="card-header">
-                    <div class="badge-special" style="background: var(--accent);">Kendaraan & Properti</div>
-                    <div class="produk-title">General Insurance</div>
-                </div>
-                <div class="card-body">
-                    <p class="produk-desc">Perlindungan komprehensif di luar asuransi jiwa. Temukan solusi asuransi Kendaraan (Mobil), Perjalanan (Travel), dan Properti Anda di sini.</p>
-                </div>
-            </a>
+        
+        <div id="quiz-step-2" class="quiz-step">
+          <p class="quiz-question">2. Punya tanggungan (pasangan/anak/orang tua)?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-answer="ya">Ya, ada 😊</button>
+            <button class="quiz-option" data-answer="belum">Belum, masih single</button>
+          </div>
         </div>
+        
+        <!-- Tambah step sesuai kebutuhan -->
+        
+        <div id="quiz-result" class="quiz-step">
+          <h3>🎉 Skor Proteksimu: <span id="score">72</span>/100</h3>
+          <p id="result-desc">Kamu sudah cukup aware! Tapi masih ada celah yang bisa ditutup biar makin tenang.</p>
+          <div class="result-recommendation">
+            <p><strong>Rekomendasi untukmu:</strong></p>
+            <ul>
+              <li>✅ MIUHC (Proteksi kesehatan)</li>
+              <li>✅ PAP (Proteksi jiwa + tabungan)</li>
+            </ul>
+          </div>
+          <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20baru%20aja%20isi%20assessment%20dan%20skorku%2072.%20Mau%20konsultasi%20rekomendasinya%20dong%20%F0%9F%98%8A" class="btn btn-primary" target="_blank">
+            <i data-lucide="message-circle"></i> Konsultasi Gratis
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    </main>
+  <!-- TESTIMONI -->
+  <section class="section testimonials">
+    <div class="container">
+      <h2 class="section-title">Kata Mereka Yang Udah Join 💬</h2>
+      <div class="testimonial-slider">
+        <div class="testimonial-card">
+          <p>"Awalnya ragu, tapi setelah konsultasi sama Kak Petrus, aku jadi paham. Sekarang punya proteksi kesehatan + side income. Life changer!"</p>
+          <div class="testimonial-author">
+            <span class="author-name">Sarah, 28</span>
+            <span class="author-role">Content Creator</span>
+          </div>
+        </div>
+        <!-- Tambah testimoni lain -->
+      </div>    </div>
+  </section>
 
-    <!-- Floating WA -->
-    <a href="https://wa.me/628567810321?text=Halo%20@petrusjakub,%20saya%20ingin%20berkonsultasi%20mengenai%20perencanaan%20finansial." target="_blank" class="floating-wa" aria-label="WhatsApp">
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="#fff" xmlns="http://www.w3.org/2000/svg">
-            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-    </a>
-    ```html
-<!-- === FONT OPTIMIZATION === -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- CTA FINAL -->
+  <section class="section cta-final">
+    <div class="container">
+      <h2>Kalau Hari Ini Kamu Bisa Ambil Langkah Kecil...<br/>Kenapa Nunggu?</h2>
+      <p>Masa depan yang tenang nggak datang sendiri. Yuk, mulai dari sekarang.</p>
+      <div class="cta-buttons">
+        <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20siap%20mulai%20bangun%20proteksi%20dan%20income%20bareng%20Project%20Cuan%20%F0%9F%92%AA" class="btn btn-primary btn-lg" target="_blank">
+          <i data-lucide="zap"></i> Mulai Sekarang — Gratis!
+        </a>
+        <a href="#produk" class="btn btn-outline btn-lg">Lihat Produk Dulu</a>
+      </div>
+    </div>
+  </section>
 
-<!-- === FALLBACK FONT STACK (tambahkan di <style> atau file CSS utama) === -->
-<style>
-:root {
-    --font-heading: 'Plus Jakarta Sans', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-    --font-body: 'Inter', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-}
+  <!-- Footer akan di-inject di sini -->
+  <div id="footer-container"></div>
 
-*, *::before, *::after {
-    font-family: var(--font-body);
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
+  <!-- Floating WA Button -->
+  <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20mau%20tanya-tanya%20soal%20Project%20Cuan%20dong%20%F0%9F%98%8A" class="floating-wa" target="_blank" aria-label="Chat WhatsApp">
+    <i data-lucide="message-circle"></i>
+    <span>Chat Aku</span>
+  </a>
 
-h1, h2, h3, h4, h5, h6, .heading {
-    font-family: var(--font-heading);
-    font-weight: 700;
-}
-</style>
-```
+  <!-- Back to Top -->
+  <button id="back-to-top" aria-label="Kembali ke atas">
+    <i data-lucide="arrow-up"></i>
+  </button>
 
----
-
-    <footer style="background: var(--card-bg); padding: 2rem; text-align: center; border-top: 1px solid rgba(0,0,0,0.1); margin-top: 2rem;">
-        <p style="font-weight: 700; color: var(--primary); font-size: 1.2rem;">@petrusjakub</p>
-        <p style="opacity: 0.7; font-size: 0.9rem; margin-top: 5px;">Hak Cipta © 2026. Partner Bisnis Manulife Indonesia.</p>
-    </footer>
-
+  <!-- Scripts -->
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Init Lucide icons setelah DOM load
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+    });
+  </script>
 </body>
 </html>
