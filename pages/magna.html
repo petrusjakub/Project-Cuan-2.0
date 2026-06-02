@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magna Sehat Premium | Project Cuan</title>
+    <meta name="description" content="Satu polis asuransi kesehatan untuk 5 anggota keluarga. Super ekonomis, proteksi maksimal dari Asuransi MAG.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        .calc-field select { width: 100%; padding: 12px 15px; border: 2px solid rgba(128, 128, 128, 0.2); border-radius: 8px; font-size: 1rem; background: var(--card-bg); color: var(--text-color); margin-top: 5px; font-weight: 600; transition: border-color 0.3s ease; }
+        .calc-field select:focus { border-color: var(--primary); outline: none; }
+        .calc-row { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .calc-field { flex: 1; min-width: 200px; text-align: left; }
+        
+        .promo-box { background: linear-gradient(135deg, rgba(37, 211, 102, 0.1), rgba(0, 167, 88, 0.1)); border-left: 4px solid var(--success); padding: 1.5rem; border-radius: 0 12px 12px 0; margin: 2rem 0; text-align: left; }
+        
+        .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 15px; }
+        .payment-item { background: var(--card-bg); border: 2px solid rgba(128, 128, 128, 0.1); border-radius: 12px; padding: 20px; text-align: left; position: relative; overflow: hidden; transition: transform 0.3s ease; }
+        .payment-item:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        .payment-item .label { font-size: 0.9rem; opacity: 0.8; margin-bottom: 5px; font-weight: 600;}
+        .payment-item .amount { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+        
+        .feature-list { list-style: none; padding: 0; margin-top: 15px; text-align: left;}
+        .feature-list li { position: relative; padding-left: 25px; margin-bottom: 8px; font-size: 0.9rem; opacity: 0.9; line-height: 1.5;}
+        .feature-list li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: bold; }
+        
+        .table-responsive { overflow-x: auto; margin-top: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        table { width: 100%; border-collapse: collapse; background: var(--card-bg); font-size: 0.9rem; text-align: left; }
+        th { background: var(--primary); color: white; padding: 15px; white-space: nowrap; }
+        td { padding: 12px 15px; border-bottom: 1px solid rgba(128,128,128,0.1); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: rgba(37, 99, 235, 0.02); }
+    </style>
+</head>
+<body>
+    
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge" style="background: var(--success); color: white;">Best Value for Family</span>
+            <h1 class="section-title" style="font-size: clamp(2rem, 4vw, 3rem);">Magna Sehat Premium</h1>
+            <p class="section-subtitle">Mengapa bayar mahal untuk 5 polis yang berbeda? Cukup 1 Polis untuk melindungi <strong>Suami, Istri, dan 3 Anak</strong> sekaligus. Asuransi kesehatan paling ekonomis dari Asuransi MAG (Fairfax Company).</p>
+        </section>
+
+        <!-- The Hook -->
+        <section class="section-container">
+            <div class="promo-box">
+                <h3 style="color: var(--success); margin-bottom: 10px; font-size: 1.4rem;">🔥 Perlindungan Utuh Tanpa Merobek Kantong</h3>
+                <p style="margin-bottom: 10px; opacity: 0.9; line-height: 1.6;">Dirancang khusus untuk keluarga cerdas yang menginginkan fasilitas *Cashless* di Rumah Sakit Rekanan tanpa harus membayar premi per kepala. <strong>Hanya mulai dari Rp 4 Jutaan per TAHUN untuk SATU KELUARGA!</strong></p>
+                <ul class="feature-list" style="margin-top: 15px;">
+                    <li><strong>Tanpa Medical Check-Up:</strong> Pendaftaran instan dan mudah.</li>
+                    <li><strong>Masa Pemulihan Cepat:</strong> Hanya 14 hari untuk diagnosa yang sama.</li>
+                    <li><strong>Perlindungan Serius:</strong> Sudah termasuk Paket Kemoterapi & Hemodialisa per tahun.</li>
+                    <li><strong>Pasti Adil:</strong> Refund Premi (Prorate) diperbolehkan jika polis dibatalkan di tengah jalan (Jika tidak ada klaim).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Kalkulator Premi Instan -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator Magna Sehat</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Temukan harga paket keluarga Anda dalam hitungan detik.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Pilih Kepesertaan</label>
+                        <select id="peserta" onchange="calculate()">
+                            <option value="dewasa">Individu (1 Dewasa)</option>
+                            <option value="pasangan_anak">Peserta + Pasangan / Anak</option>
+                            <option value="keluarga" selected>Satu Keluarga (Suami, Istri & Maks 3 Anak)</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Kelompok Usia (Peserta Tertua)</label>
+                        <select id="usia" onchange="calculate()">
+                            <option value="sd_40">Hingga 40 Tahun</option>
+                            <option value="41_55">41 - 55 Tahun</option>
+                            <option value="56_70">56 - 70 Tahun (Renewal)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Hasil Kalkulasi -->
+                <div id="results" style="margin-top: 2rem;">
+                    <!-- Diinjeksi oleh JavaScript -->
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20ingin%20mendaftarkan%20keluarga%20saya%20ke%20Magna%20Sehat." target="_blank" class="btn btn-primary" style="padding: 15px 30px; font-size: 1.1rem;">Amankan Keluarga Saya Sekarang</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Info Tabel Benefit (Toggling) -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <h2 class="section-title" style="text-align: center;">Ringkasan Manfaat (Plan Rawat Inap)</h2>
+            <div class="table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Deskripsi Manfaat</th>
+                            <th>Plan NEW 1 (IP350)</th>
+                            <th>Plan A (IP800)</th>
+                            <th>Plan D (IP2000)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Kamar & Makan</strong> (Maks 365 Hari)</td>
+                            <td>Rp 350.000 / Hari</td>
+                            <td>Rp 800.000 / Hari</td>
+                            <td>Rp 2.000.000 / Hari</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ICU / NICU / PICU</strong> (Maks 365 Hari)</td>
+                            <td>Rp 700.000 / Hari</td>
+                            <td>Rp 1.600.000 / Hari</td>
+                            <td>Rp 4.000.000 / Hari</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kunjungan Dokter Spesialis</strong></td>
+                            <td>Rp 175.000 / Kunjungan</td>
+                            <td>Rp 400.000 / Kunjungan</td>
+                            <td>Rp 1.000.000 / Kunjungan</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Aneka Perawatan & Obat</strong> (Per Kejadian)</td>
+                            <td>Rp 13.125.000</td>
+                            <td>Rp 37.500.000</td>
+                            <td>Rp 75.000.000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Biaya Bedah & Anastesi</strong> (Per Kejadian)</td>
+                            <td>Rp 26.250.000</td>
+                            <td>Rp 75.000.000</td>
+                            <td>Rp 150.000.000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Kemoterapi & Hemodialisa</strong> (Per Tahun)</td>
+                            <td>Rp 3.500.000</td>
+                            <td>Rp 8.000.000</td>
+                            <td>Rp 20.000.000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Santunan Kematian & Cacat</strong> (Kecelakaan)</td>
+                            <td>Rp 20.000.000</td>
+                            <td>Rp 50.000.000</td>
+                            <td>Rp 100.000.000</td>
+                        </tr>
+                        <tr style="background: rgba(16, 185, 129, 0.05);">
+                            <td colspan="4" style="text-align: center; color: var(--success); font-weight: 700;">Batas Maksimum Penggantian Tahunan: TIDAK TERBATAS (Sesuai Limit Inner)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align: center; font-size: 0.85rem; opacity: 0.7; margin-top: 15px;">*Tersedia juga opsi tambahan Rawat Jalan (Konsultasi, Obat, Lab, Fisioterapi) dengan premi terpisah. Hubungi kami untuk detail lengkap.</p>
+        </section>
+
+    </main>
+
+    <div id="footer-container"></div>
+    <script src="assets/js/app.js"></script>
+
+    <script>
+        // Data Aktuaria Magna Sehat Premium
+        const MAGNA_DATA = {
+            inap: {
+                "sd_40": {
+                    "dewasa": [1286000, 1718000, 2781000, 3875000, 4958000, 6039000],
+                    "pasangan_anak": [2075000, 2771000, 4487000, 6250000, 7998000, 9742000],
+                    "keluarga": [4629000, 6185000, 10011000, 13949000, 17848000, 21740000]
+                },
+                "41_55": {
+                    "dewasa": [1478900, 1975700, 3198200, 4456300, 5701700, 6944900],
+                    "pasangan_anak": [3697250, 4939250, 7995500, 11140750, 14254250, 17362250],
+                    "keluarga": [5545875, 7408875, 11993250, 16711125, 21381375, 26043375]
+                },
+                "56_70": {
+                    "dewasa": [1608000, 2148000, 3477000, 4844000, 6198000, 7549000],
+                    "pasangan_anak": [4020000, 5370000, 8692500, 12110000, 15495000, 18872500],
+                    "keluarga": [6030000, 8055000, 13038750, 18165000, 23242500, 28308750]
+                }
+            },
+            jalan: {
+                "sd_40": {
+                    "dewasa": [2054000, 2583000, 3870000, 4992000, 6113000, 7235000],
+                    "pasangan_anak": [3465000, 4359000, 6531000, 8424000, 10316000, 12208000],
+                    "keluarga": [9885000, 12431000, 18625000, 24025000, 29419000, 34819000]
+                },
+                "41_55": {
+                    "dewasa": [2362100, 2970500, 4450500, 5740800, 7030000, 8320300],
+                    "pasangan_anak": [5905250, 7426250, 11126250, 14352000, 17575000, 20800750],
+                    "keluarga": [8857875, 11139375, 16689375, 21528000, 26362500, 31201125]
+                },
+                "56_70": {
+                    "dewasa": [2568000, 3229000, 4838000, 6240000, 7642000, 9044000],
+                    "pasangan_anak": [6420000, 8072500, 12095000, 15600000, 19105000, 22610000],
+                    "keluarga": [9630000, 12108750, 18142500, 23400000, 28657500, 33915000]
+                }
+            }
+        };
+
+        const PLANS = [
+            { name: 'Plan NEW 1 (Kamar 350rb)', idx: 0 },
+            { name: 'Plan NEW 2 (Kamar 500rb)', idx: 1 },
+            { name: 'Plan A (Kamar 800rb)', idx: 2 },
+            { name: 'Plan D (Kamar 2 Juta)', idx: 5 }
+        ];
+
+        function formatRp(n) {
+            return 'Rp ' + n.toLocaleString('id-ID');
+        }
+
+        function buildResultCard(planName, premiInap, premiJalan, isHighlight) {
+            const total = premiInap + premiJalan;
+            const style = isHighlight ? 'border: 2px solid var(--accent); background: rgba(245, 158, 11, 0.05);' : '';
+            const color = isHighlight ? 'var(--accent)' : 'var(--primary)';
+            
+            return `
+            <div class="payment-item" style="${style}">
+                <div class="label" style="color: ${color};">${planName}</div>
+                <div class="amount" style="color: ${color};">${formatRp(total)}<span style="font-size: 0.9rem; font-weight: 500; color: var(--text-color);">/thn</span></div>
+                <ul class="feature-list" style="margin-top: 15px; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 10px;">
+                    <li>Rawat Inap: ${formatRp(premiInap)}</li>
+                    <li>Rawat Jalan: ${formatRp(premiJalan)}</li>
+                </ul>
+            </div>`;
+        }
+
+        function calculate() {
+            const peserta = document.getElementById('peserta').value;
+            const usia = document.getElementById('usia').value;
+            const resultsDiv = document.getElementById('results');
+
+            const dataInap = MAGNA_DATA.inap[usia][peserta];
+            const dataJalan = MAGNA_DATA.jalan[usia][peserta];
+
+            let html = '<h3 style="text-align: left; color: var(--text-color); margin-bottom: 1rem;">Total Premi Setahun (Sudah Termasuk Inap + Jalan):</h3>';
+            html += '<div class="payment-grid">';
+
+            PLANS.forEach((plan, i) => {
+                // Highlight Plan A sebagai rekomendasi
+                html += buildResultCard(plan.name, dataInap[plan.idx], dataJalan[plan.idx], i === 2);
+            });
+
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+        }
+
+        // Inisialisasi
+        window.addEventListener('DOMContentLoaded', calculate);
+    </script>
+</body>
+</html>

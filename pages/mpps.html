@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPPS | Project Cuan</title>
+    <meta name="description" content="Manulife Perlindungan Pendidikan Syariah. Dana pendidikan yang pasti dan terjamin.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <style>
+        .calc-field select { width: 100%; padding: 10px 12px; border: 2px solid rgba(128, 128, 128, 0.2); border-radius: 8px; font-size: 1rem; background: var(--card-bg); color: var(--text-color); margin-top: 5px; }
+        .calc-row { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .calc-field { flex: 1; min-width: 200px; text-align: left; }
+        .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 15px; }
+        .payment-item { background: var(--card-bg); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 8px; padding: 15px; text-align: center; }
+        .payment-item .label { font-size: 0.85rem; opacity: 0.7; }
+        .payment-item .amount { font-size: 1.25rem; font-weight: 700; color: var(--primary); margin-top: 5px;}
+        #loading-indicator { font-weight: 600; color: var(--primary); padding: 15px; background: rgba(37, 99, 235, 0.05); border-radius: 8px; display: none; }
+        .discount-badge { background: var(--success); color: #fff; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; display: inline-block; margin-top: 8px; font-weight: 600; }
+        .warning-box { color: #EF4444; font-weight: 600; padding: 20px; text-align: center; background: rgba(239, 68, 68, 0.1); border-radius: 8px; display: none; }
+    </style>
+</head>
+<body>
+    
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Asuransi Pendidikan Syariah</span>
+            <h1 class="section-title">MPPS</h1>
+            <p class="section-subtitle">Manulife Perlindungan Pendidikan Syariah. Pastikan dana pendidikan anak Anda tetap tersedia secara utuh apa pun yang terjadi pada Anda.</p>
+        </section>
+
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator MPPS</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Cari tahu rencana kontribusi terbaik untuk si buah hati.</p>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Jenis Kelamin Orang Tua</label>
+                        <select id="gender" onchange="calculate()">
+                            <option value="PRIA">Pria</option>
+                            <option value="WANITA">Wanita</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Usia Orang Tua</label>
+                        <select id="parentAge" onchange="calculate()"></select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Usia Anak</label>
+                        <select id="childAge" onchange="calculate()"></select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Mata Uang</label>
+                        <select id="currency" onchange="updateSAOptions(); calculate()">
+                            <option value="IDR">IDR (Rupiah)</option>
+                            <option value="USD">USD (Dolar)</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Pilihan Plan (Pembebasan Kontribusi)</label>
+                        <select id="plan" onchange="calculate()">
+                            <option value="jiwa">Plan Jiwa (Risiko Tutup Usia)</option>
+                            <option value="kritis">Plan Sakit Kritis (Risiko Penyakit Kritis)</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Target Dana Pendidikan (Santunan)</label>
+                        <select id="saIndex" onchange="calculate()"></select>
+                    </div>
+                </div>
+
+                <div id="loading-indicator">🔄 Membaca struktur aktuaria 30.000+ kombinasi...</div>
+                <div id="warning-box" class="warning-box"></div>
+
+                <div id="results" style="display:none; background: rgba(37, 99, 235, 0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(37,99,235,0.1);">
+                    <div style="font-weight: 600; color: var(--primary); margin-bottom: 1.5rem;" id="res-profil"></div>
+                    
+                    <h4 style="text-align: left; color: var(--text-color);">Rencana Kontribusi Anda:</h4>
+                    <div class="payment-grid">
+                        <div class="payment-item" style="border: 2px solid var(--primary);">
+                            <div class="label">Tahunan</div>
+                            <div class="amount" id="mode-tahunan">-</div>
+                            <div id="badge-diskon"></div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Semesteran</div>
+                            <div class="amount" id="mode-semesteran">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Kuartalan</div>
+                            <div class="amount" id="mode-kuartalan">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Bulanan</div>
+                            <div class="amount" id="mode-bulanan">-</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus,%20saya%20ingin%20berdiskusi%20tentang%20dana%20pendidikan%20MPPS." target="_blank" class="btn btn-primary">Konsultasi Rencana Pendidikan</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-container"></div>
+    <script src="assets/js/app.js"></script>
+
+    <script>
+        // Data Configuration
+        const SA_IDR = ["500 Juta", "1 Milyar", "1,5 Milyar", "2 Milyar", "2,5 Milyar", "3 Milyar", "5 Milyar", "10 Milyar", "50 Milyar"];
+        const SA_USD = ["USD 30.000", "USD 50.000", "USD 100.000", "USD 150.000", "USD 200.000", "USD 300.000", "USD 400.000", "USD 500.000", "USD 1.000.000"];
+        
+        let PREMIUM_INDEX = {};
+
+        // Inisialisasi UI
+        function initSelects() {
+            const pAge = document.getElementById('parentAge');
+            for(let i = 18; i <= 60; i++) {
+                let opt = document.createElement('option'); 
+                opt.value = i; opt.textContent = i + ' Tahun';
+                if(i === 30) opt.selected = true; 
+                pAge.appendChild(opt);
+            }
+            const cAge = document.getElementById('childAge');
+            for(let j = 0; j <= 11; j++) {
+                let opt = document.createElement('option'); 
+                opt.value = j; opt.textContent = j === 0 ? '30 Hari (0 Tahun)' : j + ' Tahun';
+                cAge.appendChild(opt);
+            }
+            updateSAOptions();
+        }
+
+        function updateSAOptions() {
+            const curr = document.getElementById('currency').value;
+            const saSel = document.getElementById('saIndex');
+            saSel.innerHTML = '';
+            const list = curr === 'IDR' ? SA_IDR : SA_USD;
+            list.forEach((val, idx) => {
+                let opt = document.createElement('option');
+                opt.value = idx; // Kita simpan index-nya saja
+                opt.textContent = val;
+                if(idx === 1) opt.selected = true; 
+                saSel.appendChild(opt);
+            });
+        }
+
+        // Engine Pembaca CSV Asinkron
+        async function loadMPPSData() {
+            return new Promise((resolve, reject) => {
+                Papa.parse("assets/data/mpps.csv", {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete(results) {
+                        results.data.forEach(row => {
+                            const gender = row.gender;
+                            const age = row.parent_age;
+                            const child = row.child_age;
+                            const key = row.key;
+                            const array_index = parseInt(row.array_index);
+
+                            PREMIUM_INDEX[gender] ??= {};
+                            PREMIUM_INDEX[gender][age] ??= {};
+                            PREMIUM_INDEX[gender][age][child] ??= {};
+                            PREMIUM_INDEX[gender][age][child][key] ??= [];
+                            
+                            // Merekonstruksi Array persis seperti format asal
+                            PREMIUM_INDEX[gender][age][child][key][array_index] = row.premi;
+                        });
+                        resolve();
+                    },
+                    error: reject
+                });
+            });
+        }
+
+        // Fungsi Kalkulasi Utama
+        function calculate() {
+            if (Object.keys(PREMIUM_INDEX).length === 0) return;
+
+            const gender = document.getElementById('gender').value;
+            const parentAge = document.getElementById('parentAge').value;
+            const childAge = document.getElementById('childAge').value;
+            const plan = document.getElementById('plan').value;
+            const currency = document.getElementById('currency').value;
+            const saIdx = parseInt(document.getElementById('saIndex').value);
+            
+            const results = document.getElementById('results');
+            const warning = document.getElementById('warning-box');
+
+            // Limitasi Usia Plan Sakit Kritis
+            if(plan === 'kritis' && parseInt(parentAge) > 50){
+                results.style.display = 'none';
+                warning.style.display = 'block';
+                warning.textContent = 'Plan Sakit Kritis hanya tersedia untuk usia Orang Tua maksimal 50 Tahun.';
+                return;
+            }
+
+            // Kunci Pencarian sesuai format asal
+            let key = '';
+            if(plan === 'jiwa' && currency === 'IDR') key = 'ji';
+            else if(plan === 'kritis' && currency === 'IDR') key = 'ki';
+            else if(plan === 'jiwa' && currency === 'USD') key = 'ju';
+            else key = 'ku';
+
+            // Lookup O(1)
+            const arrayPremi = PREMIUM_INDEX?.[gender]?.[parentAge]?.[childAge]?.[key];
+            const nilaiPremi = arrayPremi ? arrayPremi[saIdx] : null;
+
+            if (!nilaiPremi || nilaiPremi === '') {
+                results.style.display = 'none';
+                warning.style.display = 'block';
+                warning.textContent = 'Data premi tidak tersedia untuk kombinasi ini.';
+                return;
+            }
+
+            warning.style.display = 'none';
+            results.style.display = 'block';
+
+            let baseVal = parseFloat(nilaiPremi);
+            let displayTahunan, displaySem, displayKua, displayBul;
+            let diskonInfo = '';
+
+            if (currency === 'IDR') {
+                baseVal = baseVal * 1000000; // Karena di data asal formatnya "Juta"
+                
+                // Menghitung Otomatis Diskon Banding
+                let diskon = 0;
+                if (baseVal >= 24000000) diskon = 0.20; // Band 3
+                else if (baseVal >= 12000000) diskon = 0.10; // Band 2
+
+                let finalTahunan = baseVal * (1 - diskon);
+                
+                displayTahunan = 'Rp ' + finalTahunan.toLocaleString('id-ID');
+                displaySem = 'Rp ' + Math.round(finalTahunan * 0.52).toLocaleString('id-ID');
+                displayKua = 'Rp ' + Math.round(finalTahunan * 0.27).toLocaleString('id-ID');
+                displayBul = 'Rp ' + Math.round(finalTahunan * 0.09).toLocaleString('id-ID');
+
+                if (diskon > 0) {
+                    diskonInfo = `<span class="discount-badge">Diskon Band ${diskon === 0.20 ? '3 (20%)' : '2 (10%)'} Diterapkan</span>`;
+                }
+            } else {
+                // Perhitungan USD tanpa diskon banding (sesuai format asli)
+                displayTahunan = 'USD ' + baseVal.toLocaleString('id-ID');
+                displaySem = 'USD ' + Math.round(baseVal * 0.52).toLocaleString('id-ID');
+                displayKua = 'USD ' + Math.round(baseVal * 0.27).toLocaleString('id-ID');
+                displayBul = 'USD ' + Math.round(baseVal * 0.09).toLocaleString('id-ID');
+            }
+
+            // Tampilkan ke UI
+            document.getElementById('mode-tahunan').textContent = displayTahunan;
+            document.getElementById('badge-diskon').innerHTML = diskonInfo;
+            document.getElementById('mode-semesteran').textContent = displaySem;
+            document.getElementById('mode-kuartalan').textContent = displayKua;
+            document.getElementById('mode-bulanan').textContent = displayBul;
+
+            const targetSA = currency === 'IDR' ? SA_IDR[saIdx] : SA_USD[saIdx];
+            document.getElementById('res-profil').textContent = `Target Santunan: ${targetSA} | Plan ${plan === 'jiwa' ? 'Jiwa' : 'Sakit Kritis'} | Orang Tua ${parentAge} Thn`;
+        }
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            initSelects();
+            const loader = document.getElementById('loading-indicator');
+            loader.style.display = 'block';
+
+            try {
+                await loadMPPSData();
+                loader.style.display = 'none';
+                calculate();
+            } catch (err) {
+                console.error(err);
+                loader.style.display = 'none';
+                document.getElementById('warning-box').textContent = "Gagal memuat file mpps.csv. Pastikan file ada di direktori assets/data/.";
+                document.getElementById('warning-box').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

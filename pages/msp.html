@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSP | Project Cuan</title>
+    <meta name="description" content="Manulife Saving Protector. Asuransi dwiguna dengan pasti untung di akhir polis.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        .calc-field select, .calc-field input { width: 100%; padding: 10px 12px; border: 2px solid rgba(128, 128, 128, 0.2); border-radius: 8px; font-size: 1rem; background: var(--card-bg); color: var(--text-color); margin-top: 5px; font-weight: 600; transition: all 0.3s ease; }
+        .calc-field select:focus, .calc-field input:focus { border-color: var(--primary); outline: none; }
+        .calc-row { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .calc-field { flex: 1; min-width: 200px; text-align: left; }
+        
+        .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px; }
+        .payment-item { background: var(--card-bg); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 8px; padding: 15px; text-align: left; position: relative; overflow: hidden; transition: transform 0.3s ease; }
+        .payment-item:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 4px 15px rgba(37,99,235,0.1); }
+        .payment-item .label { font-size: 0.85rem; opacity: 0.7; margin-bottom: 5px; }
+        .payment-item .amount { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+        .payment-item .sub-amount { font-size: 0.85rem; color: var(--text-color); opacity: 0.8; margin-top: 5px; }
+        
+        .accent-item { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
+        .accent-item .amount { color: var(--success); }
+    </style>
+</head>
+<body>
+    
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Asuransi Dwiguna (Endowment)</span>
+            <h1 class="section-title">MSP</h1>
+            <p class="section-subtitle">Manulife Saving Protector. Solusi cerdas menggabungkan proteksi jiwa dan tabungan terstruktur. Bayar 5 tahun, nikmati dana tunai pasti berkala hingga akhir masa kontrak.</p>
+        </section>
+
+        <!-- Grid Manfaat Utama -->
+        <section class="section-container">
+            <div class="produk-grid" style="margin-bottom: 4rem;">
+                
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Income Rutin</span>
+                        <h3>Manfaat Tunai Tahunan</h3>
+                        <p>Nikmati aliran uang tunai yang pasti setiap tahun mulai dari akhir tahun polis ke-5 hingga akhir masa pertanggungan.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--primary);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Jackpot Akhir</span>
+                        <h3>500% Premi Kembali</h3>
+                        <p>Di akhir kontrak (tahun ke-10, 15, atau 20), Anda akan menerima lump sum besar senilai 500% dari Premi Tahunan Anda.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card" style="border: 2px solid var(--accent);">
+                    <div class="card-accent" style="background: var(--accent);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Proteksi Penuh</span>
+                        <h3>Jaminan Proteksi Jiwa</h3>
+                        <p>Tertanggung dilindungi hingga 100% dari total potensi penerimaan tunai, dengan status Guaranteed Issuance Offer (Tanpa Medical Check-Up).</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Kalkulator UI -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator Instan MSP</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Hanya bayar 5 Tahun. Tentukan dana segar masa depan Anda di sini.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Mata Uang</label>
+                        <select id="calc-currency" onchange="resetValue(); calculate()">
+                            <option value="IDR">IDR (Rupiah)</option>
+                            <option value="USD">USD (Dolar)</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Masa Pertanggungan</label>
+                        <select id="calc-term" onchange="calculate()">
+                            <option value="10">10 Tahun (Masa Nikmat 6 Thn)</option>
+                            <option value="15">15 Tahun (Masa Nikmat 11 Thn)</option>
+                            <option value="20" selected>20 Tahun (Masa Nikmat 16 Thn)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Frekuensi Pembayaran (Hanya 5 Thn)</label>
+                        <select id="calc-mode" onchange="updateHint(); calculate()">
+                            <option value="bulanan">Bulanan</option>
+                            <option value="kuartalan">Kuartalan</option>
+                            <option value="semesteran">Semesteran</option>
+                            <option value="tahunan" selected>Tahunan</option>
+                        </select>
+                    </div>
+                    <div class="calc-field" style="flex: 2;">
+                        <label>Rencana Setoran Premi</label>
+                        <div style="position:relative">
+                            <span id="prefix-curr" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:700; color:var(--primary);">Rp</span>
+                            <input type="text" id="calc-premi" inputmode="numeric" style="padding-left:45px;" placeholder="24.000.000" value="24.000.000" oninput="formatInput(this); calculate()" onblur="enforceMinimum(this); calculate()">
+                        </div>
+                        <div id="min-hint" style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px; text-align: left;">Minimum: Rp 12.000.000 / Tahun</div>
+                    </div>
+                </div>
+
+                <!-- Area Hasil Kalkulasi O(1) -->
+                <div id="calc-result" style="background: rgba(37, 99, 235, 0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(37,99,235,0.1);">
+                    <h3 style="text-align: left; color: var(--text-color); margin-bottom: 1rem;">Ringkasan Garansi Aset Anda:</h3>
+                    
+                    <div class="payment-grid">
+                        <div class="payment-item">
+                            <div class="label">Total Seluruh Modal Anda</div>
+                            <div class="amount" id="res-modal">-</div>
+                            <div class="sub-amount" style="color: #EF4444;">Setelah setor 5 tahun</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Pencairan Tahunan <span id="lbl-persen"></span></div>
+                            <div class="amount" id="res-tahunan">-</div>
+                            <div class="sub-amount">Cair rutin selama <span id="lbl-durasi"></span> Tahun</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Pencairan Akhir Kontrak (500%)</div>
+                            <div class="amount" id="res-akhir">-</div>
+                            <div class="sub-amount">Cair otomatis 1x (Lump Sum)</div>
+                        </div>
+                        <div class="payment-item accent-item">
+                            <div class="label">Total Manfaat Pasti Cair</div>
+                            <div class="amount" id="res-total">-</div>
+                            <div class="sub-amount">Rasio Untung: <strong id="lbl-rasio"></strong></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20tertarik%20membuka%20tabungan%20MSP." target="_blank" class="btn btn-primary">Konsultasi Rencana Dana MSP</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-container"></div>
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+        // Logika Aktuaria Murni (Cepat O(1))
+        const modalFaktor = {
+            IDR: { tahunan: 1.000, semesteran: 0.525, kuartalan: 0.275, bulanan: 0.095 },
+            USD: { tahunan: 1.000, semesteran: 0.5125, kuartalan: 0.265, bulanan: 0.090 }
+        };
+
+        const minPremium = {
+            IDR: { tahunan: 12000000, semesteran: 6300000, kuartalan: 3300000, bulanan: 1140000 },
+            USD: { tahunan: 2000, semesteran: 1025, kuartalan: 530, bulanan: 180 }
+        };
+
+        const benefitRates = {
+            IDR: { 10: 0.15, 15: 0.175, 20: 0.20 },
+            USD: { 10: 0.05, 15: 0.08, 20: 0.11 }
+        };
+
+        const endBenefitRate = 5.0; // 500% dari Premi Tahunan Setara
+
+        function formatVal(num, curr) {
+            return (curr === 'IDR' ? 'Rp ' : '$ ') + Math.round(num).toLocaleString('id-ID');
+        }
+
+        function parseNumber(str) {
+            return parseFloat(str.replace(/[^\d]/g, '')) || 0;
+        }
+
+        function formatInput(el) {
+            let val = parseNumber(el.value);
+            if (val === 0) {
+                el.value = ''; return;
+            }
+            el.value = val.toLocaleString('id-ID');
+        }
+
+        function resetValue() {
+            var curr = document.getElementById('calc-currency').value;
+            var input = document.getElementById('calc-premi');
+            document.getElementById('prefix-curr').textContent = curr === 'IDR' ? 'Rp' : 'USD';
+            input.value = curr === 'IDR' ? '24.000.000' : '2.000';
+            updateHint();
+        }
+
+        function updateHint() {
+            var curr = document.getElementById('calc-currency').value;
+            var mode = document.getElementById('calc-mode').value;
+            var minVal = minPremium[curr][mode];
+            document.getElementById('min-hint').textContent = `Minimum: ${formatVal(minVal, curr)} / ${mode.charAt(0).toUpperCase() + mode.slice(1)}`;
+            return minVal;
+        }
+
+        function enforceMinimum(el) {
+            let minVal = updateHint();
+            let val = parseNumber(el.value);
+            if (val < minVal) el.value = minVal.toLocaleString('id-ID');
+        }
+
+        function calculate() {
+            var currency = document.getElementById('calc-currency').value;
+            var term = parseInt(document.getElementById('calc-term').value);
+            var mode = document.getElementById('calc-mode').value;
+            var nominalInput = parseNumber(document.getElementById('calc-premi').value);
+
+            if (nominalInput === 0) return;
+
+            // 1. Ekstrak Premi Tahunan Setara
+            var faktor = modalFaktor[currency][mode];
+            var annualPremium = nominalInput / faktor;
+
+            // 2. Hitung Manfaat Tunai Tahunan
+            var rate = benefitRates[currency][term];
+            var annualCash = rate * annualPremium;
+            var numPayments = term - 5 + 1; // 6 (term10), 11 (term15), 16 (term20)
+            var totalCash = annualCash * numPayments;
+
+            // 3. Hitung Akhir Kontrak & Modal
+            var endBenefit = endBenefitRate * annualPremium;
+            var totalBenefits = totalCash + endBenefit;
+            var totalPremiumPaid = nominalInput * (mode === 'tahunan' ? 1 : mode === 'semesteran' ? 2 : mode === 'kuartalan' ? 4 : 12) * 5;
+            var ratio = (totalBenefits / totalPremiumPaid * 100);
+
+            // Render ke UI
+            document.getElementById('res-modal').textContent = formatVal(totalPremiumPaid, currency);
+            
+            document.getElementById('res-tahunan').textContent = formatVal(annualCash, currency);
+            document.getElementById('lbl-persen').textContent = `(${(rate * 100).toFixed(1)}%)`;
+            document.getElementById('lbl-durasi').textContent = numPayments;
+            
+            document.getElementById('res-akhir').textContent = formatVal(endBenefit, currency);
+            
+            document.getElementById('res-total').textContent = formatVal(totalBenefits, currency);
+            document.getElementById('lbl-rasio').textContent = `${ratio.toFixed(1)}%`;
+        }
+
+        window.addEventListener('load', function() {
+            updateHint();
+            calculate();
+        });
+    </script>
+</body>
+</html>

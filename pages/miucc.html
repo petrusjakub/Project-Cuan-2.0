@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiUCC | Project Cuan</title>
+    <meta name="description" content="Mi Ultimate Critical Care. Asuransi Penyakit Kritis dengan Pengembalian Premi.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Styling Form Kalkulator Khusus MiUCC */
+        .calc-field select, .calc-field input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 5px;
+        }
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .calc-field {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .payment-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+        .payment-item:hover { transform: translateY(-3px); border-color: var(--primary); }
+        .payment-item .label { font-size: 0.85rem; opacity: 0.7; }
+        .payment-item .amount { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-top: 5px;}
+        .benefit-summary { margin-top: 2rem; text-align: left; border-top: 1px dashed rgba(0,0,0,0.1); padding-top: 1.5rem; }
+        .benefit-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(128,128,128,0.1); }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar Otomatis -->
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <!-- Header Produk -->
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Proteksi Penyakit Kritis Plus Tabungan</span>
+            <h1 class="section-title">MiUCC</h1>
+            <p class="section-subtitle">Mi Ultimate Critical Care. Bayar premi hanya 5 tahun untuk perlindungan 20 tahun. Uang tunai langsung cair saat diagnosis, atau uang kembali 110% jika Anda tetap sehat.</p>
+        </section>
+
+        <!-- Grid Manfaat Utama -->
+        <section class="section-container">
+            <div class="produk-grid" style="margin-bottom: 4rem;">
+                
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Double Benefit</span>
+                        <h3>Manfaat Penyakit Kritis</h3>
+                        <p>Jika terdiagnosis salah satu dari 50 penyakit kritis, Anda akan menerima 100% Uang Pertanggungan DITAMBAH 100% pengembalian seluruh premi yang telah dibayarkan.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--primary);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Pasti Untung</span>
+                        <h3>Manfaat Hidup (Akhir Masa)</h3>
+                        <p>Tidak rugi sama sekali. Jika Anda sehat walafiat dan tidak pernah klaim selama masa kontrak 20 tahun, Anda akan menerima 110% dari total premi yang telah disetor.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--accent);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Manfaat Ekstra</span>
+                        <h3>Angioplasti & Jiwa</h3>
+                        <p>Cair 25% UP di awal jika melakukan prosedur Angioplasti (ring jantung). Jika terjadi risiko tutup usia, keluarga akan menerima 160% dari total premi yang telah dibayarkan.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Kalkulator UI -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator ROI MiUCC</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Hanya bayar 5 Tahun. Hitung asuransi sakit kritis yang pasti balik modal ini.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Usia Masuk</label>
+                        <select id="calc-usia" onchange="calculate()"></select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Uang Pertanggungan (UP)</label>
+                        <select id="calc-up" onchange="calculate()">
+                            <option value="200000000">Rp 200 Juta</option>
+                            <option value="500000000">Rp 500 Juta</option>
+                            <option value="1000000000" selected>Rp 1 Miliar</option>
+                            <option value="2000000000">Rp 2 Miliar</option>
+                            <option value="3000000000">Rp 3 Miliar</option>
+                            <option value="5000000000">Rp 5 Miliar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Area Hasil -->
+                <div id="calc-result" style="background: rgba(37, 99, 235, 0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(37,99,235,0.1);">
+                    <div id="calc-profile" style="font-weight: 600; color: var(--primary); margin-bottom: 1rem;">MiUCC | Usia <span id="lbl-usia"></span> Tahun | UP <span id="lbl-up"></span></div>
+                    
+                    <h4 style="text-align: left; color: var(--text-color); margin-top: 1rem;">Opsi Pembayaran (Hanya 5 Tahun):</h4>
+                    <div class="payment-grid" id="calc-modes">
+                        <div class="payment-item">
+                            <div class="label">Tahunan</div>
+                            <div class="amount" id="mode-tahunan">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Semesteran</div>
+                            <div class="amount" id="mode-semesteran">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Kuartalan</div>
+                            <div class="amount" id="mode-kuartalan">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Bulanan</div>
+                            <div class="amount" id="mode-bulanan">-</div>
+                        </div>
+                    </div>
+
+                    <div class="benefit-summary">
+                        <h4 style="color: var(--success); margin-bottom: 1rem;">Garansi Manfaat Setelah Lunas:</h4>
+                        
+                        <div class="benefit-row">
+                            <span>Total Kewajiban Premi (Selama 5 Tahun)</span>
+                            <strong id="res-total-premi">-</strong>
+                        </div>
+                        <div class="benefit-row" style="background: rgba(16, 185, 129, 0.1); padding: 8px;">
+                            <span>Jika Sehat (Tahun ke-20) Cair 110%</span>
+                            <strong style="color: var(--success);" id="res-akhir">-</strong>
+                        </div>
+                        <div class="benefit-row">
+                            <span>Jika Risiko Penyakit Kritis Cair</span>
+                            <strong style="color: #EF4444;" id="res-kritis">-</strong>
+                        </div>
+                        <div class="benefit-row">
+                            <span>Jika Tindakan Angioplasti Cair</span>
+                            <strong style="color: var(--accent);" id="res-angio">-</strong>
+                        </div>
+                        <div class="benefit-row">
+                            <span>Jika Risiko Meninggal Cair</span>
+                            <strong id="res-jiwa">-</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20tertarik%20mengamankan%20aset%20dengan%20MiUCC." target="_blank" class="btn btn-primary">Amankan Proteksi MiUCC</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Otomatis -->
+    <div id="footer-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    
+    <!-- Script Logika Formula MiUCC Cepat -->
+    <script>
+        // Tabel Rate MiUCC (Premi Dasar per Rp 1.000 UP)
+        const miuccRates = [
+            { min: 0,  max: 17, rate: 19.51 },
+            { min: 18, max: 30, rate: 26.07 },
+            { min: 31, max: 40, rate: 50.29 },
+            { min: 41, max: 50, rate: 117.1065 },
+            { min: 51, max: 55, rate: 216.46 },
+            { min: 56, max: 60, rate: 259.75 }
+        ];
+
+        // Faktor Multiplier Mode Pembayaran Manulife
+        const modeMultipliers = {
+            tahunan: 1,
+            semesteran: 0.525,
+            kuartalan: 0.275,
+            bulanan: 0.095
+        };
+
+        const modesPerYear = {
+            tahunan: 1,
+            semesteran: 2,
+            kuartalan: 4,
+            bulanan: 12
+        };
+
+        function initSelects() {
+            var usiaSelect = document.getElementById('calc-usia');
+            for(var i = 0; i <= 60; i++) {
+                var opt = document.createElement('option');
+                opt.value = i; 
+                opt.textContent = i + ' Tahun';
+                if(i === 30) opt.selected = true; // Default 30 Thn
+                usiaSelect.appendChild(opt);
+            }
+        }
+
+        function formatRupiah(num) {
+            var str = Math.round(num).toString();
+            var res = '';
+            var count = 0;
+            for (var i = str.length - 1; i >= 0; i--) {
+                res = str[i] + res;
+                count++;
+                if (count % 3 === 0 && i > 0) res = '.' + res;
+            }
+            return 'Rp ' + res;
+        }
+
+        function getRate(age) {
+            for (var i = 0; i < miuccRates.length; i++) {
+                if (age >= miuccRates[i].min && age <= miuccRates[i].max) {
+                    return miuccRates[i].rate;
+                }
+            }
+            return 0;
+        }
+
+        function calculate() {
+            var age = parseInt(document.getElementById('calc-usia').value);
+            var upSelect = document.getElementById('calc-up');
+            var up = parseInt(upSelect.value);
+            var upLabel = upSelect.options[upSelect.selectedIndex].text;
+
+            var rate = getRate(age);
+            
+            // Rumus Dasar Asuransi: (UP / 1000) * Rate
+            var annualPremium = Math.round((up / 1000) * rate);
+
+            // Update Label Profil
+            document.getElementById('lbl-usia').textContent = age;
+            document.getElementById('lbl-up').textContent = upLabel;
+
+            // Hitung Mode Pembayaran
+            var pTahunan = annualPremium;
+            var pSemesteran = Math.round(annualPremium * modeMultipliers.semesteran);
+            var pKuartalan = Math.round(annualPremium * modeMultipliers.kuartalan);
+            var pBulanan = Math.round(annualPremium * modeMultipliers.bulanan);
+
+            document.getElementById('mode-tahunan').textContent = formatRupiah(pTahunan);
+            document.getElementById('mode-semesteran').textContent = formatRupiah(pSemesteran);
+            document.getElementById('mode-kuartalan').textContent = formatRupiah(pKuartalan);
+            document.getElementById('mode-bulanan').textContent = formatRupiah(pBulanan);
+
+            // Hitung Total Kewajiban (Total Premi selama 5 Tahun)
+            // Catatan: Menggunakan mode tahunan sebagai baseline standar perhitungan Manfaat.
+            var totalPremi5Thn = pTahunan * 5; 
+
+            // Hitung Berbagai Manfaat Terjamin
+            var manfaatPK = up + totalPremi5Thn; // 100% UP + 100% Total Premi
+            var manfaatAkhir = totalPremi5Thn * 1.10; // 110% Total Premi
+            var manfaatJiwa = totalPremi5Thn * 1.60; // 160% Total Premi
+            
+            // Manfaat Angioplasti: 25% UP, maksimal Rp 200.000.000
+            var manfaatAngio = Math.min(up * 0.25, 200000000);
+
+            // Tampilkan Hasil
+            document.getElementById('res-total-premi').textContent = formatRupiah(totalPremi5Thn);
+            document.getElementById('res-kritis').textContent = formatRupiah(manfaatPK);
+            document.getElementById('res-akhir').textContent = formatRupiah(manfaatAkhir);
+            document.getElementById('res-jiwa').textContent = formatRupiah(manfaatJiwa);
+            document.getElementById('res-angio').textContent = formatRupiah(manfaatAngio);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initSelects();
+            calculate();
+        });
+    </script>
+</body>
+</html>

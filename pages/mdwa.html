@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDWA | Project Cuan</title>
+    <meta name="description" content="Manulife Dynamic Wealth Assurance. Tabungan terstruktur untuk masa depan pasti.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Styling Form Kalkulator Khusus MDWA */
+        .calc-field select, .calc-field input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 5px;
+        }
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .calc-field {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .payment-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .payment-item .label { font-size: 0.85rem; opacity: 0.7; }
+        .payment-item .amount { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-top: 5px;}
+        .schedule-timeline { margin-top: 20px; text-align: left; }
+        .timeline-item { display: flex; align-items: center; gap: 15px; padding: 10px 0; border-bottom: 1px dashed rgba(128,128,128,0.3); }
+        .timeline-year { font-weight: 700; color: var(--success); min-width: 90px; }
+        .password-overlay input { text-align: center; max-width: 250px; }
+        .ratio-badge { display: inline-block; background: var(--success); color: #fff; padding: 4px 12px; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar Otomatis -->
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <!-- Header Produk -->
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Tabungan Terstruktur (Wealth Accumulation)</span>
+            <h1 class="section-title">MDWA</h1>
+            <p class="section-subtitle">Manulife Dynamic Wealth Assurance memberikan kepastian pengembangan dana tanpa risiko pasar investasi, dilengkapi fitur GIO (Tanpa Medical Checkup).</p>
+        </section>
+
+        <!-- Grid Plan Utama -->
+        <section class="section-container">
+            <div class="produk-grid" style="margin-bottom: 4rem;">
+                
+                <!-- Plan A -->
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Plan A (Anuitas)</span>
+                        <h3>Penghasilan Tahunan</h3>
+                        <p>Dapatkan arus kas tunai tahunan yang stabil dan dijamin. Sangat ideal untuk persiapan dana pensiun atau menciptakan passive income pasca masa produktif.</p>
+                    </div>
+                </div>
+
+                <!-- Plan B -->
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--primary);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Plan B (Beasiswa)</span>
+                        <h3>Dana Pendidikan</h3>
+                        <p>Fokus untuk mencairkan dana besar (lump sum) secara utuh di akhir masa pertanggungan. Dirancang khusus untuk menjamin kepastian dana pendidikan anak.</p>
+                    </div>
+                </div>
+
+                <!-- Plan C -->
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--accent);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Plan C (Combo)</span>
+                        <h3>Gabungan Fleksibel</h3>
+                        <p>Kombinasi sempurna: Nikmati pencairan uang tunai setiap tahun, PLUS dapatkan kembali dana besar secara sekaligus di akhir masa kontrak polis Anda.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Kalkulator UI -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator ROI MDWA</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Masukkan target premi Anda untuk melihat garansi hasil tunai.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Pilihan Plan</label>
+                        <select id="calc-plan" onchange="updateCalcOptions();calculate()">
+                            <option value="A">Plan A - Anuitas (Penghasilan Tahunan)</option>
+                            <option value="B">Plan B - Beasiswa (Dana Pendidikan)</option>
+                            <option value="C">Plan C - Combo (Gabungan Lengkap)</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Mata Uang</label>
+                        <select id="calc-currency" onchange="updateCalcOptions();calculate()">
+                            <option value="IDR">IDR (Rupiah)</option>
+                            <option value="USD">USD (Dolar AS)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field" style="flex: 2;">
+                        <label>Premi yang Ingin Dibayarkan</label>
+                        <div style="position:relative">
+                            <span id="premi-prefix" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:700; color:var(--primary);">Rp</span>
+                            <input type="text" id="calc-premi" inputmode="numeric" style="padding-left:45px; font-weight:600;" placeholder="50.000.000" oninput="formatPremiInput(this);calculate()" onfocus="this.select()">
+                        </div>
+                        <div id="premi-hint" style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px; text-align: left;">Minimum: Rp 50.000.000 (Sekaligus)</div>
+                        <div id="premi-error" style="font-size: 0.85rem; color: #EF4444; margin-top: 5px; text-align: left; display: none;"></div>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Masa Bayar (MPP)</label>
+                        <select id="calc-mpp" onchange="updateCalcOptions();calculate()"></select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Masa Pertanggungan (Term)</label>
+                        <select id="calc-term" onchange="calculate()"></select>
+                    </div>
+                </div>
+
+                <!-- Area Hasil Kalkulasi -->
+                <div id="calc-result" style="display: none; background: rgba(37, 99, 235, 0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(37,99,235,0.1);">
+                    <div id="calc-profile" style="font-weight: 600; color: var(--primary); margin-bottom: 1rem; border-bottom: 1px dashed rgba(0,0,0,0.1); padding-bottom: 1rem;"></div>
+                    
+                    <h3 style="color: var(--text-color); margin-bottom: 1rem;">Ringkasan Manfaat Terjamin</h3>
+                    <div id="calc-summary"></div>
+                    
+                    <div class="payment-grid" id="calc-modes" style="display: none; margin-top: 2rem;">
+                        <div class="payment-item">
+                            <div class="label">Tahunan</div>
+                            <div class="amount" id="mode-tahunan">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Semesteran</div>
+                            <div class="amount" id="mode-semesteran">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Kuartalan</div>
+                            <div class="amount" id="mode-kuartalan">-</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Bulanan</div>
+                            <div class="amount" id="mode-bulanan">-</div>
+                        </div>
+                    </div>
+
+                    <div id="calc-schedule"></div>
+                    <div id="calc-adb" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed rgba(0,0,0,0.1);"></div>
+                </div>
+
+                <div id="calc-na" style="display: none; color: #EF4444; font-weight: 600; margin-top: 2rem; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                    Kombinasi Plan, Masa Bayar, dan Masa Pertanggungan ini tidak tersedia.
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20tertarik%20mengembangkan%20dana%20pasti%20di%20MDWA." target="_blank" class="btn btn-primary">Konsultasi Rencana Dana</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Area Partner / Komisi Rahasia -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 2rem; border-radius: 16px;">
+                <div id="komisi-lock" class="password-overlay">
+                    <h3 style="color: var(--primary);">Blueprint Komisi MDWA</h3>
+                    <p style="opacity: 0.8; margin-bottom: 1.5rem;">Akses khusus Partner Project Cuan.</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <input type="password" id="komisi-pwd" class="btn-outline glassmorphism" placeholder="Password..." style="color: var(--text-color);" onkeypress="if(event.key==='Enter') checkKomisiPassword()">
+                        <button onclick="checkKomisiPassword()" class="btn btn-primary" style="padding: 10px 20px;">Buka Akses</button>
+                    </div>
+                    <p class="error" id="komisi-error" style="color: #EF4444; display: none; margin-top: 10px;">Akses ditolak.</p>
+                </div>
+                
+                <div id="komisi-content" class="komisi-content" style="display: none; text-align: left;">
+                    <h3 style="margin-bottom: 1rem; color: var(--success);">Struktur Komisi Terbuka</h3>
+                    <p>Strategi distribusi: Plan A 10-Pay memiliki komisi tahun pertama tertinggi (15%). Untuk Single Premium (Sekaligus), komisi adalah 4% final dari nilai premi besar. MDWA sangat mudah ditawarkan karena status GIO (Guaranteed Issuance Offering).</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Otomatis -->
+    <div id="footer-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    
+    <!-- Script Kalkulator MDWA Berbasis Rumus (Tanpa File Eksternal) -->
+    <script>
+        // Konfigurasi Produk MDWA
+        var planConfig = {
+            A: { terms: [20, 30], mpps: ["sekaligus", "5", "10"] },
+            B: { terms: [5,6,7,8,9,10,11,12,13,14,15,20,30], mpps: ["sekaligus", "5", "10"] },
+            C: { terms: [10,15,20,30], mpps: ["sekaligus", "5", "10"] }
+        };
+
+        var payoutStart = { "sekaligus": 6, "5": 10, "10": 15 };
+
+        var minPremi = {
+            IDR: { sekaligus: 50000000, regular: 24000000 },
+            USD: { sekaligus: 5000, regular: 2400 }
+        };
+
+        var bandingThreshold = {
+            IDR: { sekaligus: 500000000, regular: 100000000 },
+            USD: { sekaligus: 50000, regular: 10000 }
+        };
+
+        // Rumus Rate Pengali (Banding 1)
+        var planA_rate = {
+            IDR: { "20|sekaligus": 0.095, "20|5": 0.65, "20|10": 2.35, "30|sekaligus": 0.07, "30|5": 0.40, "30|10": 1.05 },
+            USD: { "20|sekaligus": 0.0825, "20|5": 0.55, "20|10": 2.05, "30|sekaligus": 0.055, "30|5": 0.325, "30|10": 0.85 }
+        };
+
+        // Rumus Extra Bonus Banding 2 (Lump Sum Akhir)
+        var planA_banding2 = {
+            IDR: { "20|sekaligus": 0.06, "20|5": 0.30, "20|10": 0.60, "30|sekaligus": 0.09, "30|5": 0.45, "30|10": 0.90 },
+            USD: { "20|sekaligus": 0.03, "20|5": 0.15, "20|10": 0.30, "30|sekaligus": 0.045, "30|5": 0.225, "30|10": 0.45 }
+        };
+
+        var planB_rate = {
+            IDR: { "5|sekaligus": 1.10, "10|sekaligus": 2.00, "20|sekaligus": 2.00, "15|5": 9.00, "20|5": 9.50, "30|5": 13.50, "15|10": 4.50, "20|10": 6.70, "30|10": 12.90 },
+            USD: { "5|sekaligus": 0.90, "10|sekaligus": 1.60, "20|sekaligus": 1.60, "15|5": 7.20, "20|5": 7.60, "30|5": 10.80, "15|10": 3.60, "20|10": 5.36, "30|10": 10.32 }
+        };
+
+        var planC_tahapan = {
+            IDR: { "10|sekaligus": 0.02, "10|5": 0.175, "15|sekaligus": 0.02, "15|5": 0.175, "15|10": 0.08, "20|sekaligus": 0.02, "20|5": 0.20, "20|10": 0.11, "30|sekaligus": 0.02, "30|5": 0.20, "30|10": 0.11 },
+            USD: { "10|sekaligus": 0.01, "10|5": 0.08, "15|sekaligus": 0.01, "15|5": 0.08, "15|10": 0.04, "20|sekaligus": 0.01, "20|5": 0.11, "20|10": 0.06, "30|sekaligus": 0.01, "30|5": 0.11, "30|10": 0.06 }
+        };
+
+        var planC_maturity = {
+            IDR: { "15|5": 3.55, "20|5": 5.10, "30|5": 7.00 },
+            USD: { "15|5": 2.84, "20|5": 4.08, "30|5": 5.60 }
+        };
+
+        var adbRate = { "sekaligus": 0.05, "5": 0.25, "10": 0.50 };
+
+        // Logika Fungsional
+        function formatNumber(value, currency) {
+            var str = Math.round(value).toString();
+            var result = '';
+            var count = 0;
+            var sep = currency === 'USD' ? ',' : '.';
+            for (var i = str.length - 1; i >= 0; i--) {
+                result = str[i] + result;
+                count++;
+                if (count % 3 === 0 && i > 0) result = sep + result;
+            }
+            return (currency === 'USD' ? 'USD ' : 'Rp ') + result;
+        }
+
+        function parsePremiInput(str) {
+            return parseInt(str.replace(/[^0-9]/g, ''), 10) || 0;
+        }
+
+        function formatPremiInput(el) {
+            var currency = document.getElementById('calc-currency').value;
+            var sep = currency === 'USD' ? ',' : '.';
+            var pos = el.selectionStart;
+            var oldVal = el.value;
+            var raw = oldVal.replace(/[^0-9]/g, '');
+            if (raw === '') { el.value = ''; updateMinPremi(); return; }
+            var formatted = '';
+            var count = 0;
+            for (var i = raw.length - 1; i >= 0; i--) {
+                formatted = raw[i] + formatted;
+                count++;
+                if (count % 3 === 0 && i > 0) formatted = sep + formatted;
+            }
+            el.value = formatted;
+            var diff = formatted.length - oldVal.length;
+            var newPos = pos + diff;
+            if (newPos < 0) newPos = 0;
+            if (newPos > formatted.length) newPos = formatted.length;
+            el.setSelectionRange(newPos, newPos);
+            updateMinPremi();
+        }
+
+        function updateMinPremi() {
+            var currency = document.getElementById('calc-currency').value;
+            var mppSelect = document.getElementById('calc-mpp');
+            var mpp = mppSelect ? mppSelect.value : 'sekaligus';
+            var hintEl = document.getElementById('premi-hint');
+            var errorEl = document.getElementById('premi-error');
+            var prefixEl = document.getElementById('premi-prefix');
+            var inputEl = document.getElementById('calc-premi');
+
+            prefixEl.textContent = currency === 'USD' ? 'USD' : 'Rp';
+            var isSekaligus = (mpp === 'sekaligus');
+            var min = isSekaligus ? minPremi[currency].sekaligus : minPremi[currency].regular;
+            var minFormatted = formatNumber(min, currency);
+            var mppLabel = isSekaligus ? 'Sekaligus' : mpp + ' Tahun';
+            hintEl.textContent = 'Minimum: ' + minFormatted + ' (MPP ' + mppLabel + ')';
+
+            if (currency === 'IDR') {
+                inputEl.placeholder = isSekaligus ? '50.000.000' : '24.000.000';
+            } else {
+                inputEl.placeholder = isSekaligus ? '5,000' : '2,400';
+            }
+
+            var val = parsePremiInput(inputEl.value);
+            if (val > 0 && val < min) {
+                errorEl.textContent = 'Premi di bawah minimum! Minimum ' + minFormatted;
+                errorEl.style.display = 'block';
+            } else {
+                errorEl.style.display = 'none';
+            }
+        }
+
+        function updateCalcOptions() {
+            var plan = document.getElementById('calc-plan').value;
+            var currency = document.getElementById('calc-currency').value;
+            var config = planConfig[plan];
+
+            var termSelect = document.getElementById('calc-term');
+            var currentTerm = termSelect.value;
+            termSelect.innerHTML = '';
+            for (var i = 0; i < config.terms.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = config.terms[i];
+                opt.textContent = config.terms[i] + ' Tahun';
+                termSelect.appendChild(opt);
+            }
+            if (config.terms.includes(parseInt(currentTerm))) {
+                termSelect.value = currentTerm;
+            }
+
+            var mppSelect = document.getElementById('calc-mpp');
+            var currentMpp = mppSelect.value;
+            mppSelect.innerHTML = '';
+            var mppLabels = {"sekaligus": "Premi Sekaligus", "5": "5 Tahun", "10": "10 Tahun"};
+            for (var j = 0; j < config.mpps.length; j++) {
+                var optMpp = document.createElement('option');
+                optMpp.value = config.mpps[j];
+                optMpp.textContent = mppLabels[config.mpps[j]];
+                mppSelect.appendChild(optMpp);
+            }
+            if (config.mpps.includes(currentMpp)) {
+                mppSelect.value = currentMpp;
+            }
+
+            updateMinPremi();
+        }
+
+        function calculate() {
+            var plan = document.getElementById('calc-plan').value;
+            var currency = document.getElementById('calc-currency').value;
+            var premiRaw = document.getElementById('calc-premi').value;
+            var term = parseInt(document.getElementById('calc-term').value);
+            var mpp = document.getElementById('calc-mpp').value;
+
+            var resultEl = document.getElementById('calc-result');
+            var modesEl = document.getElementById('calc-modes');
+            var naEl = document.getElementById('calc-na');
+            var profileEl = document.getElementById('calc-profile');
+            var summaryEl = document.getElementById('calc-summary');
+            var scheduleEl = document.getElementById('calc-schedule');
+            var adbEl = document.getElementById('calc-adb');
+
+            var premi = parsePremiInput(premiRaw);
+
+            if (!premi || premi <= 0) {
+                resultEl.style.display = 'none';
+                naEl.style.display = 'none';
+                return;
+            }
+
+            var isSekaligus = (mpp === 'sekaligus');
+            var min = isSekaligus ? minPremi[currency].sekaligus : minPremi[currency].regular;
+            if (premi < min) {
+                resultEl.style.display = 'none';
+                naEl.style.display = 'block';
+                return;
+            }
+
+            // Validasi Limit Plan B
+            if (plan === 'B') {
+                if ((mpp === '10' && term < 15) || (mpp === '5' && term < 10)) {
+                    resultEl.style.display = 'none';
+                    naEl.style.display = 'block';
+                    naEl.innerHTML = 'Kombinasi masa bayar dan masa pertanggungan ini tidak valid untuk Plan B.';
+                    return;
+                }
+            }
+
+            var threshold = isSekaligus ? bandingThreshold[currency].sekaligus : bandingThreshold[currency].regular;
+            var banding = premi >= threshold ? 2 : 1;
+
+            var planNames = {A: 'Plan A (Anuitas)', B: 'Plan B (Beasiswa)', C: 'Plan C (Combo)'};
+            var mppLabels = {"sekaligus": "Premi Sekaligus", "5": "5 Tahun", "10": "10 Tahun"};
+            
+            profileEl.innerHTML = `Profil: ${planNames[plan]} | Term: ${term} Thn | MPP: ${mppLabels[mpp]} <span class="ratio-badge">Banding ${banding}</span>`;
+
+            resultEl.style.display = 'block';
+            naEl.style.display = 'none';
+
+            var rateKey = term + '|' + mpp;
+            var mppYears = isSekaligus ? 1 : parseInt(mpp);
+            var totalPremi = premi * mppYears;
+
+            if (plan === 'A') calculatePlanA(premi, currency, term, mpp, rateKey, banding, totalPremi, isSekaligus, summaryEl, scheduleEl, adbEl, modesEl, naEl, resultEl);
+            else if (plan === 'B') calculatePlanB(premi, currency, term, mpp, rateKey, banding, totalPremi, isSekaligus, summaryEl, scheduleEl, adbEl, modesEl, naEl, resultEl);
+            else if (plan === 'C') calculatePlanC(premi, currency, term, mpp, rateKey, banding, totalPremi, isSekaligus, summaryEl, scheduleEl, adbEl, modesEl, naEl, resultEl);
+        }
+
+        function calculatePlanA(premi, currency, term, mpp, rateKey, banding, totalPremi, isSekaligus, summaryEl, scheduleEl, adbEl, modesEl, naEl, resultEl) {
+            var rate = planA_rate[currency][rateKey];
+            if (typeof rate === 'undefined') {
+                resultEl.style.display = 'none';
+                naEl.style.display = 'block';
+                return;
+            }
+
+            var manfaatPerTahun = premi * rate;
+            var startYear = payoutStart[mpp];
+            var numPayouts = term - startYear + 1;
+            var totalManfaatTunai = manfaatPerTahun * numPayouts;
+
+            var bonusBanding2 = (banding === 2 && planA_banding2[currency][rateKey]) ? (premi * planA_banding2[currency][rateKey]) : 0;
+            var totalManfaat = totalManfaatTunai + bonusBanding2;
+            var returnRatio = (totalManfaat / totalPremi * 100).toFixed(1);
+
+            renderSummary(summaryEl, premi, totalPremi, currency, isSekaligus, returnRatio, [
+                {label: "Pencairan Tahunan", value: formatNumber(manfaatPerTahun, currency)},
+                {label: "Frekuensi Cair", value: numPayouts + " kali"},
+                {label: "Bonus Akhir Masa", value: bonusBanding2 > 0 ? formatNumber(bonusBanding2, currency) : "0"}
+            ], totalManfaat);
+
+            renderModes(modesEl, premi, currency, isSekaligus);
+            renderTimeline(scheduleEl, mpp, startYear, term, manfaatPerTahun, numPayouts, currency, bonusBanding2);
+            renderADB(adbEl, premi, mpp, term, currency);
+        }
+
+        function calculatePlanB(premi, currency, term, mpp, rateKey, banding, totalPremi, isSekaligus, summaryEl, scheduleEl, adbEl, modesEl, naEl, resultEl) {
+            var rate = planB_rate[currency][rateKey];
+            if (typeof rate === 'undefined') {
+                resultEl.style.display = 'none';
+                naEl.style.display = 'block';
+                return;
+            }
+
+            var manfaatBeasiswa = premi * rate;
+            var returnRatio = (manfaatBeasiswa / totalPremi * 100).toFixed(1);
+
+            renderSummary(summaryEl, premi, totalPremi, currency, isSekaligus, returnRatio, [
+                {label: "Manfaat Beasiswa (Akhir Masa)", value: formatNumber(manfaatBeasiswa, currency)}
+            ], manfaatBeasiswa);
+
+            renderModes(modesEl, premi, currency, isSekaligus);
+            
+            var schedHTML = `<div class="schedule-timeline">
+                <div class="timeline-item"><div class="timeline-year">Thn 1-${isSekaligus ? '1' : mpp}</div><div>Masa Bayar</div></div>
+                <div class="timeline-item"><div class="timeline-year">Thn ${term}</div><div style="color:var(--success); font-weight:700;">Cair: ${formatNumber(manfaatBeasiswa, currency)}</div></div>
+            </div>`;
+            scheduleEl.innerHTML = schedHTML;
+            scheduleEl.style.display = 'block';
+
+            renderADB(adbEl, premi, mpp, term, currency);
+        }
+
+        function calculatePlanC(premi, currency, term, mpp, rateKey, banding, totalPremi, isSekaligus, summaryEl, scheduleEl, adbEl, modesEl, naEl, resultEl) {
+            var tahapanRate = planC_tahapan[currency][rateKey];
+            if (typeof tahapanRate === 'undefined') {
+                resultEl.style.display = 'none';
+                naEl.style.display = 'block';
+                return;
+            }
+
+            var tahapanPerTahun = premi * tahapanRate;
+            var startYear = payoutStart[mpp];
+            var numPayouts = term - startYear + 1;
+            var totalTahapan = tahapanPerTahun * numPayouts;
+
+            var maturityRate = planC_maturity[currency][rateKey];
+            var maturity = maturityRate ? (premi * maturityRate) : 0;
+            var totalManfaat = totalTahapan + maturity;
+            var returnRatio = (totalManfaat / totalPremi * 100).toFixed(1);
+
+            renderSummary(summaryEl, premi, totalPremi, currency, isSekaligus, returnRatio, [
+                {label: "Pencairan Tahunan", value: formatNumber(tahapanPerTahun, currency)},
+                {label: "Manfaat Akhir Masa (Lump Sum)", value: maturity > 0 ? formatNumber(maturity, currency) : "Hubungi Konsultan"}
+            ], totalManfaat);
+
+            renderModes(modesEl, premi, currency, isSekaligus);
+            renderTimeline(scheduleEl, mpp, startYear, term, tahapanPerTahun, numPayouts, currency, maturity);
+            renderADB(adbEl, premi, mpp, term, currency);
+        }
+
+        function renderSummary(el, premi, totalPremi, curr, isSekaligus, ratio, items, totalVal) {
+            var str = `<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.1);padding:5px 0;"><span>Premi ${isSekaligus ? 'Sekaligus' : 'Dasar Tahunan'}:</span> <strong>${formatNumber(premi, curr)}</strong></div>`;
+            str += `<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.1);padding:5px 0;"><span>Total Disetor:</span> <strong>${formatNumber(totalPremi, curr)}</strong></div>`;
+            
+            items.forEach(i => {
+                str += `<div style="display:flex;justify-content:space-between;border-bottom:1px solid rgba(0,0,0,0.1);padding:5px 0;"><span>${i.label}:</span> <strong>${i.value}</strong></div>`;
+            });
+
+            str += `<div style="display:flex;justify-content:space-between;padding:10px 0; font-size:1.1rem; color:var(--success);"><span><strong>Total Nilai Manfaat:</strong></span> <strong>${formatNumber(totalVal, curr)}</strong></div>`;
+            str += `<div style="text-align:right; font-size:0.9rem; opacity:0.8;">Return Ratio: <strong>${ratio}%</strong></div>`;
+            el.innerHTML = str;
+        }
+
+        function renderModes(modesEl, premi, currency, isSekaligus) {
+            if (!isSekaligus) {
+                modesEl.style.display = 'grid';
+                document.getElementById('mode-tahunan').textContent = formatNumber(premi, currency);
+                document.getElementById('mode-semesteran').textContent = formatNumber(premi * 0.525, currency);
+                document.getElementById('mode-kuartalan').textContent = formatNumber(premi * 0.275, currency);
+                document.getElementById('mode-bulanan').textContent = formatNumber(premi * 0.095, currency);
+            } else {
+                modesEl.style.display = 'none';
+            }
+        }
+
+        function renderTimeline(scheduleEl, mpp, startYear, term, tahapan, numPayouts, currency, extraBonus) {
+            var isSekaligus = (mpp === 'sekaligus');
+            var html = `<div class="schedule-timeline">`;
+            html += `<div class="timeline-item"><div class="timeline-year">Thn 1${isSekaligus ? '' : '-'+mpp}</div><div>Masa Bayar Premi</div></div>`;
+            html += `<div class="timeline-item"><div class="timeline-year">Thn ${startYear}-${term}</div><div style="color:var(--success); font-weight:700;">Cair: ${formatNumber(tahapan, currency)} / tahun</div></div>`;
+            if (extraBonus > 0) {
+                html += `<div class="timeline-item"><div class="timeline-year">Thn ${term}</div><div style="color:var(--primary); font-weight:700;">Cair Ekstra: ${formatNumber(extraBonus, currency)}</div></div>`;
+            }
+            html += `</div>`;
+            scheduleEl.innerHTML = html;
+            scheduleEl.style.display = 'block';
+        }
+
+        function renderADB(adbEl, premi, mpp, term, currency) {
+            var adbVal = premi * adbRate[mpp];
+            adbEl.innerHTML = `<h4 style="color:var(--text-color); margin-bottom:5px;">Proteksi Jiwa Dasar</h4>
+                <p style="font-size:0.9rem; opacity:0.8;">Apabila terjadi risiko pada masa pertanggungan, ahli waris menerima santunan sebesar <strong>${formatNumber(adbVal, currency)} / tahun</strong> selama sisa term polis.</p>`;
+            adbEl.style.display = 'block';
+        }
+
+        function checkKomisiPassword() {
+            var pwd = document.getElementById('komisi-pwd').value;
+            if(pwd === 'manulife') {
+                document.getElementById('komisi-lock').style.display = 'none';
+                document.getElementById('komisi-content').style.display = 'block';
+            } else {
+                document.getElementById('komisi-error').style.display = 'block';
+                setTimeout(() => document.getElementById('komisi-error').style.display = 'none', 2000);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCalcOptions();
+            calculate();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+    <!-- Footer Otomatis -->
+    <div id="footer-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    
+    <!-- 1. Panggil Data File Terpisah (Sangat Ringan) -->
+    <script src="assets/js/data-flexi.js"></script>
+    
+    <!-- 2. Logika Kalkulator MPS Flexi -->
+    <script>
+        window.onload = function() {
+            let ageSelect = document.getElementById('calc-age');
+            for(let i=0; i<=70; i++){
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.text = i + " Tahun";
+                if(i===37) opt.selected = true; 
+                ageSelect.appendChild(opt);
+            }
+            updateCalcUI();
+            calculate();
+        };
+
+        function formatInputNominal() {
+            let input = document.getElementById('calc-input-nominal');
+            let val = input.value.replace(/\D/g, '');
+            if(val) {
+                input.value = parseFloat(val).toLocaleString('id-ID');
+            }
+        }
+
+        function updateCalcUI() {
+            const plan = document.getElementById('calc-plan').value;
+            const mb = document.getElementById('calc-masabayar');
+            const ml = document.getElementById('calc-masalindung');
+            const methodContainer = document.getElementById('calc-method-container');
+            const currMb = mb.value;
+            
+            if (plan === 'A') {
+                methodContainer.style.display = 'block';
+                mb.innerHTML = '<option value="1">1 Tahun (YRT)</option><option value="5">5 Tahun</option><option value="10">10 Tahun</option>';
+                ml.innerHTML = '<option value="sama">Sama dengan masa bayar</option>';
+                ml.disabled = true;
+            } else if (plan === 'B') {
+                methodContainer.style.display = 'none';
+                document.getElementById('calc-method').value = 'UP';
+                mb.innerHTML = '<option value="5">5 Tahun</option><option value="10">10 Tahun</option><option value="15">15 Tahun</option>';
+                ml.innerHTML = '<option value="110">Sampai Usia 110 Tahun</option>';
+                ml.disabled = true;
+            } else if (plan === 'C') {
+                methodContainer.style.display = 'none';
+                document.getElementById('calc-method').value = 'UP';
+                mb.innerHTML = '<option value="5">5 Tahun</option><option value="10">10 Tahun</option><option value="15">15 Tahun</option>';
+                ml.disabled = false;
+                
+                const currentML = ml.value;
+                ml.innerHTML = '';
+                if (mb.value === '5' || mb.value === '10') {
+                    ml.innerHTML += '<option value="15">15 Tahun</option>';
+                }
+                ml.innerHTML += '<option value="25">25 Tahun</option><option value="35">35 Tahun</option>';
+                
+                if([...ml.options].some(o => o.value === currentML)) ml.value = currentML;
+                mb.onchange = () => { updateCalcUI(); calculate(); };
+            }
+            
+            if([...mb.options].some(o => o.value === currMb)) mb.value = currMb;
+            updateMinInfo();
+        }
+
+        function updateMinInfo() {
+            const currency = document.getElementById('calc-currency').value;
+            const method = document.getElementById('calc-method').value;
+            const info = document.getElementById('min-info');
+            const label = document.getElementById('label-nominal');
+            
+            if (method === 'UP') {
+                label.innerText = 'Uang Pertanggungan (UP)';
+                info.innerText = currency === 'IDR' ? 'Minimum UP Rp 100.000.000' : 'Minimum UP USD 10.000';
+            } else {
+                label.innerText = 'Target Kontribusi';
+                info.innerText = currency === 'IDR' ? 'Minimum Kontribusi Rp 4.000.000' : 'Minimum Kontribusi USD 400';
+            }
+        }
+
+        // Variabel premiumMap otomatis bisa membaca dataPremiJSON dari file data-flexi.js
+        const premiumMap = {};
+        dataPremiJSON.forEach(function(r) {
+            var key = r.plan + '|' + r.gender + '|' + r.age + '|' + r.mb + '|' + r.ml + '|' + r.curr;
+            premiumMap[key] = r.rate;
+        });
+
+        function getBaseRate(plan, gender, curr, age, mb, ml) {
+            const searchPlan = String(plan).toUpperCase();
+            const searchGender = String(gender).toLowerCase();
+            const searchCurr = String(curr).toUpperCase();
+            const searchAge = parseInt(age);
+            const searchMb = parseInt(mb);
+            const targetMl = (searchPlan === 'B') ? 110 : parseInt(ml);
+            
+            const key = searchPlan + '|' + searchGender + '|' + searchAge + '|' + searchMb + '|' + targetMl + '|' + searchCurr;
+            const rate = premiumMap[key];
+            return rate !== undefined ? rate : null;
+        }
+
+        function calculate() {
+            const plan = document.getElementById('calc-plan').value;
+            const gender = document.getElementById('calc-gender').value;
+            const age = parseInt(document.getElementById('calc-age').value);
+            const currency = document.getElementById('calc-currency').value;
+            const method = document.getElementById('calc-method').value;
+            const mb = parseInt(document.getElementById('calc-masabayar').value);
+            const mlSelect = document.getElementById('calc-masalindung').value;
+            const paymentMode = parseFloat(document.getElementById('calc-payment-mode').value);
+            
+            let ml = mlSelect === 'sama' ? mb : parseInt(mlSelect);
+            let rawInput = document.getElementById('calc-input-nominal').value.replace(/\D/g, '');
+            let nominal = parseFloat(rawInput) || 0;
+            
+            const minUP = currency === 'IDR' ? 100000000 : 10000;
+            let minPremi = plan === 'A' ? 4000000 : 5000000; 
+            let minPremiUSD = plan === 'A' ? 400 : 500;
+            const actualMinPremi = currency === 'IDR' ? minPremi : minPremiUSD;
+            
+            let ratePerMiliar = getBaseRate(plan, gender, currency, age, mb, ml);
+
+            if (ratePerMiliar === null) {
+                document.getElementById('result-label').innerText = 'Premi/Kontribusi';
+                document.getElementById('calc-premium').innerHTML = '<span style="color:red;">DATA BELUM ADA</span>';
+                document.getElementById('calc-detail').innerHTML = '<em>Data premi untuk kombinasi ini belum tersedia.</em>';
+                document.getElementById('calc-note').innerHTML = '';
+                return;
+            }
+            
+            let resultPremiTahunan = 0;
+            let resultUP = 0;
+            
+            if (method === 'UP') {
+                resultUP = nominal;
+                let factor = currency === 'IDR' ? (resultUP / 1000000000) : (resultUP / 100000); 
+                resultPremiTahunan = Math.round(ratePerMiliar * factor);
+            } else {
+                resultPremiTahunan = nominal;
+                let factor = resultPremiTahunan / ratePerMiliar;
+                resultUP = Math.round(factor * (currency === 'IDR' ? 1000000000 : 100000));
+            }
+            
+            let finalPremi = Math.round(resultPremiTahunan * paymentMode);
+            let warningText = "";
+            if (resultPremiTahunan < actualMinPremi) warningText += `Peringatan: Kontribusi di bawah minimum.<br>`;
+            if (resultUP < minUP) warningText += `Peringatan: Uang Pertanggungan di bawah minimum.<br>`;
+            
+            let currSymbol = currency === 'IDR' ? 'Rp ' : '$ ';
+            if (method === 'UP') {
+                document.getElementById('result-label').innerText = 'Premi/Kontribusi';
+                document.getElementById('calc-premium').innerHTML = currSymbol + finalPremi.toLocaleString('id-ID');
+            } else {
+                document.getElementById('result-label').innerText = 'Santunan Asuransi (UP)';
+                document.getElementById('calc-premium').innerHTML = currSymbol + resultUP.toLocaleString('id-ID');
+            }
+            
+            let modeText = paymentMode === 1 ? "Tahunan" : paymentMode === 0.525 ? "Semesteran" : paymentMode === 0.275 ? "Kuartalan" : "Bulanan";
+            let strML = mlSelect === '110' ? 'Hingga Usia 110' : ml + ' Tahun';
+            
+            document.getElementById('calc-detail').innerHTML = `<strong>Profil:</strong> ${gender.toUpperCase()}, ${age} Tahun | <strong>Plan:</strong> ${plan}<br><strong>Masa Bayar:</strong> ${mb} Tahun | <strong>Masa Perlindungan:</strong> ${strML}<br><strong>Pembayaran ${modeText}:</strong> ${currSymbol} ${finalPremi.toLocaleString('id-ID')} / periode.<br><strong>Asumsi UP Terbentuk:</strong> ${currSymbol} ${resultUP.toLocaleString('id-ID')}`;
+            document.getElementById('calc-note').innerHTML = warningText;
+        }
+    </script>
+</body>
+</html>

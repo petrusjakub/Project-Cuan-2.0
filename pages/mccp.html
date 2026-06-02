@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCCP | Project Cuan</title>
+    <meta name="description" content="Manulife Critical Care Protection. Perlindungan Penyakit Kritis Menyeluruh Hingga Usia 85 Tahun.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Styling Form Kalkulator Khusus Halaman Produk */
+        .calc-field select, .calc-field input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 5px;
+        }
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .calc-field {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        .mode-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .mode-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(128,128,128,0.2);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar Otomatis -->
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <!-- Header Produk -->
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Perlindungan Penyakit Kritis</span>
+            <h1 class="section-title">MCCP</h1>
+            <p class="section-subtitle">Manulife Critical Care Protection melindungi Anda dari risiko finansial penyakit kritis hingga usia 85 tahun, tanpa Survival Period. Klaim bisa diproses langsung setelah terdiagnosis.</p>
+        </section>
+
+        <!-- Grid Plan & Fitur -->
+        <section class="section-container">
+            <div class="produk-grid" style="margin-bottom: 4rem;">
+                
+                <!-- Plan 1 -->
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--primary);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Plan 1 (Basic)</span>
+                        <h3>Penyakit Kritis Tahap Lanjut</h3>
+                        <p>Melindungi 85 jenis penyakit kritis tahap lanjut dengan 100% UP. Dilengkapi manfaat Meninggal Dunia, Angioplasty (25% UP), serta End of Term Benefit di usia 85 tahun.</p>
+                    </div>
+                </div>
+
+                <!-- Plan 2 -->
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Plan 2 (Complete)</span>
+                        <h3>Perlindungan 150 Penyakit</h3>
+                        <p>Semua manfaat Plan 1 ditambah perlindungan 65 penyakit tahap awal (25% UP), Manfaat ICU untuk SEMUA penyakit, serta tambahan perlindungan Cancer UP Renewal.</p>
+                    </div>
+                </div>
+
+                <!-- Keunggulan Spesial -->
+                <div class="produk-card" style="border: 2px solid var(--accent);">
+                    <div class="card-accent" style="background: var(--accent);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Keuntungan Ekstra</span>
+                        <h3>End of Term Benefit</h3>
+                        <p>Tidak pernah sakit bukan berarti uang hangus. Jika Anda sehat hingga usia 85 tahun dan tidak pernah klaim tahap lanjut, 100% UP + Tambahan Nilai Tunai akan dibayarkan kembali kepada Anda.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Kalkulator UI -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator Premi MCCP</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Cek estimasi perlindungan Anda hari ini.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Plan</label>
+                        <select id="calc-plan" onchange="calculate()">
+                            <option value="1">Plan 1 - Basic (85 Penyakit)</option>
+                            <option value="2">Plan 2 - Complete (150 Penyakit)</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Jenis Kelamin</label>
+                        <select id="calc-gender" onchange="calculate()">
+                            <option value="pria">Pria</option>
+                            <option value="wanita">Wanita</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Usia Masuk</label>
+                        <select id="calc-age" onchange="calculate()"></select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Uang Pertanggungan (UP)</label>
+                        <select id="calc-up" onchange="calculate()">
+                            <option value="0.5M">500 Juta</option>
+                            <option value="1M" selected>1 Miliar</option>
+                            <option value="1.5M">1.5 Miliar</option>
+                            <option value="2M">2 Miliar</option>
+                            <option value="2.5M">2.5 Miliar</option>
+                            <option value="5M">5 Miliar</option>
+                            <option value="10M">10 Miliar</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Masa Bayar Premi (MPP)</label>
+                        <select id="calc-mpp" onchange="calculate()">
+                            <option value="10">10 Tahun</option>
+                            <option value="15">15 Tahun</option>
+                            <option value="20">20 Tahun</option>
+                            <option value="RP">Regular Premium (Sampai usia 85)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="background: rgba(37, 99, 235, 0.1); padding: 2rem; border-radius: 12px; margin-top: 2rem;">
+                    <div id="calc-profile" style="font-weight: 600; color: var(--primary); margin-bottom: 1rem;"></div>
+                    <h3 style="color: var(--text-color);">Estimasi Premi Tahunan</h3>
+                    
+                    <div id="calc-premium" style="font-size: 2.5rem; font-weight: bold; color: var(--success); margin: 1rem 0;">-</div>
+                    <div id="calc-detail" style="font-size: 0.95rem; opacity: 0.8; margin-bottom: 1.5rem;">Pilih semua parameter untuk melihat hasil</div>
+                    
+                    <div class="mode-grid" id="calc-modes" style="display:none;">
+                        <div class="mode-card">
+                            <div style="font-size: 0.85rem; opacity: 0.7;">Tahunan</div>
+                            <div id="mode-tahunan" style="font-weight: 700; color: var(--primary);"></div>
+                        </div>
+                        <div class="mode-card">
+                            <div style="font-size: 0.85rem; opacity: 0.7;">Semesteran</div>
+                            <div id="mode-semesteran" style="font-weight: 700; color: var(--primary);"></div>
+                        </div>
+                        <div class="mode-card">
+                            <div style="font-size: 0.85rem; opacity: 0.7;">Kuartalan</div>
+                            <div id="mode-kuartalan" style="font-weight: 700; color: var(--primary);"></div>
+                        </div>
+                        <div class="mode-card">
+                            <div style="font-size: 0.85rem; opacity: 0.7;">Bulanan</div>
+                            <div id="mode-bulanan" style="font-weight: 700; color: var(--primary);"></div>
+                        </div>
+                    </div>
+                    
+                    <div id="calc-na" style="display:none; color: #EF4444; font-weight: 600; margin-top: 1rem;">
+                        Kombinasi ini tidak tersedia. Silakan ubah rentang Usia atau UP.
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20tertarik%20dengan%20proteksi%20penyakit%20kritis%20MCCP." target="_blank" class="btn btn-primary">Amankan Proteksi MCCP Sekarang</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Otomatis -->
+    <div id="footer-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    
+    <!-- Panggil File Data JS Terpisah -->
+    <script src="assets/js/data-mccp.js"></script>
+    
+    <!-- Script Kalkulator MCCP -->
+    <script>
+        function initCalcUI() {
+            var ageSelect = document.getElementById('calc-age');
+            ageSelect.innerHTML = '';
+            for (var i = 0; i <= 60; i++) { // Usia masuk MCCP 30 hari - 60 tahun
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + ' tahun';
+                ageSelect.appendChild(opt);
+            }
+            ageSelect.value = '30';
+        }
+
+        function formatRupiah(juta) {
+            var rupiah = Math.round(juta * 1000000);
+            var str = rupiah.toString();
+            var result = '';
+            var count = 0;
+            for (var i = str.length - 1; i >= 0; i--) {
+                result = str[i] + result;
+                count++;
+                if (count % 3 === 0 && i > 0) result = '.' + result;
+            }
+            return 'Rp ' + result;
+        }
+
+        function calculate() {
+            if (typeof PREMIUM_DATA === 'undefined') return;
+
+            var plan = document.getElementById('calc-plan').value;
+            var gender = document.getElementById('calc-gender').value;
+            var age = document.getElementById('calc-age').value;
+            var up = document.getElementById('calc-up').value;
+            var mpp = document.getElementById('calc-mpp').value;
+
+            var premiumEl = document.getElementById('calc-premium');
+            var detailEl = document.getElementById('calc-detail');
+            var modesEl = document.getElementById('calc-modes');
+            var naEl = document.getElementById('calc-na');
+            var profileEl = document.getElementById('calc-profile');
+
+            var key = plan + '|' + gender + '|' + age + '|' + mpp;
+
+            var planNames = { '1': 'Plan 1 (Basic)', '2': 'Plan 2 (Complete)' };
+            var genderName = gender === 'pria' ? 'Pria' : 'Wanita';
+            var upLabels = { '0.5M': '500 Juta', '1M': '1 Miliar', '1.5M': '1.5 Miliar', '2M': '2 Miliar', '2.5M': '2.5 Miliar', '5M': '5 Miliar', '10M': '10 Miliar' };
+            var mppLabels = { '10': '10 Tahun', '15': '15 Tahun', '20': '20 Tahun', 'RP': 'Regular Premium' };
+            
+            profileEl.innerHTML = planNames[plan] + ' | ' + genderName + ', Usia ' + age + ' | UP ' + (upLabels[up] || up) + ' | Masa Bayar: ' + (mppLabels[mpp] || mpp);
+
+            var record = PREMIUM_DATA[key];
+
+            if (!record || !record[up] || record[up] === '-') {
+                premiumEl.textContent = '-';
+                detailEl.textContent = 'Data tidak ditemukan untuk kombinasi ini';
+                modesEl.style.display = 'none';
+                naEl.style.display = 'block';
+                return;
+            }
+
+            naEl.style.display = 'none';
+            modesEl.style.display = 'grid';
+
+            var tahunan = parseFloat(record[up]);
+            // Faktor muatan mode pembayaran Manulife
+            var semesteran = tahunan * 0.525;
+            var kuartalan = tahunan * 0.275;
+            var bulanan = tahunan * 0.095;
+
+            premiumEl.textContent = formatRupiah(tahunan) + '/tahun';
+            detailEl.textContent = '(Setara ' + tahunan.toFixed(1) + ' Juta/tahun)';
+
+            document.getElementById('mode-tahunan').textContent = formatRupiah(tahunan);
+            document.getElementById('mode-semesteran').textContent = formatRupiah(semesteran);
+            document.getElementById('mode-kuartalan').textContent = formatRupiah(kuartalan);
+            document.getElementById('mode-bulanan').textContent = formatRupiah(bulanan);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initCalcUI();
+            calculate();
+        });
+    </script>
+</body>
+</html>

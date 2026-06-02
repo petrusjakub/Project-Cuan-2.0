@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Premi PAP | Project Cuan</title>
+    <meta name="description" content="Kalkulator Premi PAP cerdas dan otomatis.">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #0A2540; 
+            --secondary: #00D4FF; 
+            --accent: #32C76A; 
+            --success: #10B981;
+            --bg-color: #F6F9FC;
+            --card-bg: #FFFFFF;
+            --text-color: #333333;
+            --text-muted: #6B7C93;
+            --border-color: rgba(128, 128, 128, 0.2);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            padding-bottom: 4rem;
+        }
+
+        .section-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 20px 2rem;
+            text-align: center;
+        }
+
+        .section-badge {
+            display: inline-block;
+            background: rgba(10, 37, 64, 0.1);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; font-weight: 700; }
+        .section-subtitle { color: var(--text-muted); font-size: 1.1rem; opacity: 0.9; }
+
+        .glassmorphism {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem 2.5rem;
+            box-shadow: 0 15px 35px rgba(50, 50, 93, 0.1), 0 5px 15px rgba(0, 0, 0, 0.07);
+            text-align: left;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+
+        .glassmorphism h2 { text-align: center; color: var(--primary); margin-bottom: 5px; font-size: 1.8rem; }
+        .glassmorphism > p { text-align: center; color: var(--text-muted); margin-bottom: 2rem; }
+
+        .calc-row { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 18px; }
+        .calc-field { flex: 1; min-width: 220px; position: relative; }
+        .calc-field label {
+            display: block; font-size: 0.85rem; font-weight: 700; color: var(--text-muted);
+            margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+
+        .calc-field select, .calc-field input {
+            width: 100%; padding: 12px 16px; border: 2px solid var(--border-color); border-radius: 8px;
+            font-size: 1rem; background: #FAFCFF; color: var(--text-color); font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease; appearance: none;
+        }
+
+        .calc-field select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236B7C93' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat; background-position: right 16px center; background-size: 16px; padding-right: 40px;
+        }
+
+        .calc-field select:focus, .calc-field input:focus {
+            border-color: var(--primary); outline: none; background: #FFFFFF; box-shadow: 0 0 0 3px rgba(10, 37, 64, 0.1);
+        }
+
+        .currency-symbol {
+            position: absolute; left: 16px; bottom: 13px; color: var(--text-muted);
+            font-weight: 600; font-family: 'Inter', sans-serif; pointer-events: none;
+        }
+        .calc-field input.has-symbol { padding-left: 45px; }
+
+        .btn-primary {
+            display: block; width: 100%; padding: 16px; background: var(--primary); color: #FFFFFF;
+            text-align: center; border-radius: 8px; font-weight: 700; font-size: 1.1rem; cursor: pointer;
+            border: none; transition: all 0.3s ease; margin-top: 1rem; font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .btn-primary:hover:not(:disabled) { background: #0d3154; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(10, 37, 64, 0.2); }
+        .btn-primary:disabled { background: #A9BBD0; cursor: not-allowed; }
+
+        .result-container {
+            margin-top: 2.5rem; padding: 24px; background: rgba(16, 185, 129, 0.05);
+            border: 2px dashed var(--success); border-radius: 12px; display: none; text-align: center;
+        }
+        .result-container.active { display: block; animation: fadeIn 0.4s ease forwards; }
+        .result-container.error { background: #FFF5F5; border-color: #EF4444; }
+
+        .result-label { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 8px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .result-value { font-size: 2.5rem; font-weight: 700; color: var(--success); margin-bottom: 15px; font-family: 'Inter', sans-serif; letter-spacing: -1px; }
+        .result-container.error .result-value { color: #EF4444; font-size: 1.1rem; letter-spacing: 0; margin-bottom: 0; }
+
+        .result-details {
+            display: flex; justify-content: center; gap: 20px; font-size: 0.95rem; color: var(--text-muted);
+            background: #FFFFFF; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color);
+        }
+        .result-details strong { color: var(--text-color); }
+
+        #loading-indicator {
+            text-align: center; font-size: 0.9rem; color: var(--primary); font-weight: 600;
+            background: #E6EBF1; padding: 10px; border-radius: 8px; margin-bottom: 15px;
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="section-container">
+            <span class="section-badge">Aktuaria Rate Otomatis</span>
+            <h1 class="section-title">Kalkulator PAP</h1>
+            <p class="section-subtitle">Dapatkan estimasi perhitungan premi nasabah secara instan tanpa perlu repot melihat tabel silang secara manual.</p>
+        </section>
+
+        <section class="section-container" style="padding-top: 0;">
+            <div class="glassmorphism">
+                <h2>Parameter Nasabah</h2>
+                <p>Silakan isi parameter di bawah untuk menghitung rate.</p>
+
+                <div id="loading-indicator">Memuat database aktuaria...</div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label for="plan">Masa Bayar (Plan)</label>
+                        <select id="plan">
+                            <option value="PPP 20">PPP 20</option>
+                            <option value="PPP 19">PPP 19</option>
+                            <option value="PPP 18">PPP 18</option>
+                            <option value="PPP 17">PPP 17</option>
+                            <option value="PPP 16">PPP 16</option>
+                            <option value="PPP 15">PPP 15</option>
+                            <option value="PPP 14">PPP 14</option>
+                            <option value="PPP 13">PPP 13</option>
+                            <option value="PPP 12">PPP 12</option>
+                            <option value="PPP 11">PPP 11</option>
+                            <option value="PPP 10">PPP 10</option>
+                            <option value="PPP 9">PPP 9</option>
+                            <option value="PPP 8">PPP 8</option>
+                            <option value="PPP 7">PPP 7</option>
+                            <option value="PPP 6">PPP 6</option>
+                            <option value="PPP 5">PPP 5</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label for="currency">Mata Uang</label>
+                        <select id="currency" onchange="updateCurrencySymbol()">
+                            <option value="IDR">IDR (Rupiah)</option>
+                            <option value="US$">US$ (Dollar)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label for="gender">Jenis Kelamin</label>
+                        <select id="gender">
+                            <option value="Male">Pria</option>
+                            <option value="Female">Wanita</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label for="smoker">Status Merokok</label>
+                        <select id="smoker">
+                            <option value="Non Smoker">Tidak Merokok</option>
+                            <option value="Smoker">Merokok</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label for="age">Usia Masuk (18-69)</label>
+                        <input type="number" id="age" min="18" max="69" value="30">
+                    </div>
+                    <div class="calc-field">
+                        <label for="up_category">Kategori Pertanggungan</label>
+                        <select id="up_category">
+                            <option value="Premium UP<1M">UP &lt; 1 Miliar</option>
+                            <option value="Premium UP>=1M">UP &gt;= 1 Miliar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field" style="flex: 100%;">
+                        <label for="up_amount">Nominal Uang Pertanggungan (UP)</label>
+                        <span class="currency-symbol" id="curr_symbol">Rp</span>
+                        <input type="text" id="up_amount" class="has-symbol" value="1,000,000,000" oninput="formatNumber(this)">
+                    </div>
+                </div>
+
+                <button id="calcBtn" class="btn-primary" onclick="calculatePremium()" disabled>Harap Tunggu...</button>
+
+                <div id="resultBox" class="result-container">
+                    <div class="result-label" id="resultLabel">Estimasi Premi Tahunan Dasar</div>
+                    <div class="result-value" id="resultPremium">Rp 0</div>
+                    
+                    <div class="result-details" id="resultDetails">
+                        <div>Rate Aktuaria: <strong id="resultRate">0.00</strong></div>
+                        <div>Usia Masuk: <strong id="resultAge">0</strong> thn</div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Objek untuk menyimpan data rate yang diparse dari CSV
+        let rateData = {};
+
+        function updateCurrencySymbol() {
+            const curr = document.getElementById('currency').value;
+            document.getElementById('curr_symbol').innerText = curr === 'IDR' ? 'Rp' : '$';
+        }
+
+        function formatNumber(input) {
+            let val = input.value.replace(/[^0-9]/g, '');
+            if(val !== '') {
+                input.value = parseInt(val, 10).toLocaleString('en-US');
+            }
+        }
+
+        // Fungsi membaca CSV (Struktur mirip dengan MiUHC)
+        function loadPremiData() {
+            return new Promise((resolve, reject) => {
+                Papa.parse("assets/data/Rate_Premi_Flattened.csv", {
+                    download: true,
+                    header: true,
+                    skipEmptyLines: true,
+                    complete: function(results) {
+                        const data = results.data;
+                        data.forEach(row => {
+                            if (!row.UP_Category) return;
+                            
+                            const up = row.UP_Category;
+                            const plan = row.Plan.trim();
+                            const curr = row.Currency.trim();
+                            const prof = row.Profile.trim();
+                            const age = parseInt(row.Age);
+                            const rate = parseFloat(row.Rate);
+
+                            // Bangun struktur JSON hirarki
+                            if (!rateData[up]) rateData[up] = {};
+                            if (!rateData[up][plan]) rateData[up][plan] = {};
+                            if (!rateData[up][plan][curr]) rateData[up][plan][curr] = {};
+                            if (!rateData[up][plan][curr][prof]) rateData[up][plan][curr][prof] = {};
+                            
+                            rateData[up][plan][curr][prof][age] = rate;
+                        });
+                        resolve();
+                    },
+                    error: function(err) {
+                        reject(err);
+                    }
+                });
+            });
+        }
+
+        // Saat halaman dimuat, proses CSV secara otomatis
+        window.addEventListener('load', async function() {
+            const loading = document.getElementById('loading-indicator');
+            const calcBtn = document.getElementById('calcBtn');
+            updateCurrencySymbol();
+
+            try {
+                await loadPremiData();
+                loading.style.display = 'none';
+                calcBtn.disabled = false;
+                calcBtn.innerText = 'Kalkulasi Premi';
+            } catch (err) {
+                loading.innerHTML = '<span style="color:#EF4444;">Gagal memuat Rate_Premi_Flattened.csv. Pastikan file berada di folder yang sama.</span>';
+                loading.style.background = '#FFF5F5';
+            }
+        });
+
+        function calculatePremium() {
+            const plan = document.getElementById('plan').value;
+            const currency = document.getElementById('currency').value;
+            const gender = document.getElementById('gender').value;
+            const smoker = document.getElementById('smoker').value;
+            const age = document.getElementById('age').value;
+            const upCategory = document.getElementById('up_category').value;
+            
+            const upAmount = parseFloat(document.getElementById('up_amount').value.replace(/,/g, ''));
+
+            const resultBox = document.getElementById('resultBox');
+            const resultPremium = document.getElementById('resultPremium');
+            const resultDetails = document.getElementById('resultDetails');
+            const resultLabel = document.getElementById('resultLabel');
+
+            resultBox.className = 'result-container active';
+            resultDetails.style.display = 'flex';
+            resultLabel.style.display = 'block';
+
+            if (isNaN(upAmount) || upAmount <= 0) {
+                showError("Mohon masukkan nominal Uang Pertanggungan yang valid!");
+                return;
+            }
+            if (!age || age < 18 || age > 69) {
+                showError("Usia harus berada di antara 18 hingga 69 tahun.");
+                return;
+            }
+
+            const profile = gender + " " + smoker;
+
+            try {
+                const rate = rateData[upCategory][plan][currency][profile][age];
+                
+                if (rate === undefined) {
+                    showError("Data rate tidak tersedia untuk kombinasi ini (Batasan usia untuk plan yang dipilih).");
+                    return;
+                }
+
+                const premium = (upAmount / 1000) * rate;
+
+                const locale = currency === 'IDR' ? 'id-ID' : 'en-US';
+                const currStyle = currency === 'IDR' ? 'IDR' : 'USD';
+                
+                const formattedPremium = new Intl.NumberFormat(locale, {
+                    style: 'currency',
+                    currency: currStyle,
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 2
+                }).format(premium);
+
+                resultPremium.innerText = formattedPremium;
+                document.getElementById('resultRate').innerText = rate.toFixed(2);
+                document.getElementById('resultAge').innerText = age;
+
+            } catch (e) {
+                showError("Terjadi kesalahan. Kombinasi parameter tidak ditemukan.");
+            }
+        }
+
+        function showError(message) {
+            const resultBox = document.getElementById('resultBox');
+            resultBox.className = 'result-container error active';
+            document.getElementById('resultLabel').style.display = 'none';
+            document.getElementById('resultDetails').style.display = 'none';
+            document.getElementById('resultPremium').innerText = message;
+        }
+    </script>
+</body>
+</html>

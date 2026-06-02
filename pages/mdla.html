@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MDLA | Project Cuan</title>
+    <meta name="description" content="Manulife Dynamic Life Assurance. Asuransi jiwa fleksibel dengan 3 pilihan plan.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Styling Form Kalkulator Khusus MDLA */
+        .calc-field select, .calc-field input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 5px;
+        }
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .calc-field {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        /* Style untuk output kalkulator bawaan Anda */
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .payment-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .payment-item .label { font-size: 0.85rem; opacity: 0.7; }
+        .payment-item .amount { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-top: 5px;}
+        .password-overlay input { text-align: center; max-width: 250px; }
+    </style>
+</head>
+<body>
+    
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Asuransi Jiwa Tradisional</span>
+            <h1 class="section-title">MDLA</h1>
+            <p class="section-subtitle">Manulife Dynamic Life Assurance memberikan perlindungan jiwa murni dengan 3 pilihan plan yang adaptif mengikuti kondisi finansial Anda.</p>
+        </section>
+
+        <section class="section-container">
+            <div class="produk-grid" style="margin-bottom: 4rem;">
+                
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Syariah & Term Life</span>
+                        <h3>Plan A (Amanah)</h3>
+                        <p>Premi sangat murah untuk proteksi jiwa maksimal. Sangat cocok bagi Anda yang butuh jaring pengaman besar dengan budget minimal. (Premi hangus).</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--primary);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Syariah & Balik Modal</span>
+                        <h3>Plan B (Berkah)</h3>
+                        <p>Proteksi jiwa sekaligus tabungan. Hingga 120% total kontribusi Anda akan dikembalikan utuh jika Anda sehat walafiat hingga akhir masa perlindungan.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--accent);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Konvensional & Pasti Cair</span>
+                        <h3>Plan C (Cermat)</h3>
+                        <p>Dwifungsi cerdas: Uang Pertanggungan PASTI cair 100%, entah saat tutup usia (warisan) atau jika Anda masih hidup di akhir masa kontrak (dana pensiun).</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator Premi MDLA</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Cari tahu estimasi investasi masa depan Anda.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Plan Pilihan</label>
+                        <select id="calc-plan" onchange="updateTermOptions();calculate()">
+                            <option value="A">Plan A - Amanah (Syariah, Proteksi Murni)</option>
+                            <option value="B">Plan B - Berkah (Syariah, Balik Modal)</option>
+                            <option value="C">Plan C - Cermat (Konvensional, Pasti Cair)</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Jenis Kelamin</label>
+                        <select id="calc-gender" onchange="calculate()">
+                            <option value="pria">Pria</option>
+                            <option value="wanita">Wanita</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Usia Masuk</label>
+                        <select id="calc-age" onchange="calculate()">
+                            </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Masa Bayar (MPP)</label>
+                        <select id="calc-mpp" onchange="calculate()">
+                            <option value="5">5 Tahun</option>
+                            <option value="10" selected>10 Tahun</option>
+                            <option value="15">15 Tahun</option>
+                            <option value="20">20 Tahun</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Masa Perlindungan</label>
+                        <select id="calc-term" onchange="calculate()">
+                            <option value="20">20 Tahun</option>
+                            <option value="30">30 Tahun</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Uang Pertanggungan (UP)</label>
+                        <select id="calc-up" onchange="calculate()">
+                            <option value="1M">Rp 1 Miliar</option>
+                            <option value="2M">Rp 2 Miliar</option>
+                            <option value="3M">Rp 3 Miliar</option>
+                            <option value="5M">Rp 5 Miliar</option>
+                            <option value="10M">Rp 10 Miliar</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="background: rgba(37, 99, 235, 0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(37,99,235,0.1);">
+                    <div id="calc-output"></div> 
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20ingin%20konsultasi%20mengenai%20produk%20MDLA." target="_blank" class="btn btn-primary">Konsultasi Plan Terbaik</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 2rem; border-radius: 16px;">
+                <div id="komisi-lock" class="password-overlay">
+                    <h3 style="color: var(--primary);">Area Khusus Partner Project Cuan</h3>
+                    <p style="opacity: 0.8; margin-bottom: 1.5rem;">Masukkan akses rahasia untuk melihat struktur komisi dan strategi distribusi.</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <input type="password" id="komisi-pwd" class="btn-outline glassmorphism" placeholder="Password..." style="color: var(--text-color);" onkeypress="if(event.key==='Enter') checkKomisiPassword()">
+                        <button onclick="checkKomisiPassword()" class="btn btn-primary" style="padding: 10px 20px;">Buka Akses</button>
+                    </div>
+                    <p class="error" id="komisi-error" style="color: #EF4444; display: none; margin-top: 10px;">Akses ditolak.</p>
+                </div>
+                
+                <div id="komisi-content" class="komisi-content" style="display: none; text-align: left;">
+                    <h3 style="margin-bottom: 1rem; color: var(--success);">Berhasil Dibuka: Blueprint Komisi MDLA</h3>
+                    <p>Strategi distribusi: Plan B memiliki komisi tahun pertama terbesar (30%). Plan A sangat baik untuk *passive income* jangka panjang. Plan C unggul di segmen nasabah Premium yang memiliki *cash flow* kuat.</p>
+                    </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    
+        <script>
+        function initCalcUI() {
+            var ageSelect = document.getElementById('calc-age');
+            ageSelect.innerHTML = '';
+            for (var i = 0; i <= 70; i++) {
+                var opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + ' Tahun';
+                if(i === 35) opt.selected = true; // Default 35 tahun
+                ageSelect.appendChild(opt);
+            }
+        }
+
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function updateTermOptions() {
+            var plan = document.getElementById('calc-plan').value;
+            var termSelect = document.getElementById('calc-term');
+            var currentTerm = termSelect.value;
+            
+            termSelect.innerHTML = '';
+            if (plan === 'A') {
+                termSelect.innerHTML += '<option value="20">20 Tahun</option><option value="30">30 Tahun</option>';
+            } else {
+                termSelect.innerHTML += '<option value="20">20 Tahun</option><option value="30">30 Tahun</option><option value="40">40 Tahun</option>';
+            }
+            
+            // Mempertahankan pilihan sebelumnya jika masih tersedia di plan baru
+            var validOptions = Array.from(termSelect.options).map(opt => opt.value);
+            if(validOptions.includes(currentTerm)) {
+                termSelect.value = currentTerm;
+            }
+        }
+
+        function calculate() {
+            // Memastikan data Base Rate 1M sudah terbaca dari data-mdla.js
+            if (typeof mdlaBaseRates === 'undefined') {
+                console.error("Data MDLA belum dimuat.");
+                return;
+            }
+
+            var plan = document.getElementById('calc-plan').value;
+            var gender = document.getElementById('calc-gender').value;
+            var age = document.getElementById('calc-age').value;
+            var mpp = document.getElementById('calc-mpp').value;
+            var term = document.getElementById('calc-term').value;
+            var upString = document.getElementById('calc-up').value;
+
+            // Mengonversi string UP menjadi angka nominal
+            var upNominal = parseFloat(upString.replace('M', '')) * 1000000000;
+            
+            // Menghitung rasio pengali berdasarkan acuan 1 Miliar
+            var upMultiplier = upNominal / 1000000000;
+
+            // Meracik kunci pencarian data
+            var key = plan + '|' + gender + '|' + age + '|' + term + '|' + mpp;
+            var baseRate1M = mdlaBaseRates[key];
+            var outputContainer = document.getElementById('calc-output');
+
+            if (!baseRate1M) {
+                outputContainer.innerHTML = '<div style="color: #EF4444; font-weight: 600; padding: 20px;">Kombinasi belum tersedia. Silakan sesuaikan Masa Bayar atau Masa Perlindungan.</div>';
+                return;
+            }
+
+            // Kalkulasi Premi Dasar
+            var premiTahunan = baseRate1M * upMultiplier;
+
+            // Diskon UP Besar MDLA
+            if (upNominal >= 3000000000 && upNominal < 5000000000) {
+                premiTahunan = premiTahunan * 0.95; 
+            } else if (upNominal >= 5000000000) {
+                premiTahunan = premiTahunan * 0.90; 
+            }
+
+            // Faktor Mode Pembayaran Manulife
+            var premiSemesteran = premiTahunan * 0.525;
+            var premiKuartalan = premiTahunan * 0.275;
+            var premiBulanan = premiTahunan * 0.095;
+
+            var planName = plan === 'A' ? 'Plan A (Amanah)' : plan === 'B' ? 'Plan B (Berkah)' : 'Plan C (Cermat)';
+            var genderName = gender === 'pria' ? 'Pria' : 'Wanita';
+
+            // Menampilkan Hasil ke Antarmuka
+            var htmlOutput = `
+                <div style="font-weight: 600; color: var(--primary); margin-bottom: 1rem;">
+                    ${planName} | ${genderName}, Usia ${age} Tahun | UP Rp ${upString.replace('M', ' Miliar')}
+                </div>
+                <div style="margin-bottom: 1.5rem; opacity: 0.8; font-size: 0.9rem;">
+                    Masa Bayar: ${mpp} Tahun | Masa Perlindungan: ${term} Tahun
+                </div>
+                
+                <div class="payment-grid">
+                    <div class="payment-item">
+                        <div class="label">Tahunan</div>
+                        <div class="amount">${formatRupiah(Math.round(premiTahunan))}</div>
+                    </div>
+                    <div class="payment-item">
+                        <div class="label">Semesteran</div>
+                        <div class="amount">${formatRupiah(Math.round(premiSemesteran))}</div>
+                    </div>
+                    <div class="payment-item">
+                        <div class="label">Kuartalan</div>
+                        <div class="amount">${formatRupiah(Math.round(premiKuartalan))}</div>
+                    </div>
+                    <div class="payment-item">
+                        <div class="label">Bulanan</div>
+                        <div class="amount">${formatRupiah(Math.round(premiBulanan))}</div>
+                    </div>
+                </div>
+            `;
+
+            outputContainer.innerHTML = htmlOutput;
+        }
+
+        function checkKomisiPassword() {
+            var pwd = document.getElementById('komisi-pwd').value;
+            if(pwd === 'manulife') {
+                document.getElementById('komisi-lock').style.display = 'none';
+                document.getElementById('komisi-content').style.display = 'block';
+            } else {
+                document.getElementById('komisi-error').style.display = 'block';
+            }
+        }
+
+        // Menjalankan fungsi inisialisasi saat halaman selesai dimuat
+        document.addEventListener('DOMContentLoaded', function() {
+            initCalcUI();
+            updateTermOptions();
+            calculate();
+        });
+    </script>
+
+</body>
+</html>

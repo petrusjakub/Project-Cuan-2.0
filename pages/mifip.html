@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiFIP | Project Cuan</title>
+    <meta name="description" content="MiFuture Income Protector. Program perencanaan keuangan dengan manfaat pasti 800%.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Styling Form Kalkulator Khusus MiFIP */
+        .calc-field select, .calc-field input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 2px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: var(--card-bg);
+            color: var(--text-color);
+            margin-top: 5px;
+        }
+        .calc-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .calc-field {
+            flex: 1;
+            min-width: 200px;
+            text-align: left;
+        }
+        .payment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .payment-item {
+            background: var(--card-bg);
+            border: 1px solid rgba(128, 128, 128, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .payment-item .label { font-size: 0.85rem; opacity: 0.7; }
+        .payment-item .amount { font-size: 1.15rem; font-weight: 700; color: var(--primary); margin-top: 5px;}
+        .timeline-box { text-align: left; margin-top: 20px; }
+        .timeline-item { padding: 12px 0; border-bottom: 1px dashed rgba(128,128,128,0.3); display: flex; gap: 15px;}
+        .timeline-year { font-weight: 700; color: var(--success); min-width: 120px; }
+    </style>
+</head>
+<body>
+    
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Asuransi Jiwa Dwiguna (Endowment)</span>
+            <h1 class="section-title">MiFIP</h1>
+            <p class="section-subtitle">MiFuture Income Protector. Ciptakan sumber penghasilan pasif yang terjamin untuk masa pensiun atau warisan keluarga dengan total manfaat hingga 800%.</p>
+        </section>
+
+        <section class="section-container">
+            <div class="produk-grid" style="margin-bottom: 4rem;">
+                
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--primary);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">100% Dana Mapan</span>
+                        <h3>Manfaat Usia Mapan</h3>
+                        <p>Saat Anda mencapai Usia Mapan yang dipilih (25/35/45/55/60 tahun), Anda akan menerima 100% Dana Mapan secara sekaligus (lump sum).</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">400% Dana Mapan</span>
+                        <h3>Manfaat Tunai Tahunan</h3>
+                        <p>Nikmati "Gaji Pensiun" sebesar 20% dari Dana Mapan setiap tahun selama 20 tahun berturut-turut setelah melewati Usia Mapan.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--accent);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">200% Dana Mapan</span>
+                        <h3>Akhir Masa Pertanggungan</h3>
+                        <p>Di akhir program (Usia Mapan + 20 tahun), Anda menerima lagi bonus sebesar 200% Dana Mapan secara tunai.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card" style="border: 1px solid var(--text-color);">
+                    <div class="card-accent" style="background: var(--text-color);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">+ 100% Extra</span>
+                        <h3>Perlindungan Jiwa & SIO</h3>
+                        <p>Jika terjadi risiko tutup usia, cair 100% Dana Mapan. Pengajuan sangat mudah tanpa Medical Check Up (hanya 3 pertanyaan kesehatan SIO).</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator 800% MiFIP</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Hitung proyeksi aset masa depan Anda. Menggunakan formula aktuaria cerdas.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Jenis Kelamin</label>
+                        <select id="calc-gender" onchange="calculate()">
+                            <option value="pria">Pria</option>
+                            <option value="wanita">Wanita</option>
+                        </select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Mata Uang</label>
+                        <select id="calc-currency" onchange="switchCurrency();calculate()">
+                            <option value="IDR">IDR (Rupiah)</option>
+                            <option value="USD">USD (Dolar AS)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Usia Masuk</label>
+                        <select id="calc-usia-masuk" onchange="updateUsiaMapan();calculate()"></select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Target Usia Mapan</label>
+                        <select id="calc-usia-mapan" onchange="calculate()"></select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Target Dana Mapan (UP)</label>
+                        <div style="position:relative">
+                            <span id="premi-prefix" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:700; color:var(--primary);">Rp</span>
+                            <input type="text" id="calc-danamapan" inputmode="numeric" style="padding-left:45px; font-weight:600;" value="100.000.000" oninput="formatInput(this);calculate()" onfocus="this.select()">
+                        </div>
+                        <div id="min-hint" style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px; text-align: left;">Minimum: Rp 50.000.000</div>
+                    </div>
+                    <div class="calc-field">
+                        <label>Masa Bayar (MPP)</label>
+                        <select id="calc-mpp" onchange="calculate()">
+                            <option value="5">5 Tahun (Reguler)</option>
+                            <option value="sekaligus">Premi Sekaligus (Single)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="calc-result" style="display: none; background: rgba(37, 99, 235, 0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(37,99,235,0.1);">
+                    <div style="font-size: 1.25rem; font-weight: 700; margin-bottom: 5px;">Total Manfaat Terjamin (800%)</div>
+                    <div id="res-total-800" style="font-size: 2.5rem; font-weight: 800; color: var(--success); margin-bottom: 2rem;">-</div>
+                    
+                    <h4 style="text-align: left; color: var(--primary); border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px;">Ringkasan Investasi Anda:</h4>
+                    <div class="timeline-box" id="calc-timeline"></div>
+                    
+                    <h4 style="text-align: left; color: var(--primary); margin-top: 2rem; border-bottom: 1px solid rgba(0,0,0,0.1); padding-bottom: 10px;">Estimasi Premi Pembayaran:</h4>
+                    <div class="payment-grid" id="calc-modes">
+                        <div class="payment-item"><div class="label">Tahunan</div><div class="amount" id="mode-tahunan">-</div></div>
+                        <div class="payment-item" id="box-sem"><div class="label">Semesteran</div><div class="amount" id="mode-semesteran">-</div></div>
+                        <div class="payment-item" id="box-kua"><div class="label">Kuartalan</div><div class="amount" id="mode-kuartalan">-</div></div>
+                        <div class="payment-item" id="box-bul"><div class="label">Bulanan</div><div class="amount" id="mode-bulanan">-</div></div>
+                    </div>
+                </div>
+
+                <div id="calc-error" style="display: none; color: #EF4444; font-weight: 600; margin-top: 2rem; padding: 1rem; background: rgba(239, 68, 68, 0.1); border-radius: 8px;"></div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20tertarik%20dengan%20aset%20pasti%20MiFIP." target="_blank" class="btn btn-primary">Amankan Dana Mapan Saya</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+        const usiaMapanList = [25, 35, 45, 55, 60];
+        
+        function initSelects() {
+            var umSelect = document.getElementById('calc-usia-masuk');
+            for(var i = 18; i <= 59; i++) {
+                var opt = document.createElement('option');
+                opt.value = i; opt.textContent = i + ' Tahun';
+                if(i === 30) opt.selected = true;
+                umSelect.appendChild(opt);
+            }
+            updateUsiaMapan();
+        }
+
+        function updateUsiaMapan() {
+            var usiaMasuk = parseInt(document.getElementById('calc-usia-masuk').value);
+            var mapanSelect = document.getElementById('calc-usia-mapan');
+            mapanSelect.innerHTML = '';
+            usiaMapanList.forEach(mapan => {
+                // Syarat: Jarak usia masuk dan mapan minimal 5 tahun
+                if(mapan >= usiaMasuk + 5) {
+                    var opt = document.createElement('option');
+                    opt.value = mapan; opt.textContent = mapan + ' Tahun';
+                    mapanSelect.appendChild(opt);
+                }
+            });
+        }
+
+        function switchCurrency() {
+            var cur = document.getElementById('calc-currency').value;
+            var inp = document.getElementById('calc-danamapan');
+            document.getElementById('premi-prefix').textContent = cur === 'USD' ? 'USD' : 'Rp';
+            document.getElementById('min-hint').textContent = cur === 'USD' ? 'Minimum: USD 5.000' : 'Minimum: Rp 50.000.000';
+            inp.value = cur === 'USD' ? '10,000' : '100.000.000';
+        }
+
+        function formatNumber(num, cur) {
+            var str = Math.round(num).toString();
+            var res = ''; var count = 0;
+            var sep = cur === 'USD' ? ',' : '.';
+            for (var i = str.length - 1; i >= 0; i--) {
+                res = str[i] + res; count++;
+                if (count % 3 === 0 && i > 0) res = sep + res;
+            }
+            return (cur === 'USD' ? 'USD ' : 'Rp ') + res;
+        }
+
+        function formatInput(el) {
+            var cur = document.getElementById('calc-currency').value;
+            var sep = cur === 'USD' ? ',' : '.';
+            var raw = el.value.replace(/[^0-9]/g, '');
+            if(!raw) { el.value = ''; return; }
+            var res = ''; var count = 0;
+            for (var i = raw.length - 1; i >= 0; i--) {
+                res = raw[i] + res; count++;
+                if (count % 3 === 0 && i > 0) res = sep + res;
+            }
+            el.value = res;
+        }
+
+        // --- FORMULA AKTUARIA MiFIP ---
+        function getBaseRate(gender, gap) {
+            var rate;
+            if (gender === 'pria') { rate = 4.85 * Math.pow(gap, -0.82); } 
+            else { rate = 4.50 * Math.pow(gap, -0.78); }
+            if(rate > 1.5) rate = 1.5;
+            if(rate < 0.15) rate = 0.15;
+            return rate;
+        }
+
+        function getTunggalFactor(gap) {
+            var f = 4.7 - 0.03 * gap;
+            if(f < 4.0) f = 4.0;
+            if(f > 4.6) f = 4.6;
+            return f;
+        }
+
+        function getBandFactor(dm, cur) {
+            var t = cur === 'IDR' ? [50000000, 100000000, 200000000, 500000000] : [5000, 10000, 20000, 50000];
+            if(dm < t[1]) return 1.05;
+            if(dm < t[2]) return 1.0;
+            if(dm < t[3]) return 0.925;
+            return 0.88;
+        }
+
+        function calculate() {
+            var gender = document.getElementById('calc-gender').value;
+            var cur = document.getElementById('calc-currency').value;
+            var usiaMasuk = parseInt(document.getElementById('calc-usia-masuk').value);
+            var usiaMapan = parseInt(document.getElementById('calc-usia-mapan').value);
+            var mpp = document.getElementById('calc-mpp').value;
+            var dmRaw = document.getElementById('calc-danamapan').value.replace(/[^0-9]/g, '');
+            var dm = parseInt(dmRaw) || 0;
+
+            var resEl = document.getElementById('calc-result');
+            var errEl = document.getElementById('calc-error');
+
+            var minDM = cur === 'IDR' ? 50000000 : 5000;
+            if (dm < minDM) {
+                errEl.textContent = 'Dana Mapan di bawah minimum (' + (cur === 'IDR' ? 'Rp 50 Juta' : 'USD 5,000') + ')';
+                errEl.style.display = 'block'; resEl.style.display = 'none'; return;
+            }
+
+            var gap = usiaMapan - usiaMasuk;
+            if (gap < 5) {
+                errEl.textContent = 'Jarak Usia Masuk ke Usia Mapan minimal 5 Tahun.';
+                errEl.style.display = 'block'; resEl.style.display = 'none'; return;
+            }
+
+            errEl.style.display = 'none';
+            resEl.style.display = 'block';
+
+            // Hitung Rate berdasarkan Formula
+            var rateBase = getBaseRate(gender, gap);
+            var bandFactor = getBandFactor(dm, cur);
+            var finalRate = rateBase * bandFactor;
+
+            var premiTahunan = 0;
+            var isTunggal = mpp === 'sekaligus';
+            
+            if(isTunggal) {
+                var tunggalFactor = getTunggalFactor(gap);
+                premiTahunan = Math.round(dm * finalRate * tunggalFactor);
+            } else {
+                premiTahunan = Math.round(dm * finalRate);
+            }
+
+            // Hitung Manfaat 800%
+            var manUM = dm;                 // 100% Usia Mapan
+            var manTunai = dm * 0.20;       // 20% Per Tahun
+            var manAkhir = dm * 2;          // 200% Akhir
+            var total800 = dm * 8;          // Total 800% (Hidup + Warisan)
+
+            document.getElementById('res-total-800').textContent = formatNumber(total800, cur);
+
+            // Render Timeline Cerdas
+            var tlHTML = `
+                <div class="timeline-item"><div class="timeline-year">Usia ${usiaMapan} Tahun</div><div><span style="font-weight:600;">Cair Manfaat Usia Mapan:</span> <br><span style="color:var(--success); font-weight:700;">${formatNumber(manUM, cur)}</span> (100% Dana Mapan)</div></div>
+                <div class="timeline-item"><div class="timeline-year">Usia ${usiaMapan + 1} s/d ${usiaMapan + 20}</div><div><span style="font-weight:600;">Cair Gaji Pensiun Tahunan:</span> <br><span style="color:var(--success); font-weight:700;">${formatNumber(manTunai, cur)} / tahun</span> (Selama 20 Tahun)</div></div>
+                <div class="timeline-item" style="border:none;"><div class="timeline-year">Usia ${usiaMapan + 20} Tahun</div><div><span style="font-weight:600;">Cair Bonus Akhir Masa:</span> <br><span style="color:var(--success); font-weight:700;">${formatNumber(manAkhir, cur)}</span> (200% Dana Mapan)</div></div>
+            `;
+            document.getElementById('calc-timeline').innerHTML = tlHTML;
+
+            // Render Mode Pembayaran
+            if(isTunggal) {
+                document.getElementById('mode-tahunan').textContent = formatNumber(premiTahunan, cur) + ' (Bayar 1x)';
+                document.getElementById('box-sem').style.display = 'none';
+                document.getElementById('box-kua').style.display = 'none';
+                document.getElementById('box-bul').style.display = 'none';
+            } else {
+                document.getElementById('mode-tahunan').textContent = formatNumber(premiTahunan, cur);
+                document.getElementById('box-sem').style.display = 'block';
+                document.getElementById('mode-semesteran').textContent = formatNumber(premiTahunan * 0.525, cur);
+                document.getElementById('box-kua').style.display = 'block';
+                document.getElementById('mode-kuartalan').textContent = formatNumber(premiTahunan * 0.275, cur);
+                document.getElementById('box-bul').style.display = 'block';
+                document.getElementById('mode-bulanan').textContent = formatNumber(premiTahunan * 0.095, cur);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initSelects();
+            calculate();
+        });
+    </script>
+</body>
+</html>
