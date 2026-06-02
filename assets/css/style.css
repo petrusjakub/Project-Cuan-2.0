@@ -34,7 +34,7 @@
   
   /* Transitions */
   --transition: all 0.3s ease;
-}
+}u 
 
 [data-theme="dark"] {
   --bg: #0F172A;
@@ -1049,5 +1049,105 @@ p { margin-bottom: 1rem; color: var(--text-muted); }
   
   .features-grid {
     grid-template-columns: 1fr;
+  }
+}
+/* Tambahkan/replace di assets/css/style.css */
+
+/* ===== PRODUCT PAGE STYLES ===== */
+.product-page {
+  padding-top: 100px; /* Naikkan dari 80px */
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .product-page {
+    padding-top: 120px; /* Lebih besar di mobile untuk navbar + status bar */
+  }
+}
+
+.product-hero {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.05), rgba(6, 182, 212, 0.05));
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .product-hero {
+    padding: 2rem 0; /* Kurangi padding di mobile */
+  }
+}
+
+.product-hero h1 {
+  font-size: clamp(1.75rem, 5vw, 3rem); /* Turunkan min-size di mobile */
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+@media (max-width: 480px) {
+  .product-hero h1 {
+    font-size: 1.75rem; /* Lebih kecil lagi di layar sangat kecil */
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.125rem;
+  color: var(--text-muted);
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .hero-subtitle {
+    font-size: 1rem; /* Lebih kecil di mobile */
+    padding: 0 1rem;
+  }
+}
+/* Tambahkan di CSS */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* Offset untuk fixed navbar */
+}
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 120px; /* Lebih besar di mobile */
+  }
+}
+
+/* Update bagian navbar di CSS */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: var(--transition);
+  height: 70px; /* Tambahkan height tetap */
+}
+
+[data-theme="dark"] .navbar {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.navbar.scrolled {
+  padding: 0.75rem 0;
+  box-shadow: var(--shadow);
+  height: 60px; /* Lebih kecil saat scroll */
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    height: 60px; /* Lebih kecil di mobile */
+    padding: 0.75rem 0;
+  }
+  
+  .navbar.scrolled {
+    height: 50px;
   }
 }
