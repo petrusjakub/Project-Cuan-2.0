@@ -13,5 +13,5 @@
 /pages/pap       /pages/pap.html      200
 /pages/magna     /pages/magna.html    200
 
-# Redirect root ke index (fallback)
+# Fallback: redirect semua route yang tidak dikenal ke index.html
 /*    /index.html   200
