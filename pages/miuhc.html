@@ -1,71 +1,59 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="light">
 <head>
-  
-  <!-- Tambahkan ini -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  
-  <!-- Untuk iOS Safe Area -->
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  
-  <!-- Untuk iOS Safe Area -->
-  <meta name="apple-mobile-web-app-capable" content="yes"/>
-  <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
-</head>
-  
   <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <title>Mi Ultimate Healthcare | Project Cuan</title>
   <meta name="description" content="Asuransi kesehatan 'as charged' terbaik. Rawat inap di RS mana pun, sesuai tagihan. Limit naik 10% tiap tahun!"/>
   
+  <!-- Fonts: Plus Jakarta Sans & Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   
+  <!-- CSS: Pastikan file style.css sudah update padding-top -->
   <link rel="stylesheet" href="../assets/css/style.css"/>
+  
+  <!-- Icons: Lucide -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
+  <!-- Navbar akan di-load via JS -->
   <div id="navbar-container"></div>
 
-  <!-- Ganti bagian main -->
-<main class="product-page">
-  
-  <!-- Hero Section dengan padding tambahan -->
-  <section class="product-hero" style="margin-top: 0;">
-    <div class="container">
-      <a href="/" class="back-link">← Kembali ke Home</a>
-      <span class="badge badge-primary">🏥 Best Seller</span>
-      <h1>Mi Ultimate Healthcare<br/>(MiUHC)</h1> <!-- Tambah <br> untuk mobile -->
-      <p class="hero-subtitle">Asuransi kesehatan "as charged" — Bayar sesuai tagihan, rawat inap di RS mana pun, seluruh dunia!</p>
-      <div class="hero-cta">
-        <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20mau%20tanya%20MiUHC%20dong" class="btn btn-primary" target="_blank">
-          <i data-lucide="message-circle"></i> Konsultasi Gratis
-        </a>
-        <a href="#detail" class="btn btn-outline">
-          <i data-lucide="chevron-down"></i> Pelajari Lebih
-        </a>
+  <!-- Main Content: Class 'product-page' memberikan padding atas agar tidak ketutupan navbar -->
+  <main class="product-page">
+    
+    <!-- Hero Section -->
+    <section class="product-hero">
+      <div class="container">
+        <a href="/" class="back-link">← Kembali ke Home</a>
+        <span class="badge badge-primary"> Best Seller</span>
+        <h1>Mi Ultimate Healthcare<br/>(MiUHC)</h1>
+        <p class="hero-subtitle">Asuransi kesehatan "as charged" — Bayar sesuai tagihan, rawat inap di RS mana pun, seluruh dunia!</p>
+        <div class="hero-cta">
+          <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20mau%20tanya%20MiUHC%20dong" class="btn btn-primary" target="_blank">
+            <i data-lucide="message-circle"></i> Konsultasi Gratis
+          </a>
+          <a href="#detail" class="btn btn-outline">
+            <i data-lucide="chevron-down"></i> Pelajari Lebih
+          </a>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Sections lainnya... -->
-
-    <!-- Problem -->
+    <!-- Problem Section -->
     <section class="section problem-section">
       <div class="container">
         <h2 class="section-title">🤔 Pernah Kepikiran Nggak...</h2>
-        <div class="problem-grid">
-          <div class="problem-card">
+        <div class="problem-grid">          <div class="problem-card">
             <i data-lucide="heart-pulse"></i>
             <h3>Kalo sakit keras & harus rawat inap?</h3>
             <p>Biaya kamar ICU bisa 10-50 juta/hari. Tabunganmu kuat berapa hari?</p>
           </div>
-          <div class="problem-card">            <i data-lucide="activity"></i>
+          <div class="problem-card">
+            <i data-lucide="activity"></i>
             <h3>Kalo perlu operasi darurat?</h3>
             <p>Biaya operasi + perawatan bisa ratusan juta. Punya dana darurat segitu?</p>
           </div>
@@ -78,7 +66,7 @@
       </div>
     </section>
 
-    <!-- Solution -->
+    <!-- Solution Section -->
     <section id="detail" class="section solution-section">
       <div class="container">
         <h2 class="section-title">✨ Solusinya: Mi Ultimate Healthcare</h2>
@@ -101,20 +89,20 @@
       </div>
     </section>
 
-    <!-- Features -->
+    <!-- Features Section -->
     <section class="section features-section">
       <div class="container">
         <h2 class="section-title">🎯 Keuntungan Untukmu</h2>
         <div class="features-grid">
           <div class="feature-card">
             <div class="feature-icon">🏥</div>
-            <h3>Rawat Inap Tanpa Limit</h3>
-            <p>Sesuai tagihan RS. Nggak ada batasan per hari atau per tahun.</p>
+            <h3>Rawat Inap Tanpa Limit</h3>            <p>Sesuai tagihan RS. Nggak ada batasan per hari atau per tahun.</p>
           </div>
           <div class="feature-card">
             <div class="feature-icon">🌍</div>
             <h3>Coverage Seluruh Dunia</h3>
-            <p>Sakit di luar negeri? Tetap terproteksi.</p>          </div>
+            <p>Sakit di luar negeri? Tetap terproteksi.</p>
+          </div>
           <div class="feature-card">
             <div class="feature-icon">📈</div>
             <h3>Limit Naik 10%/Tahun</h3>
@@ -126,7 +114,7 @@
             <p>Nggak klaim setahun? Dapat diskon premi tahun depan.</p>
           </div>
           <div class="feature-card">
-            <div class="feature-icon">🔄</div>
+            <div class="feature-icon"></div>
             <h3>Perpanjangan Otomatis</h3>
             <p>Sampai usia 99 tahun. Proteksi jangka panjang.</p>
           </div>
@@ -139,7 +127,7 @@
       </div>
     </section>
 
-    <!-- Specs -->
+    <!-- Specs Section -->
     <section class="section specs-section">
       <div class="container">
         <h2 class="section-title">📋 Detail Produk</h2>
@@ -157,13 +145,13 @@
             <div class="spec-value">Seluruh dunia</div>
           </div>
           <div class="spec-row">
-            <div class="spec-label">Masa Tunggu</div>
-            <div class="spec-value">30 hari (penyakit), kecelakaan langsung</div>
+            <div class="spec-label">Masa Tunggu</div>            <div class="spec-value">30 hari (penyakit), kecelakaan langsung</div>
           </div>
           <div class="spec-row">
             <div class="spec-label">Premi</div>
             <div class="spec-value">Mulai Rp 2-5 juta/tahun (tergantung usia & plan)</div>
-          </div>          <div class="spec-row">
+          </div>
+          <div class="spec-row">
             <div class="spec-label">Klaim</div>
             <div class="spec-value">Cashless di RS rekanan, reimbursement untuk RS non-rekanan</div>
           </div>
@@ -171,7 +159,7 @@
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- FAQ Section -->
     <section class="section faq-section">
       <div class="container">
         <h2 class="section-title">❓ Pertanyaan Umum</h2>
@@ -196,7 +184,7 @@
       </div>
     </section>
 
-    <!-- CTA -->
+    <!-- CTA Section -->
     <section class="section cta-final">
       <div class="container">
         <h2>Siap Proteksi Kesehatan Kamu?</h2>
@@ -206,15 +194,18 @@
         </a>
       </div>
     </section>
-
   </main>
 
+  <!-- Footer akan di-load via JS -->
   <div id="footer-container"></div>
 
+  <!-- Floating WA Button -->
   <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20mau%20tanya%20MiUHC%20dong" class="floating-wa" target="_blank">
-    <i data-lucide="message-circle"></i>    <span>Chat Aku</span>
+    <i data-lucide="message-circle"></i>
+    <span>Chat Aku</span>
   </a>
 
+  <!-- Scripts -->
   <script src="../assets/js/app.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
