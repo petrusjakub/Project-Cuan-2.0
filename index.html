@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="id" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Project Cuan | Cerdas Finansial, Tenang Masa Depan ✨</title>
   <meta name="description" content="Proteksi keuangan & peluang bisnis asuransi gaya Gen-Z. Yuk, upgrade hidupmu bareng Petrus Jakub!"/>
@@ -16,26 +16,10 @@
   
   <!-- Icons (Lucide via CDN - ringan) -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <!-- Schema.org untuk SEO -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FinancialService",
-    "name": "Project Cuan",
-    "description": "Edukasi asuransi & peluang bisnis bersama Petrus Jakub",
-    "url": "https://projectcuan.petrusjakub.workers.dev",
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+62-877-8189-6087",
-      "contactType": "customer service"
-    }
-  }
-  </script>
 </head>
 <body>
 
-  <!-- Navbar akan di-inject di sini -->
+  <!-- Navbar -->
   <div id="navbar-container"></div>
 
   <!-- HERO SECTION -->
@@ -47,7 +31,8 @@
         Gaji Naik Belum Tentu Kaya.<br/>
         <span class="highlight">Punya Proteksi Baru Bikin Tenang.</span>
       </h1>
-      <p class="hero-desc">        Hey! Aku Petrus. Aku bantu kamu bangun <strong>proteksi keuangan</strong> + <strong>income exponential</strong> lewat bisnis asuransi. Santai, edukatif, no pressure. 💙
+      <p class="hero-desc">
+        Hey! Aku Petrus. Aku bantu kamu bangun <strong>proteksi keuangan</strong> + <strong>income exponential</strong> lewat bisnis asuransi. Santai, edukatif, no pressure. 💙
       </p>
       <div class="hero-cta">
         <a href="#assessment" class="btn btn-primary">
@@ -58,17 +43,11 @@
         </a>
       </div>
     </div>
-    <div class="hero-float">
-      <div class="float-card">🛡️ Proteksi</div>
-      <div class="float-card">💰 Income</div>
-      <div class="float-card">🚀 Freedom</div>
-    </div>
   </section>
 
   <!-- PROBLEM HOOK -->
   <section class="section problem">
-    <div class="container">
-      <h2 class="section-title">Pernah Kepikiran Nggak Sih... 🤔</h2>
+    <div class="container">      <h2 class="section-title">Pernah Kepikiran Nggak Sih... 🤔</h2>
       <div class="problem-grid">
         <div class="problem-card">
           <i data-lucide="heart-pulse"></i>
@@ -86,68 +65,87 @@
           <p>Mau bergantung sama anak? Atau punya passive income?</p>
         </div>
       </div>
-      <p class="problem-cta">Risiko nggak pernah minta izin. Tapi kamu bisa siap dari sekarang. ✨</p>
     </div>
   </section>
 
-  <!-- PRODUK GRID -->
+  <!-- PRODUK GRID - UPDATED WITH REAL PRODUCTS -->
   <section id="produk" class="section products">
     <div class="container">
-      <h2 class="section-title">Produk Proteksi & Investasi 🎯</h2>
-      <p class="section-subtitle">Klik card buat lihat detail. Semua produk dari Manulife Indonesia.</p>
+      <h2 class="section-title">Solusi Proteksi & Investasi 🎯</h2>
+      <p class="section-subtitle">Klik card buat lihat detail. Semua produk legal & terawasi OJK.</p>
       
-      <div class="product-grid">        <!-- PAP -->
-        <a href="pages/pap.html" class="product-card">
-          <div class="card-icon">🎯</div>
-          <h3>PAP</h3>
-          <p>Pendapatan Asuransi Proteksi. Proteksi jiwa + tabungan. Cocok buat kamu yang mau aman + punya dana cair.</p>
-          <span class="card-tag">Proteksi + Tabungan</span>
+      <div class="product-grid">
+        <!-- MiUHC -->
+        <a href="pages/miuhc.html" class="product-card featured">
+          <div class="card-icon">🏥</div>
+          <h3>MiUHC</h3>
+          <p><strong>Kalo sakit, siapa yang bayar tagihan RS?</strong> MiUHC bayar SESUAI TAGIHAN di RS mana pun, seluruh dunia. Setahun nggak klaim? Limit naik 10% & diskon premi 10%.</p>
+          <span class="card-tag">Best Seller ✨</span>
         </a>
+
+        <!-- Magna Sehat -->
+        <a href="pages/magna.html" class="product-card">
+          <div class="card-icon">👨‍👩‍👧‍</div>
+          <h3>Magna Sehat</h3>
+          <p><strong>Mau proteksi 5 anggota keluarga tapi budget terbatas?</strong> 1 polis untuk Suami, Istri & 3 Anak. Premi mulai Rp 4 juta/tahun. Cashless di RS rekanan.</p>
+          <span class="card-tag">Family Plan</span>
+        </a>
+        
+        <!-- MiUCC -->
+        <a href="pages/miucc.html" class="product-card">
+          <div class="card-icon">🫀</div>
+          <h3>MiUCC</h3>
+          <p><strong>Kena penyakit kritis, biaya pengobatan dari mana?</strong> Uang tunai langsung cair 100%. Bayar 5 tahun, proteksi 20 tahun. Tetap sehat? 110% uang kembali.</p>
+          <span class="card-tag">Critical Care</span>        </a>
         
         <!-- MPDS -->
         <a href="pages/mpds.html" class="product-card">
-          <div class="card-icon">🏥</div>
+          <div class="card-icon">🤲</div>
           <h3>MPDS</h3>
-          <p>Manulife Proteksi Disease Shield. Proteksi 45+ penyakit kritis. Deteksi dini, biaya ditanggung.</p>
-          <span class="card-tag">Penyakit Kritis</span>
-        </a>
-        
-        <!-- MIUHC -->
-        <a href="pages/miuhc.html" class="product-card featured">
-          <div class="card-icon">⭐</div>
-          <h3>MIUHC</h3>
-          <p>Mi Ultimate Healthcare. Asuransi kesehatan "as charged". Rawat inap/jalan di RS mana pun, sesuai tagihan.</p>
-          <span class="card-tag">Best Seller ✨</span>
+          <p><strong>Kalo kamu tutup usia besok, keluarga bisa hidup layak berapa lama?</strong> Santunan 450x kontribusi bulanan. Bayar 5 atau 12 tahun, proteksi 12 tahun. Sehat? Premi kembali 100%.</p>
+          <span class="card-tag">Syariah</span>
         </a>
         
         <!-- MDLA -->
         <a href="pages/mdla.html" class="product-card">
-          <div class="card-icon">👨‍👩‍👧‍👦</div>
+          <div class="card-icon">🛡️</div>
           <h3>MDLA</h3>
-          <p>Manulife Dana Lifestage Advantage. Dana pendidikan anak yang terencana. Masa depan anak, prioritas.</p>
-          <span class="card-tag">Dana Pendidikan</span>
+          <p><strong>Punya tanggungan tapi budget pas-pasan?</strong> Proteksi jiwa murni dengan 3 pilihan plan. Plan A murah banget, Plan B & C ada pengembalian dana.</p>
+          <span class="card-tag">Life Protection</span>
         </a>
         
-        <!-- FLEXI -->
-        <a href="pages/flexi.html" class="product-card">
-          <div class="card-icon">💼</div>
-          <h3>MPS Flexi</h3>
-          <p>Proteksi jiwa fleksibel. Premi bisa disesuaikan. Cocok buat freelancer & entrepreneur.</p>
-          <span class="card-tag">Fleksibel</span>
-        </a>
-        
-        <!-- MIFIP -->
+        <!-- MiFIP -->
         <a href="pages/mifip.html" class="product-card">
-          <div class="card-icon">📈</div>
-          <h3>MIFIP</h3>
-          <p>Manulife Investment Fund. Investasi reksadana + proteksi. Growth potential + keamanan.</p>
-          <span class="card-tag">Investasi</span>
+          <div class="card-icon">💰</div>
+          <h3>MiFIP</h3>
+          <p><strong>Pensiun nanti mau hidup dari mana?</strong> Ciptakan passive income dengan total manfaat hingga 800%. Terima 100% lump sum + 20%/tahun selama 20 tahun.</p>
+          <span class="card-tag">800% Return</span>
         </a>
-      </div>
-      
-      <div class="view-all">        <a href="#semua-produk" class="btn btn-text">Lihat Semua Produk →</a>
-      </div>
-    </div>
+
+        <!-- PAP -->
+        <a href="pages/pap.html" class="product-card">
+          <div class="card-icon">🎯</div>
+          <h3>PAP</h3>
+          <p><strong>Punya utang/cicilan tapi nggak punya proteksi?</strong> Proteksi jiwa berjangka dengan premi mulai Rp 380rb/bulan. Solusi proteksi tinggi, biaya rendah.</p>
+          <span class="card-tag">Term Life</span>
+        </a>
+        
+        <!-- Flexi -->
+        <a href="pages/flexi.html" class="product-card">
+          <div class="card-icon">🔄</div>
+          <h3>Flexi</h3>
+          <p><strong>Hidupmu dinamis, kenapa proteksi harus kaku?</strong> Asuransi jiwa yang bisa disesuaikan kapan pun. Naikkan/turunkan proteksi sesuai kebutuhan hidupmu.</p>
+          <span class="card-tag">Flexible</span>
+        </a>
+
+        <!-- Bisnis -->
+        <a href="pages/bisnis.html" class="product-card" style="background:linear-gradient(135deg, rgba(139,92,246,0.1), var(--bg-card));border-color:var(--accent);">
+          <div class="card-icon">🚀</div>
+          <h3>Bisnis Asuransi</h3>
+          <p><strong>Gaji numpang lewat tiap bulan?</strong> Bangun sistem income yang leverage. Nggak perlu modal gede, mentor & sistem udah siap. Trip luar negeri tiap tahun!</p>
+          <span class="card-tag" style="background:rgba(139,92,246,0.15);color:var(--accent);">Income Booster</span>
+        </a>
+      </div>    </div>
   </section>
 
   <!-- PELUANG BISNIS -->
@@ -194,9 +192,9 @@
       
       <div class="quiz-container glassmorphism">
         <div id="quiz-step-1" class="quiz-step active">
-          <p class="quiz-question">1. Umur kamu sekarang?</p>          <div class="quiz-options">
-            <button class="quiz-option" data-answer="18-25">18-25 tahun</button>
-            <button class="quiz-option" data-answer="26-35">26-35 tahun</button>
+          <p class="quiz-question">1. Umur kamu sekarang?</p>
+          <div class="quiz-options">
+            <button class="quiz-option" data-answer="18-25">18-25 tahun</button>            <button class="quiz-option" data-answer="26-35">26-35 tahun</button>
             <button class="quiz-option" data-answer="36-45">36-45 tahun</button>
             <button class="quiz-option" data-answer="46+">46+ tahun</button>
           </div>
@@ -210,15 +208,13 @@
           </div>
         </div>
         
-        <!-- Tambah step sesuai kebutuhan -->
-        
         <div id="quiz-result" class="quiz-step">
           <h3>🎉 Skor Proteksimu: <span id="score">72</span>/100</h3>
           <p id="result-desc">Kamu sudah cukup aware! Tapi masih ada celah yang bisa ditutup biar makin tenang.</p>
           <div class="result-recommendation">
             <p><strong>Rekomendasi untukmu:</strong></p>
             <ul>
-              <li>✅ MIUHC (Proteksi kesehatan)</li>
+              <li>✅ MiUHC (Proteksi kesehatan)</li>
               <li>✅ PAP (Proteksi jiwa + tabungan)</li>
             </ul>
           </div>
@@ -228,22 +224,6 @@
         </div>
       </div>
     </div>
-  </section>
-
-  <!-- TESTIMONI -->
-  <section class="section testimonials">
-    <div class="container">
-      <h2 class="section-title">Kata Mereka Yang Udah Join 💬</h2>
-      <div class="testimonial-slider">
-        <div class="testimonial-card">
-          <p>"Awalnya ragu, tapi setelah konsultasi sama Kak Petrus, aku jadi paham. Sekarang punya proteksi kesehatan + side income. Life changer!"</p>
-          <div class="testimonial-author">
-            <span class="author-name">Sarah, 28</span>
-            <span class="author-role">Content Creator</span>
-          </div>
-        </div>
-        <!-- Tambah testimoni lain -->
-      </div>    </div>
   </section>
 
   <!-- CTA FINAL -->
@@ -260,11 +240,10 @@
     </div>
   </section>
 
-  <!-- Footer akan di-inject di sini -->
+  <!-- Footer -->
   <div id="footer-container"></div>
 
-  <!-- Floating WA Button -->
-  <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20mau%20tanya-tanya%20soal%20Project%20Cuan%20dong%20%F0%9F%98%8A" class="floating-wa" target="_blank" aria-label="Chat WhatsApp">
+  <!-- Floating WA Button -->  <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20aku%20mau%20tanya-tanya%20soal%20Project%20Cuan%20dong%20%F0%9F%98%8A" class="floating-wa" target="_blank" aria-label="Chat WhatsApp">
     <i data-lucide="message-circle"></i>
     <span>Chat Aku</span>
   </a>
@@ -277,7 +256,6 @@
   <!-- Scripts -->
   <script src="assets/js/app.js"></script>
   <script>
-    // Init Lucide icons setelah DOM load
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
     });
