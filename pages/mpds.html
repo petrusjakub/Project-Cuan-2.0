@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPDS | Project Cuan</title>
+    <meta name="description" content="Manulife Perlindungan Diri Syariah. Asuransi jiwa syariah dengan pengembalian kontribusi.">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Styling Form Kalkulator Khusus MPDS */
+        .calc-field select, .calc-field input { width: 100%; padding: 10px 12px; border: 2px solid rgba(128, 128, 128, 0.2); border-radius: 8px; font-size: 1rem; background: var(--card-bg); color: var(--text-color); margin-top: 5px; font-weight: 600; transition: all 0.3s ease; }
+        .calc-field select:focus, .calc-field input:focus { border-color: var(--primary); outline: none; }
+        .calc-row { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .calc-field { flex: 1; min-width: 200px; text-align: left; }
+        
+        .payment-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 15px; }
+        .payment-item { background: var(--card-bg); border: 1px solid rgba(128, 128, 128, 0.2); border-radius: 8px; padding: 15px; text-align: left; position: relative; overflow: hidden; transition: transform 0.3s ease; }
+        .payment-item:hover { transform: translateY(-3px); border-color: var(--primary); box-shadow: 0 4px 15px rgba(37,99,235,0.1); }
+        .payment-item .label { font-size: 0.85rem; opacity: 0.7; margin-bottom: 5px; }
+        .payment-item .amount { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
+        .payment-item .sub-amount { font-size: 0.85rem; color: var(--text-color); opacity: 0.8; margin-top: 5px; }
+        
+        .accent-item { border-color: var(--success); background: rgba(16, 185, 129, 0.05); }
+        .accent-item .amount { color: var(--success); }
+        
+        .password-overlay input { text-align: center; max-width: 250px; }
+    </style>
+</head>
+<body>
+    
+    <!-- Injeksi Navbar Universal -->
+    <div id="navbar-container"></div>
+
+    <main style="padding-top: 100px;">
+        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
+            <span class="section-badge">Asuransi Jiwa Syariah</span>
+            <h1 class="section-title">MPDS</h1>
+            <p class="section-subtitle">Manulife Perlindungan Diri Syariah. Solusi cerdas melindungi keluarga dengan prinsip tolong-menolong, ditambah kepastian pengembalian kontribusi di akhir masa polis.</p>
+        </section>
+
+        <!-- Grid Manfaat Utama -->
+        <section class="section-container">
+            <div class="produk-grid" style="margin-bottom: 4rem;">
+                
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Proteksi Jiwa</span>
+                        <h3>Santunan Asuransi</h3>
+                        <p>Keluarga menerima santunan tunai hingga 450x lipat dari kontribusi bulanan Anda jika terjadi risiko tutup usia. Warisan instan yang sangat terjangkau.</p>
+                    </div>
+                </div>
+
+                <div class="produk-card">
+                    <div class="card-accent" style="background: var(--primary);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Ekstra Proteksi</span>
+                        <h3>Manfaat Kecelakaan</h3>
+                        <p>Jika risiko tutup usia disebabkan oleh kecelakaan, keluarga akan menerima tambahan santunan sebesar 50% (Maksimal tambahan hingga Rp 1,2 Miliar).</p>
+                    </div>
+                </div>
+
+                <div class="produk-card" style="border: 2px solid var(--success);">
+                    <div class="card-accent" style="background: var(--success);"></div>
+                    <div class="card-content">
+                        <span class="prod-tag">Pasti Untung</span>
+                        <h3>Pengembalian Kontribusi</h3>
+                        <p>Tidak ada uang yang hangus sia-sia! Jika Anda sehat walafiat hingga akhir tahun ke-12, kontribusi yang telah Anda bayarkan akan dikembalikan (Hingga 100%).</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Kalkulator UI -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
+                <h2>Kalkulator Instan MPDS</h2>
+                <p style="margin-bottom: 2rem; opacity: 0.8;">Hanya bayar 5 atau 12 Tahun. Nikmati proteksi 12 Tahun penuh.</p>
+                
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Usia Masuk Peserta</label>
+                        <select id="calc-usia" onchange="calculate()"></select>
+                    </div>
+                    <div class="calc-field">
+                        <label>Masa Bayar (MPK)</label>
+                        <select id="calc-mpk" onchange="calculate()">
+                            <option value="5">5 Tahun (Santunan 250x Bulanan)</option>
+                            <option value="12" selected>12 Tahun (Santunan 450x Bulanan)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="calc-row">
+                    <div class="calc-field">
+                        <label>Frekuensi Bayar</label>
+                        <select id="calc-mode" onchange="updateMinimal(); calculate()">
+                            <option value="1">Bulanan</option>
+                            <option value="3">Kuartalan</option>
+                            <option value="6">Semesteran</option>
+                            <option value="12" selected>Tahunan</option>
+                        </select>
+                    </div>
+                    <div class="calc-field" style="flex: 2;">
+                        <label>Rencana Setoran (Kontribusi)</label>
+                        <div style="position:relative">
+                            <span style="position:absolute; left:12px; top:50%; transform:translateY(-50%); font-weight:700; color:var(--primary);">Rp</span>
+                            <input type="text" id="calc-kontribusi" inputmode="numeric" style="padding-left:45px;" placeholder="3.000.000" value="3.000.000" oninput="formatRupiahInput(this); calculate()" onblur="enforceMinimal(this); calculate()">
+                        </div>
+                        <div id="min-hint" style="font-size: 0.85rem; opacity: 0.7; margin-top: 5px; text-align: left;">Minimum: Rp 3.000.000 / Tahun</div>
+                    </div>
+                </div>
+
+                <!-- Area Hasil Kalkulasi O(1) -->
+                <div id="calc-result" style="background: rgba(37, 99, 235, 0.05); padding: 2rem; border-radius: 12px; margin-top: 2rem; border: 1px solid rgba(37,99,235,0.1);">
+                    <h3 style="text-align: left; color: var(--text-color); margin-bottom: 1rem;">Ringkasan Manfaat Pasti:</h3>
+                    
+                    <div class="payment-grid">
+                        <div class="payment-item">
+                            <div class="label">Santunan Meninggal Dunia</div>
+                            <div class="amount" id="res-jiwa">-</div>
+                            <div class="sub-amount">Perlindungan selama 12 Tahun</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Total Jika Meninggal Kecelakaan</div>
+                            <div class="amount" style="color: #EF4444;" id="res-laka">-</div>
+                            <div class="sub-amount">Santunan Dasar + Ekstra 50%</div>
+                        </div>
+                        <div class="payment-item accent-item">
+                            <div class="label">Total Premi Dikembalikan (Akhir Thn 12)</div>
+                            <div class="amount" id="res-kembali">-</div>
+                            <div class="sub-amount" id="lbl-persentase">Asumsi sehat & tidak ada klaim</div>
+                        </div>
+                        <div class="payment-item">
+                            <div class="label">Total Setoran Anda</div>
+                            <div class="amount" style="color: var(--text-color);" id="res-setor">-</div>
+                            <div class="sub-amount" id="lbl-setor">Selama masa bayar</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20ingin%20membuat%20rekening%20proteksi%20syariah%20MPDS." target="_blank" class="btn btn-primary">Buka Rekening MPDS Sekarang</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Area Partner / Komisi Rahasia -->
+        <section class="section-container" style="margin-bottom: 4rem;">
+            <div class="glassmorphism" style="padding: 2rem; border-radius: 16px;">
+                <div id="komisi-lock" class="password-overlay">
+                    <h3 style="color: var(--primary);">Area Khusus Partner Project Cuan</h3>
+                    <p style="opacity: 0.8; margin-bottom: 1.5rem;">Masukkan akses rahasia untuk melihat struktur komisi dan strategi distribusi.</p>
+                    <div style="display: flex; justify-content: center; gap: 10px;">
+                        <input type="password" id="komisi-pwd" class="btn-outline glassmorphism" placeholder="Password..." style="color: var(--text-color);" onkeypress="if(event.key==='Enter') checkKomisiPassword()">
+                        <button onclick="checkKomisiPassword()" class="btn btn-primary" style="padding: 10px 20px;">Buka Akses</button>
+                    </div>
+                    <p class="error" id="komisi-error" style="color: #EF4444; display: none; margin-top: 10px;">Akses ditolak.</p>
+                </div>
+                
+                <div id="komisi-content" class="komisi-content" style="display: none; text-align: left;">
+                    <h3 style="margin-bottom: 1rem; color: var(--success);">Blueprint Komisi MPDS</h3>
+                    <p>Produk MPDS sangat digemari nasabah karena kepastian pengembalian preminya. Gunakan produk ini sebagai <em>door opener</em> untuk nasabah yang sensitif terhadap asuransi konvensional atau unit-link.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Injeksi Footer Universal -->
+    <div id="footer-container"></div>
+
+    <script src="assets/js/app.js"></script>
+    
+    <!-- Script Logika Formula Matematika Murni (Sangat Cepat O(1)) -->
+    <script>
+        function initMpdsUI() {
+            const ageSelect = document.getElementById('calc-usia');
+            ageSelect.innerHTML = '';
+            for (let i = 0; i <= 50; i++) {
+                let opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i === 0 ? '0 Tahun (30 Hari)' : i + ' Tahun';
+                if (i === 30) opt.selected = true; // Set default 30 tahun
+                ageSelect.appendChild(opt);
+            }
+        }
+
+        function formatRupiahDisplay(num) {
+            return 'Rp ' + Math.round(num).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function parseNumber(str) {
+            return parseInt(str.replace(/[^0-9]/g, ''), 10) || 0;
+        }
+
+        function formatRupiahInput(el) {
+            let val = parseNumber(el.value);
+            if (val === 0) {
+                el.value = '';
+                return;
+            }
+            el.value = val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        }
+
+        function updateMinimal() {
+            const mode = parseInt(document.getElementById('calc-mode').value);
+            const minBulanan = 250000;
+            const minNominal = minBulanan * mode;
+            
+            const hint = document.getElementById('min-hint');
+            const modeText = mode === 1 ? 'Bulan' : mode === 3 ? 'Kuartal' : mode === 6 ? 'Semester' : 'Tahun';
+            
+            hint.textContent = `Minimum: Rp ${minNominal.toLocaleString('id-ID')} / ${modeText}`;
+            return minNominal;
+        }
+
+        function enforceMinimal(el) {
+            const min = updateMinimal();
+            let val = parseNumber(el.value);
+            if (val < min) {
+                el.value = min.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+        }
+
+        function calculate() {
+            const usia = parseInt(document.getElementById('calc-usia').value);
+            const mpk = parseInt(document.getElementById('calc-mpk').value); // 5 atau 12
+            const modeDivisor = parseInt(document.getElementById('calc-mode').value); // 1, 3, 6, 12
+            const nominalInput = parseNumber(document.getElementById('calc-kontribusi').value);
+
+            // Validasi Input Kosong
+            if (nominalInput === 0) return;
+
+            // 1. Ekstrak Kontribusi Bulanan Setara
+            const kontribusiBulanan = nominalInput / modeDivisor;
+
+            // 2. Hitung Manfaat Utama (Formula Fixed)
+            const multiplier = (mpk === 5) ? 250 : 450;
+            const santunanJiwa = kontribusiBulanan * multiplier;
+            
+            // 3. Ekstra Kecelakaan (Maks 1.2 Miliar)
+            const santunanLaka = Math.min(santunanJiwa * 0.5, 1200000000);
+            const totalLaka = santunanJiwa + santunanLaka;
+
+            // 4. Hitung Pengembalian (Maturity)
+            const totalSetor = kontribusiBulanan * 12 * mpk;
+            const rasioKembali = (usia <= 40) ? 1.0 : 0.70; // 100% untuk <=40 thn, 70% untuk 41-50 thn
+            const uangKembali = totalSetor * rasioKembali;
+
+            // Tampilkan Hasil ke Layar
+            document.getElementById('res-jiwa').textContent = formatRupiahDisplay(santunanJiwa);
+            document.getElementById('res-laka').textContent = formatRupiahDisplay(totalLaka);
+            document.getElementById('res-setor').textContent = formatRupiahDisplay(totalSetor);
+            document.getElementById('res-kembali').textContent = formatRupiahDisplay(uangKembali);
+            
+            document.getElementById('lbl-setor').textContent = `Selama ${mpk} Tahun Penuh`;
+            document.getElementById('lbl-persentase').textContent = `Pasti Kembali ${rasioKembali * 100}% (Usia Masuk ${usia} Thn)`;
+        }
+
+        function checkKomisiPassword() {
+            const pwd = document.getElementById('komisi-pwd').value;
+            if(pwd === 'manulife') { // Sesuaikan password internal Anda
+                document.getElementById('komisi-lock').style.display = 'none';
+                document.getElementById('komisi-content').style.display = 'block';
+            } else {
+                const err = document.getElementById('komisi-error');
+                err.style.display = 'block';
+                setTimeout(() => err.style.display = 'none', 2000);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            initMpdsUI();
+            updateMinimal();
+            calculate();
+        });
+    </script>
+</body>
+</html>

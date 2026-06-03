@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asuransi Perjalanan - Travel Insurance | Project Cuan</title>
+  <meta name="description" content="Asuransi perjalanan untuk perlindungan selama traveling. Medical, kehilangan bagasi, pembatalan trip.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="perjalanan">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link">
+          <i data-lucide="arrow-left"></i> Kembali
+        </a>
+        <span class="badge badge-emerald">✈️ Travel Insurance</span>
+        <h1>Asuransi Perjalanan <span class="gradient-text">Travel Tenang, Liburan Nyaman</span></h1>
+        <p>Perlindungan selama traveling dari medical emergency, kehilangan bagasi, hingga pembatalan trip.</p>
+      </div>
+    </section>
+
+    <!-- Hook Questions -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Pernah Alami Ini Saat Traveling? 😰</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card card-hover">
+            <div class="card-icon">🏥</div>
+            <h3>Sakit di luar negeri?</h3>
+            <p>Biaya RS di Singapura bisa 50-100 juta. Siapa yang tanggung?</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">🧳</div>
+            <h3>Bagasi hilang di bandara?</h3>
+            <p>Barang berharga hilang, siapa yang ganti rugi?</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">❌</div>
+            <h3>Trip batal mendadak?</h3>
+            <p>Tiket & hotel hangus, ribuan hingga puluhan juta hilang.</p>
+          </div>        </div>
+      </div>
+    </section>
+
+    <!-- Manfaat -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Perlindungan Lengkap 🛡️</h2>
+          <p>Semua yang kamu butuhkan saat traveling</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card card-hover card-emerald">
+            <div class="card-icon">🏥</div>
+            <h3>Medical Emergency</h3>
+            <p>Biaya pengobatan darurat di luar negeri hingga Rp 500 juta. Termasuk evakuasi medis.</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">🧳</div>
+            <h3>Kehilangan Bagasi</h3>
+            <p>Kompensasi hingga Rp 25 juta jika bagasi hilang, rusak, atau terlambat.</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">❌</div>
+            <h3>Pembatalan Trip</h3>
+            <p>Reimbursement tiket & hotel jika trip batal karena alasan covered.</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">✈️</div>
+            <h3>Delay Pesawat</h3>
+            <p>Kompensasi Rp 1 juta per 6 jam delay (maks Rp 5 juta).</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">📄</div>
+            <h3>Kehilangan Dokumen</h3>
+            <p>Biaya penggantian paspor dan dokumen perjalanan penting.</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">🆘</div>
+            <h3>24/7 Assistance</h3>
+            <p>Hotline darurat 24 jam untuk bantuan medis dan non-medis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kalkulator Premi -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">          <h2>Kalkulator Premi Perjalanan 🧮</h2>
+          <p>Hitung premi sesuai destinasi dan durasi perjalanan</p>
+        </div>
+        <div class="calc-wrapper">
+          <div class="form-group">
+            <label class="form-label">Destinasi</label>
+            <select id="destination" class="form-control">
+              <option value="domestic">Domestic (Indonesia)</option>
+              <option value="asia" selected>Asia (Singapura, Malaysia, Thailand, dll)</option>
+              <option value="asia-premium">Asia Premium (Jepang, Korea, Australia)</option>
+              <option value="worldwide">Worldwide (Eropa, Amerika, dll)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Durasi Perjalanan</label>
+            <select id="duration" class="form-control">
+              <option value="7">1-7 hari</option>
+              <option value="14" selected>8-14 hari</option>
+              <option value="30">15-30 hari</option>
+              <option value="60">31-60 hari</option>
+              <option value="90">61-90 hari</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Jumlah Traveler</label>
+            <select id="travelers" class="form-control">
+              <option value="1" selected>1 Orang</option>
+              <option value="2">2 Orang</option>
+              <option value="3">3 Orang</option>
+              <option value="4">4 Orang</option>
+              <option value="5">5+ Orang</option>
+            </select>
+          </div>
+
+          <div class="calc-result" id="calc-result">
+            <div class="calc-result-label">Total Premi</div>
+            <div class="calc-result-price" id="premium-result">Rp 0</div>
+            <div class="calc-result-info">
+              <div class="calc-result-row">
+                <span class="calc-result-row-label">Per Orang:</span>
+                <span class="calc-result-row-value" id="per-person">Rp 0</span>
+              </div>
+              <div class="calc-result-row">
+                <span class="calc-result-row-label">Medical Coverage:</span>
+                <span class="calc-result-row-value" id="medical-coverage">Rp 250 Juta</span>
+              </div>
+            </div>
+            <a href="#" id="wa-link" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" target="_blank">              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabel Premi -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contoh Premi per Orang 💰</h2>
+          <p>Premi untuk berbagai destinasi dan durasi</p>
+        </div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Destinasi</th>
+                <th>1-7 Hari</th>
+                <th>8-14 Hari</th>
+                <th>15-30 Hari</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Domestic</td>
+                <td>Rp 75.000</td>
+                <td>Rp 125.000</td>
+                <td>Rp 200.000</td>
+              </tr>
+              <tr>
+                <td>Asia</td>
+                <td>Rp 150.000</td>
+                <td>Rp 250.000</td>
+                <td>Rp 400.000</td>
+              </tr>
+              <tr>
+                <td>Asia Premium</td>
+                <td>Rp 250.000</td>
+                <td>Rp 400.000</td>
+                <td>Rp 650.000</td>
+              </tr>
+              <tr>
+                <td>Worldwide</td>
+                <td>Rp 400.000</td>
+                <td>Rp 650.000</td>
+                <td>Rp 1.100.000</td>
+              </tr>
+            </tbody>          </table>
+        </div>
+        <p style="text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+          *Medical coverage: Domestic Rp 100jt, Asia Rp 250jt, Asia Premium Rp 350jt, Worldwide Rp 500jt
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Pertanyaan Umum ❓</h2>
+        </div>
+        <div class="grid grid-2">
+          <div class="faq-item">
+            <h3>Apakah pre-existing condition di-cover?</h3>
+            <p>Sebagian besar asuransi perjalanan TIDAK men-cover kondisi medis yang sudah ada sebelumnya (pre-existing). Namun, beberapa produk premium menawarkan coverage terbatas untuk kondisi stabil.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Bagaimana jika trip batal?</h3>
+            <p>Jika trip batal karena alasan yang di-cover (sakit, kematian keluarga, dll), Anda bisa klaim reimbursement untuk tiket & hotel yang non-refundable hingga limit tertentu.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Apakah olahraga ekstrem di-cover?</h3>
+            <p>Sebagian besar asuransi dasar TIDAK men-cover olahraga ekstrem (diving, skydiving, dll). Anda perlu rider tambahan untuk aktivitas berisiko tinggi.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Bagaimana cara klaim medical di luar negeri?</h3>
+            <p>Hubungi hotline darurat 24/7 terlebih dahulu. Mereka akan arahkan ke RS partner. Untuk RS non-partner, bayar dulu lalu klaim reimbursement dengan dokumen lengkap.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Apakah bisa beli asuransi setelah berangkat?</h3>
+            <p>Tidak bisa. Asuransi perjalanan harus dibeli SEBELUM tanggal keberangkatan. Beberapa produk memperbolehkan pembelian hingga H-1.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Berapa lama proses klaim?</h3>
+            <p>Untuk klaim kecil (delay, kehilangan bagasi), biasanya 7-14 hari kerja. Untuk medical claim, bisa 14-30 hari kerja setelah dokumen lengkap.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Travel Tenang, Liburan Nyaman! ✈️</h2>
+          <p>Jangan biarkan kejadian tak terduga merusak liburanmu. Konsultasi gratis untuk cari perlindungan terbaik.</p>
+          <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20saya%20mau%20tanya%20asuransi%20perjalanan" class="btn btn-primary btn-lg" target="_blank">            <i data-lucide="message-circle"></i> Konsultasi Gratis
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20saya%20mau%20tanya%20asuransi%20perjalanan" class="floating-wa" target="_blank">
+    <i data-lucide="message-circle"></i>
+  </a>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    // Kalkulator Premi Perjalanan
+    function calculatePremium() {
+      const destination = document.getElementById('destination').value;
+      const duration = parseInt(document.getElementById('duration').value);
+      const travelers = parseInt(document.getElementById('travelers').value);
+      
+      // Base rates per person
+      const rates = {
+        domestic: { 7: 75000, 14: 125000, 30: 200000, 60: 350000, 90: 500000 },
+        asia: { 7: 150000, 14: 250000, 30: 400000, 60: 700000, 90: 1000000 },
+        'asia-premium': { 7: 250000, 14: 400000, 30: 650000, 60: 1100000, 90: 1500000 },
+        worldwide: { 7: 400000, 14: 650000, 30: 1100000, 60: 1800000, 90: 2500000 }
+      };
+      
+      const medicalCoverage = {
+        domestic: 'Rp 100 Juta',
+        asia: 'Rp 250 Juta',
+        'asia-premium': 'Rp 350 Juta',
+        worldwide: 'Rp 500 Juta'
+      };
+      
+      // Find closest duration
+      const durations = [7, 14, 30, 60, 90];
+      let closestDuration = durations[0];
+      for (const d of durations) {
+        if (d >= duration) {
+          closestDuration = d;
+          break;
+        }
+      }
+      
+      const perPerson = rates[destination][closestDuration];
+      const totalPremium = perPerson * travelers;
+      
+      document.getElementById('premium-result').textContent = formatRp(totalPremium);      document.getElementById('per-person').textContent = formatRp(perPerson);
+      document.getElementById('medical-coverage').textContent = medicalCoverage[destination];
+      document.getElementById('calc-result').style.display = 'block';
+      
+      // Update WhatsApp link
+      const msg = `Halo Kak Petrus, saya mau tanya asuransi perjalanan ke ${destination} untuk ${travelers} orang, ${duration} hari. Estimasi premi ${formatRp(totalPremium)}.`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(msg)}`;
+    }
+    
+    // Event listeners
+    document.getElementById('destination').addEventListener('change', calculatePremium);
+    document.getElementById('duration').addEventListener('change', calculatePremium);
+    document.getElementById('travelers').addEventListener('change', calculatePremium);
+    
+    // Calculate on load
+    calculatePremium();
+  </script>
+</body>
+</html>

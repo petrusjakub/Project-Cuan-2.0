@@ -1,0 +1,92 @@
+<!-- FILE: pages/bisnis.html -->
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Peluang Bisnis | Project Cuan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="navbar-container"></div>
+  <main>
+    <section class="section">
+      <div class="container">
+        <a href="../index.html" style="color:var(--text-muted); text-decoration:none; display:inline-block; margin-bottom:1rem">← Kembali</a>
+        <span class="badge badge-purple">🚀 Career Upgrade</span>
+        <h1>Bangun Bisnis Asuransi <span class="gradient-text">Income Exponential</span></h1>
+        <p>Gaji numpang lewat? Saatnya bangun aset yang kerja untukmu. Mentorship, sistem, & jaringan premium siap bantu kamu.</p>
+      </div>
+    </section>
+
+    <section class="section" style="background:var(--bg-secondary)">
+      <div class="container">
+        <div class="section-header"><h2>Quiz Karirmu 🎯</h2><p>Jawab 4 pertanyaan ini, aku kasih analisa personal + rekomendasi plan bisnis yang pas buat kamu.</p></div>
+        <div class="calc-wrapper" style="max-width:600px">
+          <div id="biz-1" class="quiz-step active">
+            <h3 style="text-align:center">1. Berapa penghasilanmu saat ini?</h3>
+            <div class="quiz-option" onclick="nextBiz(1,'inc','< 5jt')">💰 Di bawah 5 juta/bulan</div>
+            <div class="quiz-option" onclick="nextBiz(1,'inc','5-10jt')">💰 5 - 10 juta/bulan</div>
+            <div class="quiz-option" onclick="nextBiz(1,'inc','> 10jt')">💰 Di atas 10 juta/bulan</div>
+          </div>
+          <div id="biz-2" class="quiz-step">
+            <h3 style="text-align:center">2. Apa pekerjaanmu sekarang?</h3>
+            <div class="quiz-option" onclick="nextBiz(2,'job','Karyawan')">👔 Karyawan / PNS</div>
+            <div class="quiz-option" onclick="nextBiz(2,'job','Pengusaha')">🏢 Pengusaha / Freelancer</div>
+            <div class="quiz-option" onclick="nextBiz(2,'job','IRT/Mahasiswa')">🏠 IRT / Mahasiswa</div>
+          </div>
+          <div id="biz-3" class="quiz-step">
+            <h3 style="text-align:center">3. Apa yang paling kamu inginkan?</h3>
+            <div class="quiz-option" onclick="nextBiz(3,'goal','Income tambahan')">💵 Income tambahan tanpa resign</div>
+            <div class="quiz-option" onclick="nextBiz(3,'goal','Passive income')">📈 Passive income jangka panjang</div>
+            <div class="quiz-option" onclick="nextBiz(3,'goal','Full time')">🚀 Full-time business & jadi boss</div>
+          </div>
+          <div id="biz-4" class="quiz-step">
+            <h3 style="text-align:center">4. Berapa jam/minggu yang bisa kamu alokasikan?</h3>
+            <div class="quiz-option" onclick="showBizResult('< 5 jam')">⏱️ Di bawah 5 jam/minggu</div>
+            <div class="quiz-option" onclick="showBizResult('5-10 jam')">⏱️ 5 - 10 jam/minggu</div>
+            <div class="quiz-option" onclick="showBizResult('> 10 jam')">⏱️ Di atas 10 jam/minggu</div>
+          </div>
+          <div id="biz-result" class="quiz-step" style="text-align:center">
+            <h3>🎉 Analisa Profilmu Siap!</h3>
+            <p style="color:var(--text-muted); margin-bottom:1.5rem">Klik tombol di bawah untuk kirim semua jawaban ke WA Petrus. Aku akan kasih analisa personal + rekomendasi plan bisnis yang pas buat kamu.</p>
+            <div id="biz-summary" style="background:var(--bg-secondary); padding:1rem; border-radius:12px; text-align:left; margin-bottom:1.5rem; font-size:0.9rem"></div>
+            <a href="#" id="biz-wa" class="btn btn-purple" style="width:100%" target="_blank">📲 Kirim ke WA Petrus Sekarang</a>
+            <button class="btn btn-outline" style="width:100%; margin-top:1rem" onclick="resetBiz()">🔄 Ulangi Quiz</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="footer-container"></div>
+  <script src="../assets/js/app.js"></script>
+  <script>
+    let bizAns = {};
+    function nextBiz(step, key, val) {
+      bizAns[key] = val;
+      document.getElementById(`biz-${step}`).classList.remove('active');
+      document.getElementById(`biz-${step+1}`).classList.add('active');
+    }
+    function showBizResult(time) {
+      bizAns.time = time;
+      document.getElementById('biz-4').classList.remove('active');
+      document.getElementById('biz-result').classList.add('active');
+      
+      document.getElementById('biz-summary').innerHTML = `
+        <strong>💰 Penghasilan:</strong> ${bizAns.inc}<br>
+        <strong>💼 Pekerjaan:</strong> ${bizAns.job}<br>
+        <strong>🎯 Goal:</strong> ${bizAns.goal}<br>
+        <strong>⏱️ Waktu:</strong> ${bizAns.time}
+      `;
+      
+      const msg = `Halo Kak Petrus! 👋\n\nSaya baru aja isi Quiz Karir di Project Cuan. Ini profil saya:\n\n💰 Penghasilan: ${bizAns.inc}\n💼 Pekerjaan: ${bizAns.job}\n🎯 Goal: ${bizAns.goal}\n⏱️ Waktu: ${bizAns.time}\n\nBoleh minta analisa personal + rekomendasi plan bisnis yang cocok buat saya? 🙏`;
+      document.getElementById('biz-wa').href = `https://wa.me/6287781896087?text=${encodeURIComponent(msg)}`;
+    }
+    function resetBiz() {
+      bizAns = {};
+      document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+      document.getElementById('biz-1').classList.add('active');
+    }
+  </script>
+</body>
+</html>

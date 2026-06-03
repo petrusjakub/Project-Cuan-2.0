@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asuransi Mobil - All Risk & TLO | Project Cuan</title>
+  <meta name="description" content="Asuransi mobil All Risk dan TLO dengan premi terjangkau. Perlindungan kendaraan dari kecelakaan, pencurian, dan bencana alam.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="mobil">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link">
+          <i data-lucide="arrow-left"></i> Kembali
+        </a>
+        <span class="badge badge-emerald">🚗 Asuransi Kendaraan</span>
+        <h1>Asuransi Mobil <span class="gradient-text">All Risk & TLO</span></h1>
+        <p>Perlindungan kendaraan dari kecelakaan, pencurian, dan bencana alam. Pilih sesuai kebutuhan dan budget Anda.</p>
+      </div>
+    </section>
+
+    <!-- Hook Questions -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Pernah Pikirin Ini Nggak? 🤔</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="card card-hover">
+            <div class="card-icon">💥</div>
+            <h3>Kalau mobil lecet parah?</h3>
+            <p>Biaya cat ulang bisa 5-15 juta. Siapa yang tanggung?</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">🔓</div>
+            <h3>Kalau mobil dicuri?</h3>
+            <p>Investasi ratusan juta hilang dalam sekejap. Siap kehilangan?</p>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">🌊</div>
+            <h3>Kalau kena banjir?</h3>
+            <p>Mesin water hammer, biaya perbaikan bisa 50-100 juta.</p>
+          </div>        </div>
+      </div>
+    </section>
+
+    <!-- Jenis Perlindungan -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Pilih Perlindunganmu 🛡️</h2>
+          <p>Dua jenis perlindungan sesuai kebutuhan kendaraanmu</p>
+        </div>
+        <div class="grid grid-2">
+          <div class="card card-hover card-emerald">
+            <div class="card-icon">🛡️</div>
+            <h3>All Risk (Comprehensive)</h3>
+            <p><strong>Perlindungan menyeluruh</strong> untuk segala jenis kerusakan, dari lecet ringan hingga kehilangan total.</p>
+            <ul class="check-list">
+              <li>Kecelakaan & tabrakan</li>
+              <li>Pencurian & perampokan</li>
+              <li>Bencana alam (banjir, gempa)</li>
+              <li>Kerusakan akibat pihak ketiga</li>
+              <li>Beban biaya sendiri (own risk) rendah</li>
+            </ul>
+            <span class="card-tag">Rekomendasi untuk mobil baru</span>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">🔒</div>
+            <h3>TLO (Total Loss Only)</h3>
+            <p><strong>Perlindungan kehilangan total</strong> dengan premi lebih hemat. Cocok untuk mobil tua atau second.</p>
+            <ul class="check-list">
+              <li>Pencurian kendaraan</li>
+              <li>Kerusakan parah (>75% harga mobil)</li>
+              <li>Premi lebih terjangkau</li>
+              <li>Cocok untuk mobil second</li>
+              <li>Hemat hingga 60% vs All Risk</li>
+            </ul>
+            <span class="card-tag">Budget Friendly</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kalkulator Premi -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Kalkulator Premi Mobil 🧮</h2>
+          <p>Hitung estimasi premi tahunan kendaraanmu</p>
+        </div>
+        <div class="calc-wrapper">          <div class="form-group">
+            <label class="form-label">Jenis Perlindungan</label>
+            <select id="coverage-type" class="form-control">
+              <option value="allrisk">All Risk (Comprehensive)</option>
+              <option value="tlo">TLO (Total Loss Only)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Harga Kendaraan (Rp)</label>
+            <select id="vehicle-price" class="form-control">
+              <option value="100000000">Rp 100 Juta</option>
+              <option value="150000000">Rp 150 Juta</option>
+              <option value="200000000" selected>Rp 200 Juta</option>
+              <option value="250000000">Rp 250 Juta</option>
+              <option value="300000000">Rp 300 Juta</option>
+              <option value="400000000">Rp 400 Juta</option>
+              <option value="500000000">Rp 500 Juta</option>
+              <option value="750000000">Rp 750 Juta</option>
+              <option value="1000000000">Rp 1 Milyar</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Usia Kendaraan</label>
+            <select id="vehicle-age" class="form-control">
+              <option value="0">Baru (0-1 tahun)</option>
+              <option value="2" selected>2-5 tahun</option>
+              <option value="7">6-10 tahun</option>
+              <option value="12">11+ tahun</option>
+            </select>
+          </div>
+
+          <div class="calc-result" id="calc-result">
+            <div class="calc-result-label">Estimasi Premi Tahunan</div>
+            <div class="calc-result-price" id="premium-result">Rp 0</div>
+            <div class="calc-result-info">
+              <div class="calc-result-row">
+                <span class="calc-result-row-label">Per Bulan:</span>
+                <span class="calc-result-row-value" id="monthly-premium">Rp 0</span>
+              </div>
+              <div class="calc-result-row">
+                <span class="calc-result-row-label">Own Risk (Beban Sendiri):</span>
+                <span class="calc-result-row-value" id="own-risk">Rp 300.000/kejadian</span>
+              </div>
+            </div>
+            <a href="#" id="wa-link" class="btn btn-primary" style="width: 100%; margin-top: 1.5rem;" target="_blank">
+              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>        </div>
+      </div>
+    </section>
+
+    <!-- Tabel Premi Contoh -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Contoh Premi Tahunan 💰</h2>
+          <p>Estimasi premi untuk berbagai jenis kendaraan</p>
+        </div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Harga Mobil</th>
+                <th>All Risk</th>
+                <th>TLO</th>
+                <th>Selisih</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Rp 150 Juta</td>
+                <td>Rp 5.250.000</td>
+                <td>Rp 1.800.000</td>
+                <td style="color: var(--emerald);">Hemat 66%</td>
+              </tr>
+              <tr>
+                <td>Rp 200 Juta</td>
+                <td>Rp 7.000.000</td>
+                <td>Rp 2.400.000</td>
+                <td style="color: var(--emerald);">Hemat 66%</td>
+              </tr>
+              <tr>
+                <td>Rp 300 Juta</td>
+                <td>Rp 10.500.000</td>
+                <td>Rp 3.600.000</td>
+                <td style="color: var(--emerald);">Hemat 66%</td>
+              </tr>
+              <tr>
+                <td>Rp 500 Juta</td>
+                <td>Rp 17.500.000</td>
+                <td>Rp 6.000.000</td>
+                <td style="color: var(--emerald);">Hemat 66%</td>
+              </tr>
+              <tr>
+                <td>Rp 1 Milyar</td>
+                <td>Rp 35.000.000</td>
+                <td>Rp 12.000.000</td>                <td style="color: var(--emerald);">Hemat 66%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+          *Premi dapat bervariasi tergantung usia kendaraan, wilayah, dan faktor risiko lainnya
+        </p>
+      </div>
+    </section>
+
+    <!-- Manfaat Tambahan -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Manfaat Tambahan (Rider) ➕</h2>
+          <p>Tingkatkan perlindungan dengan rider opsional</p>
+        </div>
+        <div class="grid grid-3">
+          <div class="card card-hover">
+            <div class="card-icon">🚗</div>
+            <h3>Mobil Pengganti</h3>
+            <p>Dapatkan mobil pengganti selama mobil Anda di bengkel (maks 5 hari)</p>
+            <span class="card-tag">+Rp 500rb/tahun</span>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">🌊</div>
+            <h3>Banjir & Bencana Alam</h3>
+            <p>Perlindungan dari banjir, gempa, tsunami, dan bencana alam lainnya</p>
+            <span class="card-tag">+10% dari premi</span>
+          </div>
+          <div class="card card-hover">
+            <div class="card-icon">👥</div>
+            <h3>Tanggung Jawab Hukum</h3>
+            <p>Perlindungan jika Anda menyebabkan kerugian pada pihak ketiga</p>
+            <span class="card-tag">+Rp 300rb/tahun</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Pertanyaan Umum ❓</h2>
+        </div>
+        <div class="grid grid-2">
+          <div class="faq-item">
+            <h3>Apa bedanya All Risk dan TLO?</h3>            <p><strong>All Risk</strong> menanggung segala jenis kerusakan, dari lecet kecil hingga kehilangan total. <strong>TLO</strong> hanya menanggung jika mobil hilang atau rusak parah (>75% harga mobil). All Risk lebih mahal tapi lebih komprehensif.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Berapa own risk (beban sendiri)?</h3>
+            <p>Own risk untuk All Risk biasanya Rp 300.000 per kejadian. Untuk TLO, own risk biasanya 5% dari harga klaim atau minimal Rp 500.000.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Apakah banjir di-cover?</h3>
+            <p>Banjir biasanya merupakan rider tambahan (bukan coverage dasar). Anda perlu menambahkan rider banjir dengan tambahan premi sekitar 10% dari premi dasar.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Bagaimana cara klaim?</h3>
+            <p>Laporkan kejadian dalam 3x24 jam, siapkan foto kerusakan, STNK, SIM, dan surat keterangan kepolisian (jika ada). Ajukan klaim melalui aplikasi atau kantor cabang.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Apakah mobil tua bisa diasuransikan?</h3>
+            <p>Bisa, tapi biasanya hanya TLO untuk mobil di atas 10 tahun. Beberapa perusahaan menerima mobil hingga usia 15 tahun untuk All Risk dengan syarat tertentu.</p>
+          </div>
+          <div class="faq-item">
+            <h3>Berapa lama proses klaim?</h3>
+            <p>Untuk klaim kecil (lecet, penyok), biasanya 3-7 hari kerja. Untuk klaim besar atau kehilangan total, bisa 14-30 hari kerja setelah dokumen lengkap.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Lindungi Kendaraanmu Sekarang! 🚗</h2>
+          <p>Jangan tunggu sampai terjadi sesuatu. Konsultasi gratis untuk cari perlindungan terbaik.</p>
+          <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20saya%20mau%20tanya%20asuransi%20mobil" class="btn btn-primary btn-lg" target="_blank">
+            <i data-lucide="message-circle"></i> Konsultasi Gratis
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <a href="https://wa.me/6287781896087?text=Halo%20Kak%20Petrus%2C%20saya%20mau%20tanya%20asuransi%20mobil" class="floating-wa" target="_blank">
+    <i data-lucide="message-circle"></i>
+  </a>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    // Kalkulator Premi Mobil
+    function calculatePremium() {      const coverageType = document.getElementById('coverage-type').value;
+      const vehiclePrice = parseInt(document.getElementById('vehicle-price').value);
+      const vehicleAge = parseInt(document.getElementById('vehicle-age').value);
+      
+      // Rate dasar (persentase dari harga kendaraan)
+      let rate;
+      if (coverageType === 'allrisk') {
+        if (vehicleAge <= 1) rate = 0.035; // 3.5% untuk mobil baru
+        else if (vehicleAge <= 5) rate = 0.035; // 3.5% untuk 2-5 tahun
+        else if (vehicleAge <= 10) rate = 0.038; // 3.8% untuk 6-10 tahun
+        else rate = 0; // Tidak tersedia untuk mobil tua
+      } else {
+        rate = 0.012; // 1.2% untuk TLO (semua usia)
+      }
+      
+      const premium = Math.round(vehiclePrice * rate);
+      const monthly = Math.round(premium / 12);
+      const ownRisk = coverageType === 'allrisk' ? 'Rp 300.000/kejadian' : 'Rp 500.000 atau 5%';
+      
+      document.getElementById('premium-result').textContent = formatRp(premium);
+      document.getElementById('monthly-premium').textContent = formatRp(monthly);
+      document.getElementById('own-risk').textContent = ownRisk;
+      document.getElementById('calc-result').style.display = 'block';
+      
+      // Update WhatsApp link
+      const msg = `Halo Kak Petrus, saya mau tanya asuransi mobil ${coverageType === 'allrisk' ? 'All Risk' : 'TLO'} untuk mobil seharga ${formatRp(vehiclePrice)}. Estimasi premi ${formatRp(premium)}/tahun.`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(msg)}`;
+    }
+    
+    // Event listeners
+    document.getElementById('coverage-type').addEventListener('change', calculatePremium);
+    document.getElementById('vehicle-price').addEventListener('change', calculatePremium);
+    document.getElementById('vehicle-age').addEventListener('change', calculatePremium);
+    
+    // Calculate on load
+    calculatePremium();
+  </script>
+</body>
+</html>a

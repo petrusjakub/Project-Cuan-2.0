@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiUCC - Mi Ultimate Critical Care | Project Cuan</title>
+  <meta name="description" content="MiUCC - Asuransi penyakit kritis Manulife. Uang tunai langsung cair 100%, bayar 5 tahun, proteksi 20 tahun, uang kembali 110%.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="miucc">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link"><i data-lucide="arrow-left"></i> Kembali</a>
+        <span class="badge badge-ruby">🫀 Penyakit Kritis</span>
+        <h1>MiUCC <span class="gradient-text-warm">Mi Ultimate Critical Care</span></h1>
+        <p>Asuransi penyakit kritis Manulife. Uang tunai langsung cair 100%, bayar 5 tahun, proteksi 20 tahun. Uang kembali 110% jika sehat.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>5 Keunggulan MiUCC 🌟</h2></div>
+        <div class="grid grid-3">
+          <div class="card"><div class="card-icon">💵</div><h3>Bayar 5 Tahun</h3><p>Premi hanya dibayar 5 tahun, perlindungan 20 tahun. Hemat di awal, proteksi panjang.</p></div>
+          <div class="card"><div class="card-icon">💰</div><h3>Double Benefit</h3><p>Jika kena penyakit kritis: 100% UP + 100% total premi kembali. Double protection.</p></div>
+          <div class="card"><div class="card-icon">🫀</div><h3>50 Penyakit Kritis</h3><p>Kanker, jantung, stroke, ginjal, dan 46 penyakit kritis lainnya.</p></div>
+          <div class="card"><div class="card-icon">💵</div><h3>Uang Tunai Langsung</h3><p>Uang tunai cair langsung saat diagnosis. Bisa dipakai untuk apa saja.</p></div>
+          <div class="card"><div class="card-icon">💰</div><h3>Tidak Rugi</h3><p>Jika sehat 20 tahun, tetap dapat 110% total premi kembali. Tidak rugi.</p></div>
+          <div class="card"><div class="card-icon">✅</div><h3>Semua Dijamin</h3><p>Semua manfaat dijamin sejak hari pertama. Tidak ada risiko investasi.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>Kalkulator Premi MiUCC 🧮</h2><p>Hitung estimasi premi MiUCC sesuai profil Anda</p></div>
+        <div class="calc-wrapper">
+          <div class="form-group">
+            <label class="form-label">Jenis Kelamin</label>
+            <select id="gender" class="form-control">
+              <option value="pria">Pria</option>
+              <option value="wanita">Wanita</option>
+            </select>          </div>
+          <div class="form-group">
+            <label class="form-label">Usia Masuk</label>
+            <select id="age" class="form-control">
+              <option value="25">25 Tahun</option>
+              <option value="30" selected>30 Tahun</option>
+              <option value="35">35 Tahun</option>
+              <option value="40">40 Tahun</option>
+              <option value="45">45 Tahun</option>
+              <option value="50">50 Tahun</option>
+              <option value="55">55 Tahun</option>
+              <option value="60">60 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Uang Pertanggungan (UP)</label>
+            <select id="up" class="form-control">
+              <option value="200">Rp 200 Juta (Min)</option>
+              <option value="500">Rp 500 Juta</option>
+              <option value="1000" selected>Rp 1 Miliar</option>
+              <option value="2000">Rp 2 Miliar</option>
+              <option value="5000">Rp 5 Miliar</option>
+              <option value="10000">Rp 10 Miliar (Max)</option>
+            </select>
+          </div>
+          <button id="calc-btn" class="btn btn-primary btn-block">Hitung Estimasi Premi</button>
+          <div id="calc-result" class="calc-result">
+            <div class="calc-result-label">Estimasi Premi Tahunan</div>
+            <div class="calc-result-price" id="result-price">Rp 0</div>
+            <div class="calc-result-info" id="result-info"></div>
+            <a href="#" id="wa-link" class="btn" style="background:white;color:var(--emerald-dark);margin-top:1rem;">
+              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>Spesifikasi Produk 📋</h2></div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead><tr><th>Fitur</th><th>Keterangan</th></tr></thead>
+            <tbody>
+              <tr><td>Usia Masuk Tertanggung</td><td>6 bulan - 60 tahun</td></tr>
+              <tr><td>Pemegang Polis</td><td>Minimal 18 tahun</td></tr>
+              <tr><td>Masa Pertanggungan</td><td>20 tahun</td></tr>
+              <tr><td>Masa Bayar Premi</td><td>5 tahun</td></tr>
+              <tr><td>Mata Uang</td><td>Rupiah (IDR)</td></tr>              <tr><td>Minimum UP</td><td>Rp 200.000.000</td></tr>
+              <tr><td>Maksimum UP</td><td>Rp 10.000.000.000</td></tr>
+              <tr><td>Jumlah Penyakit</td><td>50 penyakit kritis</td></tr>
+              <tr><td>Mode Bayar</td><td>Tahunan/Semesteran/Kuartalan/Bulanan</td></tr>
+              <tr><td>Periode Eliminasi</td><td>90 hari</td></tr>
+              <tr><td>Survival Period</td><td>30 hari</td></tr>
+              <tr><td>Masa Percobaan</td><td>14 hari</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>FAQ ❓</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item"><summary>Apa itu MiUCC?</summary><p>Mi Ultimate Critical Care - asuransi penyakit kritis dari Manulife. Uang tunai langsung cair 100% saat diagnosis penyakit kritis.</p></details>
+          <details class="faq-item"><summary>Berapa penyakit yang dicover?</summary><p>50 penyakit kritis termasuk kanker, jantung, stroke, gagal ginjal, diabetes dengan komplikasi, dan lainnya.</p></details>
+          <details class="faq-item"><summary>Apa bedanya dengan asuransi kesehatan?</summary><p>Asuransi kesehatan bayar tagihan RS. MiUCC kasih uang tunai langsung untuk apa saja: pengobatan, biaya hidup, cicilan, dll.</p></details>
+          <details class="faq-item"><summary>Berapa premi MiUCC?</summary><p>Tergantung usia masuk dan UP. Contoh: Pria 30 thn, UP 1 Miliar = ~Rp 26 juta/tahun, bayar 5 tahun, proteksi 20 tahun.</p></details>
+          <details class="faq-item"><summary>Apa itu Periode Eliminasi 90 hari?</summary><p>Masa tunggu 90 hari sejak polis aktif. Klaim penyakit kritis belum bisa diajukan (kecuali karena kecelakaan).</p></details>
+          <details class="faq-item"><summary>Apa yang terjadi jika sehat 20 tahun?</summary><p>Menerima Manfaat Akhir Masa = 110% dari total premi. Uang Anda kembali lebih, tidak rugi.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Siap Proteksi dari Penyakit Kritis?</h2>
+          <p>Konsultasi gratis, tanpa paksaan.</p>
+          <a href="https://wa.me/6287781896087" class="btn" style="background:white;color:var(--emerald-dark);">💬 Chat Aku Sekarang</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+  <a href="https://wa.me/6287781896087" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    const formatRp = n => 'Rp ' + n.toLocaleString('id-ID');
+    const rates = { pria: { 25: 24000000, 30: 26070000, 35: 31000000, 40: 38500000, 45: 49500000, 50: 65000000, 55: 85000000, 60: 110000000 }, wanita: { 25: 22500000, 30: 24500000, 35: 29000000, 40: 36000000, 45: 46500000, 50: 61000000, 55: 80000000, 60: 104000000 } };
+
+    document.getElementById('calc-btn').addEventListener('click', () => {
+      const gender = document.getElementById('gender').value;
+      const age = parseInt(document.getElementById('age').value);
+      const up = parseInt(document.getElementById('up').value);      const rate = rates[gender][age];
+      if (!rate) { alert('Kombinasi belum tersedia'); return; }
+      const prem = Math.round((rate / 1000000) * (up / 1000) * 1000000);
+      document.getElementById('result-price').textContent = formatRp(prem);
+      document.getElementById('result-info').innerHTML = `
+        <div class="calc-result-row"><span>Profil</span><span>${gender === 'pria' ? 'Pria' : 'Wanita'}, ${age} thn</span></div>
+        <div class="calc-result-row"><span>UP</span><span>Rp ${up >= 1000 ? (up/1000) + ' Miliar' : up + ' Juta'}</span></div>
+        <div class="calc-result-row"><span>Masa Bayar</span><span>5 tahun</span></div>
+        <div class="calc-result-row"><span>Masa Proteksi</span><span>20 tahun</span></div>
+        <div class="calc-result-row"><span>Jika Sehat 20 thn</span><span>${formatRp(Math.round(prem*5*1.1))}</span></div>`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(`Halo Kak Petrus, saya tertarik MiUCC, ${gender} ${age} thn, UP Rp ${up >= 1000 ? (up/1000) + 'M' : up + 'jt'}. Estimasi ${formatRp(prem)}/thn.`)}`;
+      document.getElementById('calc-result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiFIP - Mi Future Income Protector | Project Cuan</title>
+  <meta name="description" content="MiFIP - Produk perencanaan keuangan Manulife. Manfaat total hingga 800% dari Dana Mapan, dengan GIO (tanpa medical checkup).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="mifip">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link"><i data-lucide="arrow-left"></i> Kembali</a>
+        <span class="badge badge-orange">💰 Future Income</span>
+        <h1>MiFIP <span class="gradient-text-warm">Mi Future Income Protector</span></h1>
+        <p>Produk perencanaan keuangan dengan manfaat total hingga 800% dari Dana Mapan. GIO - tanpa medical checkup.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>Manfaat MiFIP hingga 800% 💎</h2></div>
+        <div class="grid grid-2">
+          <div class="card"><div class="card-icon">💰</div><h3>100% Dana Mapan</h3><p>Manfaat Usia Mapan: 100% Dana Mapan cair sekaligus saat usia mapan.</p></div>
+          <div class="card"><div class="card-icon">💵</div><h3>400% Manfaat Tahunan</h3><p>20% Dana Mapan/tahun selama 20 tahun. Total 400% dari Dana Mapan.</p></div>
+          <div class="card"><div class="card-icon">💎</div><h3>200% Akhir Masa</h3><p>Manfaat akhir masa = 200% Dana Mapan sekaligus di akhir masa pertanggungan.</p></div>
+          <div class="card"><div class="card-icon">🛡️</div><h3>100% Meninggal Dunia</h3><p>Ahli waris terima 100% Dana Mapan jika meninggal + bonus 100% jika kecelakaan.</p></div>
+          <div class="card"><div class="card-icon">🛡️</div><h3>Pembebasan Premi</h3><p>Jika meninggal saat masa bayar, premi selanjutnya dibebaskan. Polis tetap aktif.</p></div>
+          <div class="card"><div class="card-icon">💲</div><h3>IDR & USD</h3><p>Tersedia dalam Rupiah dan Dollar AS. GIO - tanpa medical checkup.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>Kalkulator MiFIP 🧮</h2><p>Hitung estimasi manfaat MiFIP</p></div>
+        <div class="calc-wrapper">
+          <div class="form-group">
+            <label class="form-label">Mata Uang</label>
+            <select id="currency" class="form-control">
+              <option value="IDR">IDR (Rupiah)</option>
+              <option value="USD">USD (Dollar AS)</option>
+            </select>          </div>
+          <div class="form-group">
+            <label class="form-label">Dana Mapan</label>
+            <select id="dana" class="form-control">
+              <option value="50" selected>Rp 50 Juta (Min)</option>
+              <option value="100">Rp 100 Juta</option>
+              <option value="200">Rp 200 Juta</option>
+              <option value="500">Rp 500 Juta</option>
+              <option value="1000">Rp 1 Miliar</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Usia Mapan</label>
+            <select id="age" class="form-control">
+              <option value="25">25 Tahun</option>
+              <option value="35">35 Tahun</option>
+              <option value="45" selected>45 Tahun</option>
+              <option value="55">55 Tahun</option>
+              <option value="60">60 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Masa Pembayaran (Tahun)</label>
+            <select id="ppp" class="form-control">
+              <option value="sekali">Sekaligus</option>
+              <option value="5" selected>5 Tahun</option>
+              <option value="10">10 Tahun</option>
+            </select>
+          </div>
+          <button id="calc-btn" class="btn btn-primary btn-block">Hitung Total Manfaat</button>
+          <div id="calc-result" class="calc-result">
+            <div class="calc-result-label">Total Manfaat</div>
+            <div class="calc-result-price" id="result-price">Rp 0</div>
+            <div class="calc-result-info" id="result-info"></div>
+            <a href="#" id="wa-link" class="btn" style="background:white;color:var(--emerald-dark);margin-top:1rem;">
+              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>Spesifikasi Produk 📋</h2></div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead><tr><th>Fitur</th><th>Keterangan</th></tr></thead>
+            <tbody>
+              <tr><td>Mata Uang</td><td>IDR atau USD</td></tr>              <tr><td>Min Dana Mapan (IDR)</td><td>Rp 50.000.000</td></tr>
+              <tr><td>Min Dana Mapan (USD)</td><td>USD 5,000</td></tr>
+              <tr><td>Usia Mapan</td><td>25, 35, 45, 55, atau 60 tahun</td></tr>
+              <tr><td>Masa Pembayaran</td><td>Sekaligus, 5, atau 10 tahun</td></tr>
+              <tr><td>Mode Bayar</td><td>Bulanan/Kuartalan/Semesteran/Tahunan</td></tr>
+              <tr><td>Masa Pertanggungan</td><td>Sampai Usia Mapan + 20 tahun</td></tr>
+              <tr><td>Underwriting</td><td>GIO (tanpa medical checkup)</td></tr>
+              <tr><td>Riders</td><td>ALP Plus, WOP Plus, Payor Benefit Plus</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>FAQ ❓</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item"><summary>Apa itu MiFIP?</summary><p>Mi Future Income Protector - produk perencanaan keuangan dengan manfaat total hingga 800% dari Dana Mapan.</p></details>
+          <details class="faq-item"><summary>Apakah ada medical checkup?</summary><p>Tidak perlu medical checkup. Ini adalah produk GIO (Guaranteed Issuance Offering).</p></details>
+          <details class="faq-item"><summary>Berapa usia masuk?</summary><p>Sekaligus: 30 hari - 85 tahun. MPP 5/10 tahun: 30 hari - 70 tahun.</p></details>
+          <details class="faq-item"><summary>Berapa total manfaat?</summary><p>Hingga 800% dari Dana Mapan: 100% Usia Mapan + 400% tahunan (20 thn) + 200% akhir masa.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Siap Bangun Future Income?</h2>
+          <p>Konsultasi gratis, tanpa paksaan.</p>
+          <a href="https://wa.me/6287781896087" class="btn" style="background:white;color:var(--emerald-dark);">💬 Chat Aku Sekarang</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+  <a href="https://wa.me/6287781896087" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    const formatRp = n => 'Rp ' + n.toLocaleString('id-ID');
+    document.getElementById('calc-btn').addEventListener('click', () => {
+      const currency = document.getElementById('currency').value;
+      const dana = parseInt(document.getElementById('dana').value);
+      const age = parseInt(document.getElementById('age').value);
+      const ppp = document.getElementById('ppp').value;
+      const total = dana * 8000000;
+      document.getElementById('result-price').textContent = currency === 'IDR' ? formatRp(total) : 'USD ' + (dana*800).toLocaleString('en-US');      document.getElementById('result-info').innerHTML = `
+        <div class="calc-result-row"><span>Dana Mapan</span><span>${currency === 'IDR' ? formatRp(dana*1000000) : 'USD ' + dana.toLocaleString('en-US')}</span></div>
+        <div class="calc-result-row"><span>Usia Mapan</span><span>${age} tahun</span></div>
+        <div class="calc-result-row"><span>Masa Bayar</span><span>${ppp === 'sekali' ? 'Sekaligus' : ppp + ' tahun'}</span></div>
+        <div class="calc-result-row"><span>Total Manfaat</span><span>800% dari Dana Mapan</span></div>`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(`Halo Kak Petrus, saya tertarik MiFIP, Dana Mapan ${currency === 'IDR' ? formatRp(dana*1000000) : 'USD ' + dana.toLocaleString('en-US')}, Usia Mapan ${age} thn. Total manfaat ${currency === 'IDR' ? formatRp(total) : 'USD ' + (dana*800).toLocaleString('en-US')}.`)}`;
+      document.getElementById('calc-result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDWA - Manulife Dynamic Wealth Assurance | Project Cuan</title>
+  <meta name="description" content="MDWA - Tabungan terstruktur Manulife. Manfaat tunai PASTI & DIJAMIN. 3 plan: Anuitas, Beasiswa, Combo.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="mdwa">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link"><i data-lucide="arrow-left"></i> Kembali</a>
+        <span class="badge badge-orange">💰 Wealth Assurance</span>
+        <h1>MDWA <span class="gradient-text-warm">Manulife Dynamic Wealth Assurance</span></h1>
+        <p>Tabungan terstruktur (bukan unit-link). Manfaat tunai PASTI & DIJAMIN sejak hari pertama.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>3 Plan MDWA 💎</h2><p>Pilih sesuai tujuan finansial Anda</p></div>
+        <div class="grid grid-3">
+          <div class="card"><div class="card-icon">💲</div><h3>Plan A - Anuitas</h3><p><strong>Penghasilan Tahunan</strong> - Cash flow stabil, seperti gaji pensiun. Tahapan besar hingga 235% dari premi.</p><span class="card-tag">Passive Income</span></div>
+          <div class="card"><div class="card-icon">🎓</div><h3>Plan B - Beasiswa</h3><p><strong>Dana Pendidikan</strong> - Lump sum di akhir masa. Term tercepat 5 tahun. Total manfaat hingga 3340%.</p><span class="card-tag">Dana Pendidikan</span></div>
+          <div class="card"><div class="card-icon">💎</div><h3>Plan C - Combo</h3><p><strong>Gabungan Fleksibel</strong> - Pencairan tahunan + lump sum di akhir. Revamped living benefit hingga 172%.</p><span class="card-tag">Combo Best</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>Kalkulator MDWA 🧮</h2><p>Hitung estimasi manfaat yang akan Anda terima</p></div>
+        <div class="calc-wrapper">
+          <div class="form-group">
+            <label class="form-label">Pilih Plan</label>
+            <select id="plan" class="form-control">
+              <option value="anuitas">Plan A - Anuitas (Penghasilan Tahunan)</option>
+              <option value="beasiswa">Plan B - Beasiswa (Dana Pendidikan)</option>
+              <option value="combo">Plan C - Combo (Gabungan)</option>
+            </select>
+          </div>
+          <div class="form-group">            <label class="form-label">Mata Uang</label>
+            <select id="currency" class="form-control">
+              <option value="IDR">IDR (Rupiah)</option>
+              <option value="USD">USD (Dollar AS)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Premi Tahunan</label>
+            <select id="premium" class="form-control">
+              <option value="50" selected>Rp 50 Juta/tahun</option>
+              <option value="100">Rp 100 Juta/tahun</option>
+              <option value="150">Rp 150 Juta/tahun</option>
+              <option value="200">Rp 200 Juta/tahun</option>
+              <option value="250">Rp 250 Juta/tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Masa Pertanggungan (Tahun)</label>
+            <select id="term" class="form-control">
+              <option value="10">10 Tahun</option>
+              <option value="15">15 Tahun</option>
+              <option value="20" selected>20 Tahun</option>
+              <option value="30">30 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Masa Pembayaran (Tahun)</label>
+            <select id="ppp" class="form-control">
+              <option value="sekali">Sekaligus</option>
+              <option value="5" selected>5 Tahun</option>
+              <option value="10">10 Tahun</option>
+            </select>
+          </div>
+          <button id="calc-btn" class="btn btn-primary btn-block">Hitung Total Manfaat</button>
+          <div id="calc-result" class="calc-result">
+            <div class="calc-result-label">Total Manfaat</div>
+            <div class="calc-result-price" id="result-price">Rp 0</div>
+            <div class="calc-result-info" id="result-info"></div>
+            <a href="#" id="wa-link" class="btn" style="background:white;color:var(--emerald-dark);margin-top:1rem;">
+              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>Contoh Total Manfaat 📊</h2><p>Plan A Anuitas, IDR, Bayar 5 tahun</p></div>
+        <div class="table-wrapper">          <table class="table">
+            <thead><tr><th>Premi/Tahun</th><th>Term 20 thn</th><th>Term 30 thn</th></tr></thead>
+            <tbody>
+              <tr><td>Rp 50 Juta</td><td>Rp 554 Juta</td><td>Rp 1.1 Miliar</td></tr>
+              <tr><td>Rp 100 Juta</td><td>Rp 1.15 Miliar</td><td>Rp 2.2 Miliar</td></tr>
+              <tr><td>Rp 150 Juta</td><td>Rp 1.72 Miliar</td><td>Rp 3.3 Miliar</td></tr>
+              <tr><td>Rp 200 Juta</td><td>Rp 2.29 Miliar</td><td>Rp 4.4 Miliar</td></tr>
+              <tr><td>Rp 250 Juta</td><td>Rp 2.86 Miliar</td><td>Rp 5.5 Miliar</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>FAQ ❓</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item"><summary>Apa itu MDWA?</summary><p>Manulife Dynamic Wealth Assurance - produk tabungan terstruktur (wealth accumulation). BUKAN unit-link. Manfaat tunai DIJAMIN sejak hari pertama.</p></details>
+          <details class="faq-item"><summary>Apakah MDWA unit-link?</summary><p>BUKAN. MDWA adalah tabungan terstruktur dengan manfaat yang DIJAMIN. Tidak ada komponen investasi yang naik-turun.</p></details>
+          <details class="faq-item"><summary>Apa bedanya Plan A, B, C?</summary><p><strong>A (Anuitas):</strong> Pencairan tahunan stabil (pensiun/passive income). <strong>B (Beasiswa):</strong> Lump sum di akhir (dana pendidikan). <strong>C (Combo):</strong> Gabungan keduanya, paling fleksibel.</p></details>
+          <details class="faq-item"><summary>Berapa minimum premi?</summary><p>Sekaligus: Rp 50 Juta (IDR) atau USD 5,000. Regular: Rp 24 Juta/tahun (IDR) atau USD 2,400/tahun.</p></details>
+          <details class="faq-item"><summary>Bagaimana cara kerja pencairan Plan A?</summary><p>Sekaligus: mulai tahun ke-6. Bayar 5 thn: mulai tahun ke-10. Bayar 10 thn: mulai tahun ke-15. Berlanjut setiap tahun sampai akhir masa.</p></details>
+          <details class="faq-item"><summary>Apakah MDWA cocok ganti deposito?</summary><p>Ya, MDWA bisa jadi alternatif deposito. Return lebih tinggi & DIJAMIN, tidak terpengaruh perubahan suku bunga BI. Cocok untuk dana jangka menengah-panjang.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Siap Bangun Kekayaan Pasti?</h2>
+          <p>Konsultasi gratis, tanpa paksaan.</p>
+          <a href="https://wa.me/6287781896087" class="btn" style="background:white;color:var(--emerald-dark);">💬 Chat Aku Sekarang</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+  <a href="https://wa.me/6287781896087" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    const formatRp = n => 'Rp ' + n.toLocaleString('id-ID');
+    const rates = {
+      anuitas: { 50: { 10: 338400000, 15: 700000000, 20: 554125000, 30: 1106250000 }, 100: { 10: 602775000, 15: 1250000000, 20: 1154750000, 30: 2212500000 }, 150: { 10: 902400000, 15: 1875000000, 20: 1720950000, 30: 3318750000 }, 200: { 10: 1202025000, 15: 2500000000, 20: 2294600000, 30: 4425000000 }, 250: { 10: 1565550000, 15: 3125000000, 20: 2868250000, 30: 5531250000 } },
+      beasiswa: { 50: { 10: 501000000, 15: 500250000, 20: 700000000, 30: 1000000000 }, 100: { 10: 1002000000, 15: 1000500000, 20: 1400000000, 30: 2000000000 }, 150: { 10: 1503000000, 15: 1500750000, 20: 2100000000, 30: 3000000000 }, 200: { 10: 2004000000, 15: 2001000000, 20: 2800000000, 30: 4000000000 }, 250: { 10: 2505000000, 15: 2501250000, 20: 3500000000, 30: 5000000000 } },
+      combo: { 50: { 10: 540000000, 15: 705000000, 20: 905000000, 30: 1300000000 }, 100: { 10: 1080000000, 15: 1410000000, 20: 1810000000, 30: 2600000000 }, 150: { 10: 1620000000, 15: 2115000000, 20: 2715000000, 30: 3900000000 }, 200: { 10: 2160000000, 15: 2820000000, 20: 3620000000, 30: 5200000000 }, 250: { 10: 2700000000, 15: 3525000000, 20: 4525000000, 30: 6500000000 } }
+    };
+    document.getElementById('calc-btn').addEventListener('click', () => {
+      const plan = document.getElementById('plan').value;
+      const currency = document.getElementById('currency').value;
+      const premium = parseInt(document.getElementById('premium').value);
+      const term = parseInt(document.getElementById('term').value);
+      const ppp = document.getElementById('ppp').value;
+      const rate = rates[plan][premium][term];
+      if (!rate) { alert('Kombinasi belum tersedia'); return; }
+      let total = rate;
+      if (ppp === 'sekali') total *= 1.2;
+      if (ppp === '10') total *= 0.9;
+      document.getElementById('result-price').textContent = formatRp(total);
+      document.getElementById('result-info').innerHTML = `
+        <div class="calc-result-row"><span>Plan</span><span>${plan.charAt(0).toUpperCase() + plan.slice(1)}</span></div>
+        <div class="calc-result-row"><span>Premi</span><span>${formatRp(premium*1000000)}/thn</span></div>
+        <div class="calc-result-row"><span>Masa Bayar</span><span>${ppp === 'sekali' ? 'Sekaligus' : ppp + ' tahun'}</span></div>
+        <div class="calc-result-row"><span>Term</span><span>${term} tahun</span></div>`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(`Halo Kak Petrus, saya tertarik MDWA Plan ${plan}, premi ${formatRp(premium*1000000)}/thn, term ${term} thn. Total manfaat ${formatRp(total)}.`)}`;
+      document.getElementById('calc-result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

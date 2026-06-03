@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magna Sehat Premium | Project Cuan</title>
+  <meta name="description" content="Magna Sehat Premium - 1 polis untuk 5 anggota keluarga dari MAG Insurance.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    /* Magna Orange Theme Override */
+    :root {
+      --magna-primary: #F97316;
+      --magna-dark: #EA580C;
+    }
+    
+    .magna-badge { background: rgba(249, 115, 22, 0.1); color: var(--magna-primary); }
+    .magna-highlight { color: var(--magna-primary); }
+    
+    .magna-card:hover {
+      border-color: var(--magna-primary);
+    }
+    
+    .magna-result {
+      background: linear-gradient(135deg, #9a3412, #ea580c);
+    }
+  </style>
+</head>
+<body data-page="magna">
+  <div id="navbar-container"></div>
+  
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <div class="page-header-content">
+          <a href="/index.html" class="back-link"><i data-lucide="arrow-left"></i> Kembali</a>
+          <span class="badge magna-badge">❤️ MAG Insurance</span>
+          <h1>Magna Sehat <span style="color: var(--magna-primary);">Premium</span></h1>
+          <p><strong>1 polis untuk 5 anggota keluarga</strong> — Suami, Istri, max 3 anak. Cashless di RS Rekanan MAG.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">      <div class="container">
+        <div class="section-header">
+          <h2>Keunggulan Magna Sehat Premium</h2>
+        </div>
+        <div class="grid grid-2">
+          <div class="card magna-card">
+            <div class="card-icon">👨‍👩‍👧‍👦</div>
+            <h3>1 Polis = 5 Orang</h3>
+            <p>Suami + Istri + max 3 anak dalam 1 polis. Lebih hemat & praktis.</p>
+          </div>
+          <div class="card magna-card">
+            <div class="card-icon">💳</div>
+            <h3>Cashless di RS Rekanan</h3>
+            <p>Cukup tunjukin kartu, gak perlu bayar di muka di 1000+ RS Rekanan MAG.</p>
+          </div>
+          <div class="card magna-card">
+            <div class="card-icon">⏱️</div>
+            <h3>Pemulihan 14 Hari</h3>
+            <p>Diagnosa sama/berhubungan? Masa pemulihan hanya 14 hari (vs 30 hari di versi basic).</p>
+          </div>
+          <div class="card magna-card">
+            <div class="card-icon">💉</div>
+            <h3>Kemoterapi & Hemodialisa</h3>
+            <p>Termasuk paket kemoterapi & hemodialisa termasuk cimino.</p>
+          </div>
+          <div class="card magna-card">
+            <div class="card-icon">🤰</div>
+            <h3>Komplikasi Kehamilan</h3>
+            <p>Perlindungan untuk komplikasi kehamilan (tidak ada di versi basic).</p>
+          </div>
+          <div class="card magna-card">
+            <div class="card-icon">💰</div>
+            <h3>Refund Premi Prorate</h3>
+            <p>Refund premi prorate di tengah periode polis (jika tidak ada klaim).</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header">
+          <h2>Kalkulator Premi Magna Sehat</h2>
+          <p>Hitung estimasi premi berdasarkan profil keluarga Anda</p>
+        </div>
+        
+        <div class="calc-wrapper">
+          <div class="form-group">
+            <label class="form-label">Kepesertaan</label>
+            <div class="radio-group">              <label class="radio-label">
+                <input type="radio" name="kep" value="individu" checked>
+                <span>Individu</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="kep" value="pasangan">
+                <span>+ Pasangan/Anak</span>
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="kep" value="keluarga">
+                <span>Keluarga (5 Org)</span>
+              </label>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="magna-age">Usia Tertua</label>
+            <select id="magna-age" class="form-control">
+              <option value="40">s/d 40 Tahun</option>
+              <option value="55">41-55 Tahun</option>
+              <option value="70">56-70 Tahun (Renewal)</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label" for="magna-plan">Pilih Plan</label>
+            <select id="magna-plan" class="form-control">
+              <option value="A">Plan A (Kamar 350rb)</option>
+              <option value="B">Plan B (Kamar 500rb)</option>
+              <option value="C">Plan C (Kamar 800rb)</option>
+              <option value="D">Plan D (Kamar 1.2jt)</option>
+              <option value="E">Plan E (Kamar 1.6jt)</option>
+              <option value="F">Plan F (Kamar 2jt)</option>
+            </select>
+          </div>
+          
+          <button id="calc-btn" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, var(--magna-primary), var(--magna-dark));">
+            Hitung Premi Sekarang
+          </button>
+          
+          <div class="calc-result magna-result" id="calc-result">
+            <div class="calc-result-label">Estimasi Premi Tahunan</div>
+            <div class="calc-result-price" id="calc-price">Rp 0</div>
+            <div class="calc-result-period" id="calc-period">per tahun</div>
+            <div class="calc-result-info" id="calc-info"></div>
+            <div class="calc-result-cta">
+              <a href="#" id="wa-link" class="btn" target="_blank">
+                <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+              </a>
+            </div>          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Manfaat Rawat Inap per Plan</h2>
+        </div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Manfaat</th>
+                <th>Plan A</th>
+                <th>Plan B</th>
+                <th>Plan C</th>
+                <th>Plan D</th>
+                <th>Plan E</th>
+                <th>Plan F</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Biaya Kamar/Hari</strong></td>
+                <td>Rp 350rb</td>
+                <td>Rp 500rb</td>
+                <td>Rp 800rb</td>
+                <td>Rp 1.2jt</td>
+                <td>Rp 1.6jt</td>
+                <td>Rp 2jt</td>
+              </tr>
+              <tr>
+                <td><strong>ICU/Hari</strong></td>
+                <td>Rp 700rb</td>
+                <td>Rp 1jt</td>
+                <td>Rp 1.6jt</td>
+                <td>Rp 2.4jt</td>
+                <td>Rp 3.2jt</td>
+                <td>Rp 4jt</td>
+              </tr>
+              <tr>
+                <td><strong>Kunjungan Dokter/Hari</strong></td>
+                <td>Rp 175rb</td>
+                <td>Rp 250rb</td>
+                <td>Rp 400rb</td>
+                <td>Rp 600rb</td>
+                <td>Rp 800rb</td>
+                <td>Rp 1jt</td>              </tr>
+              <tr>
+                <td><strong>Aneka Perawatan</strong></td>
+                <td>Rp 13.1jt</td>
+                <td>Rp 18.7jt</td>
+                <td>Rp 37.5jt</td>
+                <td>Rp 50jt</td>
+                <td>Rp 62.5jt</td>
+                <td>Rp 75jt</td>
+              </tr>
+              <tr>
+                <td><strong>Dokter Bedah</strong></td>
+                <td>Rp 26.2jt</td>
+                <td>Rp 37.5jt</td>
+                <td>Rp 75jt</td>
+                <td>Rp 100jt</td>
+                <td>Rp 125jt</td>
+                <td>Rp 150jt</td>
+              </tr>
+              <tr>
+                <td><strong>Kemoterapi & Hemodialisa/Tahun</strong></td>
+                <td>Rp 3.5jt</td>
+                <td>Rp 5jt</td>
+                <td>Rp 8jt</td>
+                <td>Rp 12jt</td>
+                <td>Rp 16jt</td>
+                <td>Rp 20jt</td>
+              </tr>
+              <tr>
+                <td><strong>Santunan Kecelakaan</strong></td>
+                <td>Rp 20jt</td>
+                <td>Rp 25jt</td>
+                <td>Rp 50jt</td>
+                <td>Rp 65jt</td>
+                <td>Rp 85jt</td>
+                <td>Rp 100jt</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Tabel Premi (s/d 40 Tahun)</h2>
+        </div>
+        <div class="table-wrapper">
+          <table class="table">            <thead>
+              <tr>
+                <th>Kepesertaan</th>
+                <th>Plan A</th>
+                <th>Plan B</th>
+                <th>Plan C</th>
+                <th>Plan D</th>
+                <th>Plan E</th>
+                <th>Plan F</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Individu</strong></td>
+                <td>Rp 1.286.000</td>
+                <td>Rp 1.718.000</td>
+                <td>Rp 2.781.000</td>
+                <td>Rp 3.875.000</td>
+                <td>Rp 4.958.000</td>
+                <td>Rp 6.039.000</td>
+              </tr>
+              <tr>
+                <td><strong>+ Pasangan/Anak</strong></td>
+                <td>Rp 2.075.000</td>
+                <td>Rp 2.771.000</td>
+                <td>Rp 4.487.000</td>
+                <td>Rp 6.250.000</td>
+                <td>Rp 7.998.000</td>
+                <td>Rp 9.742.000</td>
+              </tr>
+              <tr>
+                <td><strong>Keluarga (5 Org)</strong></td>
+                <td>Rp 4.629.000</td>
+                <td>Rp 6.185.000</td>
+                <td>Rp 10.011.000</td>
+                <td>Rp 13.949.000</td>
+                <td>Rp 17.848.000</td>
+                <td>Rp 21.740.000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2>Pertanyaan Umum</h2>
+        </div>        <div class="faq-list">
+          <details class="faq-item">
+            <summary>Berapa usia masuk Magna Sehat?</summary>
+            <p>Dewasa: 21-55 tahun (bisa diperpanjang s/d usia 70 tahun). Anak: 15 hari - 25 tahun (selama masih sekolah, belum bekerja atau belum berkeluarga).</p>
+          </details>
+          <details class="faq-item">
+            <summary>Apa itu Toleransi Kelas Kamar?</summary>
+            <p><strong>Atas Permintaan Sendiri:</strong> Berlaku sistem Reimbursement. <strong>Jika Penuh/Tidak Tersedia:</strong> Toleransi naik 1 tingkat selama 2x24 jam (gratis).</p>
+          </details>
+          <details class="faq-item">
+            <summary>Santunan Harian BPJS Kesehatan?</summary>
+            <p>Jika sudah dijamin 100% oleh BPJS Kesehatan, tetap mendapat santunan harian maks. 365 hari per tahun.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Berapa masa kadaluarsa klaim?</summary>
+            <p>30 hari (Jabodetabek), 60 hari (luar Jabodetabek), 30 hari (reklaim).</p>
+          </details>
+          <details class="faq-item">
+            <summary>Apa itu COB (Coordination of Benefits)?</summary>
+            <p>Coordination of Benefits dengan BPJS Kesehatan atau Asuransi Komersial lainnya.</p>
+          </details>
+          <details class="faq-item">
+            <summary>Pre-Existing Conditions?</summary>
+            <p>Pre-Existing Conditions <strong>tidak dijamin selamanya</strong> untuk Magna Sehat Premium. Ini berbeda dari versi basic yang menjamin di tahun ke-2.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <div class="cta-final" style="background: linear-gradient(135deg, var(--magna-primary), var(--magna-dark));">
+          <h2>Lindungi Seluruh Keluarga</h2>
+          <p>1 polis untuk 5 orang. Konsultasi gratis, tanpa paksaan.</p>
+          <a href="https://wa.me/6287781896087" class="btn" target="_blank">
+            <i data-lucide="message-circle"></i> Chat Aku Sekarang
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+  <div id="footer-container"></div>
+  
+  <script src="../assets/js/app.js"></script>
+  <script>
+    // Data premi Magna Sehat
+    const magnaPremium = {
+      '40': {
+        individu: { A: 1286000, B: 1718000, C: 2781000, D: 3875000, E: 4958000, F: 6039000 },        pasangan: { A: 2075000, B: 2771000, C: 4487000, D: 6250000, E: 7998000, F: 9742000 },
+        keluarga: { A: 4629000, B: 6185000, C: 10011000, D: 13949000, E: 17848000, F: 21740000 }
+      },
+      '55': {
+        individu: { A: 1478900, B: 1975700, C: 3198200, D: 4456300, E: 5701700, F: 6944900 },
+        pasangan: { A: 3697250, B: 4939250, C: 7995500, D: 11140750, E: 14254250, F: 17362250 },
+        keluarga: { A: 5545875, B: 7408875, C: 11993250, D: 16711125, E: 21381375, F: 26043375 }
+      },
+      '70': {
+        individu: { A: 1608000, B: 2148000, C: 3477000, D: 4844000, E: 6198000, F: 7549000 },
+        pasangan: { A: 4020000, B: 5370000, C: 8692500, D: 12110000, E: 15495000, F: 18872500 },
+        keluarga: { A: 6030000, B: 8055000, C: 13038750, D: 18165000, E: 23242500, F: 28308750 }
+      }
+    };
+    
+    function formatRp(n) {
+      return 'Rp ' + n.toLocaleString('id-ID');
+    }
+    
+    function calculate() {
+      const kep = document.querySelector('input[name="kep"]:checked').value;
+      const age = document.getElementById('magna-age').value;
+      const plan = document.getElementById('magna-plan').value;
+      
+      const premium = magnaPremium[age][kep][plan];
+      const monthly = Math.round(premium / 12);
+      
+      document.getElementById('calc-price').textContent = formatRp(premium);
+      document.getElementById('calc-period').textContent = `per tahun (≈ ${formatRp(monthly)}/bulan)`;
+      document.getElementById('calc-info').innerHTML = `
+        <div class="calc-result-row"><span>Kepesertaan</span><span>${kep === 'individu' ? 'Individu' : kep === 'pasangan' ? '+ Pasangan/Anak' : 'Keluarga (5 Org)'}</span></div>
+        <div class="calc-result-row"><span>Plan</span><span>Plan ${plan} (Kamar ${plan === 'A' ? '350rb' : plan === 'B' ? '500rb' : plan === 'C' ? '800rb' : plan === 'D' ? '1.2jt' : plan === 'E' ? '1.6jt' : '2jt'})</span></div>
+        <div class="calc-result-row"><span>Usia Tertua</span><span>${age === '40' ? 's/d 40 Thn' : age === '55' ? '41-55 Thn' : '56-70 Thn'}</span></div>
+      `;
+      
+      const msg = `Halo Kak Petrus, aku tertarik Magna Sehat Premium Plan ${plan} untuk ${kep === 'individu' ? 'Individu' : kep === 'pasangan' ? '+ Pasangan/Anak' : 'Keluarga (5 Org)'}, usia tertua ${age} thn. Estimasi ${formatRp(premium)}/thn.`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(msg)}`;
+      
+      document.getElementById('calc-result').style.display = 'block';
+      document.getElementById('calc-result').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    
+    document.getElementById('calc-btn').addEventListener('click', calculate);
+    calculate();
+  </script>
+</body>
+</html>

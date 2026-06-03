@@ -1,0 +1,944 @@
+<!-- 
+  FILE: pages/miuhc.html
+  Halaman MiUHC dengan kalkulator lengkap
+-->
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MiUHC - Asuransi Kesehatan Premium | Project Cuan</title>
+  <meta name="description" content="MiUHC - Asuransi kesehatan as charged terbaik dari Manulife Indonesia. Kalkulator premi akurat.">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <style>
+    /* Anti-copy protection */
+    body {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    
+    input, textarea, select {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+    
+    img {
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      -o-user-drag: none;
+      user-drag: none;
+    }
+    
+    /* Page specific styles */
+    .page-hero {
+      padding: 3rem 0;
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.05), rgba(8, 145, 178, 0.05));
+      border-bottom: 1px solid var(--border);
+    }
+        .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1rem;
+    }
+    
+    .page-hero p {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+    }
+    
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      transition: var(--transition);
+    }
+    
+    .back-link:hover {
+      color: var(--primary);
+    }
+    
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    .benefit-card {
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      transition: var(--transition);
+    }
+    
+    .benefit-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--primary);
+    }
+    
+    .benefit-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }    
+    .benefit-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .benefit-card p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+    
+    /* Calculator Styles */
+    .calculator-section {
+      background: var(--bg-secondary);
+      padding: 4rem 0;
+    }
+    
+    .calculator-card {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+    }
+    
+    .calculator-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .calculator-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    
+    .form-select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg-primary);
+      color: var(--text);
+      font-size: 1rem;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .form-select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+    }
+    
+    .radio-group {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.75rem;
+    }
+    
+    .radio-option {
+      position: relative;
+      cursor: pointer;
+    }
+    
+    .radio-option input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+    
+    .radio-label {
+      display: flex;      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+    
+    .radio-option input:checked + .radio-label {
+      border-color: var(--primary);
+      background: rgba(5, 150, 105, 0.1);
+      color: var(--primary);
+    }
+    
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      padding: 0.75rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    
+    .checkbox-option:hover {
+      border-color: var(--primary);
+      background: rgba(5, 150, 105, 0.05);
+    }
+    
+    .checkbox-option input {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+    
+    .calc-result {
+      margin-top: 2rem;
+      padding: 2rem;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      display: none;
+      animation: slideUp 0.4s ease;
+    }
+    
+    @keyframes slideUp {      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .result-label {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      margin-bottom: 0.5rem;
+    }
+    
+    .result-price {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 0.5rem;
+    }
+    
+    .result-period {
+      font-size: 0.95rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+    
+    .result-details {
+      margin-top: 1.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      font-size: 0.95rem;
+    }
+    
+    .result-row-label {
+      opacity: 0.8;
+    }
+    
+    .result-row-value {
+      font-weight: 600;
+    }
+    
+    .result-cta {      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .result-cta .btn {
+      flex: 1;
+      min-width: 200px;
+    }
+    
+    /* Table Styles */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 2rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+    
+    .data-table thead {
+      background: var(--bg-secondary);
+    }
+    
+    .data-table th {
+      padding: 1rem;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text);
+      border-bottom: 2px solid var(--border);
+    }
+    
+    .data-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .data-table tbody tr:hover {
+      background: var(--bg-secondary);
+    }
+    
+    .highlight-row {
+      background: rgba(5, 150, 105, 0.05);
+    }
+        /* FAQ Styles */
+    .faq-section {
+      background: var(--bg-secondary);
+      padding: 4rem 0;
+    }
+    
+    .faq-list {
+      display: grid;
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .faq-item:hover {
+      border-color: var(--primary);
+    }
+    
+    .faq-item details {
+      padding: 1.5rem;
+    }
+    
+    .faq-item summary {
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    .faq-item summary::after {
+      content: '+';
+      font-size: 1.5rem;
+      font-weight: 300;
+      transition: var(--transition);
+    }
+    
+    .faq-item details[open] summary::after {      transform: rotate(45deg);
+    }
+    
+    .faq-item details p {
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 4rem 0;
+      text-align: center;
+    }
+    
+    .cta-section h2 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+    
+    .cta-section p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+    }
+    
+    .cta-section .btn {
+      background: white;
+      color: var(--primary);
+    }
+    
+    .cta-section .btn:hover {
+      background: var(--primary-dark);
+      color: white;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .calculator-card {
+        padding: 1.5rem;
+      }
+      
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .result-cta {
+        flex-direction: column;      }
+      
+      .result-cta .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body data-page="miuhc">
+  <div id="navbar-container"></div>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <a href="/" class="back-link">
+        <i data-lucide="arrow-left"></i>
+        <span>Kembali ke Beranda</span>
+      </a>
+      <span class="badge badge-emerald">🏆 Best Seller</span>
+      <h1>Mi Ultimate Healthcare <span class="gradient-text">(MiUHC)</span></h1>
+      <p>Asuransi kesehatan "As Charged" terbaik dari Manulife Indonesia. Bayar sesuai tagihan, tanpa sub-limit.</p>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Keunggulan MiUHC</h2>
+        <p>Proteksi kesehatan terbaik dengan manfaat luar biasa</p>
+      </div>
+      
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">💳</div>
+          <h3>Cashless Seluruh Dunia</h3>
+          <p>Cukup tunjukkan kartu di RS rekanan, tanpa bayar di muka. Tersedia di 1000+ RS di Indonesia & luar negeri.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">💰</div>
+          <h3>As Charged</h3>
+          <p>Bayar sesuai tagihan RS, tanpa sub-limit per item. Semua biaya ditanggung sesuai tagihan.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">📈</div>
+          <h3>No-Claim Bonus</h3>
+          <p>Limit naik 10% per tahun jika tidak klaim (maks 50%). Makin sehat, makin besar proteksi.</p>
+        </div>        
+        <div class="benefit-card">
+          <div class="benefit-icon">💸</div>
+          <h3>No-Claim Discount</h3>
+          <p>Diskon premi 10% di tahun berikutnya jika tidak klaim (maks 15%). Makin sehat, makin hemat.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">🔄</div>
+          <h3>Renewable Seumur Hidup</h3>
+          <p>Polis bisa diperpanjang seumur hidup tanpa batas usia maksimal setelah menjadi nasabah.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">🛡️</div>
+          <h3>Asuransi Jiwa Included</h3>
+          <p>Semua plan sudah termasuk asuransi jiwa Rp 30 juta. Proteksi lengkap dalam satu polis.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator Section -->
+  <section class="calculator-section" id="calculator">
+    <div class="container">
+      <div class="calculator-card">
+        <div class="calculator-header">
+          <div class="calculator-icon">
+            <i data-lucide="calculator"></i>
+          </div>
+          <div>
+            <h2 style="margin: 0;">Kalkulator Premi MiUHC</h2>
+            <p style="margin: 0; color: var(--text-secondary);">Hitung estimasi premi berdasarkan profil Anda</p>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <!-- Jenis Produk -->
+          <div class="form-group">
+            <label class="form-label">Jenis Produk</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="product" value="konv" checked>
+                <label class="radio-label">Konvensional</label>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="product" value="sya">
+                <label class="radio-label">Syariah</label>
+              </label>
+            </div>          </div>
+
+          <!-- Jenis Kelamin -->
+          <div class="form-group">
+            <label class="form-label">Jenis Kelamin</label>
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="gender" value="P" checked>
+                <label class="radio-label">Pria</label>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="gender" value="W">
+                <label class="radio-label">Wanita</label>
+              </label>
+            </div>
+          </div>
+
+          <!-- Usia -->
+          <div class="form-group">
+            <label class="form-label" for="age">Usia</label>
+            <select id="age" class="form-select">
+              <option value="0">0 tahun</option>
+              <option value="5">5 tahun</option>
+              <option value="10">10 tahun</option>
+              <option value="15">15 tahun</option>
+              <option value="20">20 tahun</option>
+              <option value="25" selected>25 tahun</option>
+              <option value="30">30 tahun</option>
+              <option value="35">35 tahun</option>
+              <option value="40">40 tahun</option>
+              <option value="45">45 tahun</option>
+              <option value="50">50 tahun</option>
+              <option value="55">55 tahun</option>
+              <option value="60">60 tahun</option>
+              <option value="65">65 tahun</option>
+              <option value="70">70 tahun</option>
+              <option value="75">75 tahun</option>
+            </select>
+          </div>
+
+          <!-- Plan -->
+          <div class="form-group">
+            <label class="form-label" for="plan">Plan</label>
+            <select id="plan" class="form-select">
+              <option value="Diamond">Diamond (Unlimited)</option>
+              <option value="Ruby">Ruby (90 Milyar)</option>
+              <option value="Emerald">Emerald (35 Milyar)</option>
+              <option value="Topaz">Topaz (18 Milyar)</option>
+              <option value="Topaz ID">Topaz ID (18 Milyar)</option>
+              <option value="Jade">Jade (10 Milyar)</option>              <option value="Jade ID" selected>Jade ID (10 Milyar)</option>
+              <option value="Sapphire">Sapphire (5 Milyar)</option>
+            </select>
+          </div>
+
+          <!-- Smart Plan -->
+          <div class="form-group">
+            <label class="checkbox-option">
+              <input type="checkbox" id="smart-plan">
+              <span>Smart Plan (Hemat ~40%)</span>
+            </label>
+            <p style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.5rem;">
+              Dengan deductible, premi lebih hemat ~40%
+            </p>
+          </div>
+        </div>
+
+        <!-- Result -->
+        <div class="calc-result" id="calc-result">
+          <div class="result-label">Estimasi Premi Tahunan</div>
+          <div class="result-price" id="result-price">Rp 0</div>
+          <div class="result-period" id="result-period">per tahun</div>
+          
+          <div class="result-details">
+            <div class="result-row">
+              <span class="result-row-label">Produk:</span>
+              <span class="result-row-value" id="result-product">Konvensional</span>
+            </div>
+            <div class="result-row">
+              <span class="result-row-label">Plan:</span>
+              <span class="result-row-value" id="result-plan">Jade ID</span>
+            </div>
+            <div class="result-row">
+              <span class="result-row-label">Usia:</span>
+              <span class="result-row-value" id="result-age">25 tahun</span>
+            </div>
+            <div class="result-row">
+              <span class="result-row-label">Jenis Kelamin:</span>
+              <span class="result-row-value" id="result-gender">Pria</span>
+            </div>
+          </div>
+          
+          <div class="result-cta">
+            <a href="#" id="wa-link" class="btn btn-primary" target="_blank">
+              <i data-lucide="message-circle"></i>
+              Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>    </div>
+  </section>
+
+  <!-- Plan Comparison Table -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Perbandingan Plan MiUHC</h2>
+        <p>Pilih plan yang sesuai dengan kebutuhan Anda</p>
+      </div>
+      
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Plan</th>
+              <th>Limit Tahunan</th>
+              <th>Wilayah</th>
+              <th>Kamar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlight-row">
+              <td><strong>Diamond</strong></td>
+              <td>Unlimited</td>
+              <td>Worldwide</td>
+              <td>1 Bed</td>
+            </tr>
+            <tr>
+              <td><strong>Ruby</strong></td>
+              <td>Rp 90 Milyar</td>
+              <td>Worldwide (kec. USA)</td>
+              <td>1 Bed</td>
+            </tr>
+            <tr>
+              <td><strong>Emerald</strong></td>
+              <td>Rp 35 Milyar</td>
+              <td>Seluruh Asia</td>
+              <td>1 Bed</td>
+            </tr>
+            <tr>
+              <td><strong>Topaz</strong></td>
+              <td>Rp 18 Milyar</td>
+              <td>Asia (kec. JPN/HKG/SGP)</td>
+              <td>1 Bed</td>
+            </tr>
+            <tr>
+              <td><strong>Topaz ID</strong></td>
+              <td>Rp 18 Milyar</td>
+              <td>Indonesia</td>              <td>1 Bed</td>
+            </tr>
+            <tr>
+              <td><strong>Jade</strong></td>
+              <td>Rp 10 Milyar</td>
+              <td>Asia (kec. JPN/HKG/SGP)</td>
+              <td>2 Bed</td>
+            </tr>
+            <tr class="highlight-row">
+              <td><strong>Jade ID</strong></td>
+              <td>Rp 10 Milyar</td>
+              <td>Indonesia</td>
+              <td>2 Bed</td>
+            </tr>
+            <tr>
+              <td><strong>Sapphire</strong></td>
+              <td>Rp 5 Milyar</td>
+              <td>Indonesia</td>
+              <td>2 Bed</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>Pertanyaan yang Sering Ditanya</h2>
+        <p>Jawaban untuk pertanyaan yang sering diajukan</p>
+      </div>
+      
+      <div class="faq-list">
+        <div class="faq-item">
+          <details>
+            <summary>Apa itu MiUHC?</summary>
+            <p>MiUHC (Mi Ultimate Healthcare) adalah asuransi kesehatan individu dari Manulife Indonesia yang memberikan perlindungan rawat inap sesuai tagihan (as charged) tanpa sub-limit.</p>
+          </details>
+        </div>
+        
+        <div class="faq-item">
+          <details>
+            <summary>Apa bedanya Konvensional vs Syariah?</summary>
+            <p>Konvensional berbasis premi asuransi biasa. Syariah berbasis kontribusi dan tabarru (dana kebajikan) dengan akad tolong-menolong. MiUHC Syariah juga memiliki tambahan manfaat Rawat Gigi.</p>
+          </details>
+        </div>
+        
+        <div class="faq-item">          <details>
+            <summary>Berapa usia masuk MiUHC?</summary>
+            <p>Usia masuk MiUHC adalah 30 hari sampai 85 tahun. Setelah menjadi nasabah, polis dapat diperpanjang seumur hidup.</p>
+          </details>
+        </div>
+        
+        <div class="faq-item">
+          <details>
+            <summary>Apa itu Smart Plan?</summary>
+            <p>Smart Plan memiliki manfaat sama dengan plan reguler tapi dengan deductible (biaya ditanggung sendiri di awal). Premi lebih hemat ~40%.</p>
+          </details>
+        </div>
+        
+        <div class="faq-item">
+          <details>
+            <summary>Apa itu No-Claim Bonus?</summary>
+            <p>Reward untuk nasabah yang tidak klaim dalam 1 tahun polis. Limit tahunan naik 10% per tahun (maks 50%).</p>
+          </details>
+        </div>
+        
+        <div class="faq-item">
+          <details>
+            <summary>Bagaimana cara klaim?</summary>
+            <p>Cashless: Tunjukkan kartu di RS Rekanan. Reimbursement: Bayar dulu, kirim dokumen ke Manulife untuk penggantian.</p>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2>Siap Proteksi Kesehatan Anda?</h2>
+      <p>Konsultasi gratis dengan Petrus Jakub untuk proteksi terbaik</p>
+      <a href="https://wa.me/6287781896087?text=Halo%20Petrus%2C%20saya%20tertarik%20dengan%20MiUHC" class="btn" target="_blank">
+        <i data-lucide="message-circle"></i>
+        Konsultasi Sekarang
+      </a>
+    </div>
+  </section>
+</main>
+
+<div id="footer-container"></div>
+
+<!-- Floating WA -->
+<a href="https://wa.me/6287781896087" class="floating-wa" target="_blank">
+  <i data-lucide="message-circle"></i>
+</a>
+<!-- Scroll Navigation -->
+<div class="scroll-nav">
+  <button class="scroll-btn" id="scroll-top">
+    <i data-lucide="arrow-up"></i>
+  </button>
+  <button class="scroll-btn" id="scroll-bottom">
+    <i data-lucide="arrow-down"></i>
+  </button>
+</div>
+
+<script src="../assets/js/app.js"></script>
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+  
+  // Calculator Logic
+  const premiumData = {
+    konv: {
+      P: {
+        0: { Diamond: 47658100, Ruby: 32451400, Emerald: 18274400, Topaz: 13435500, "Topaz ID": 10466200, Jade: 10335000, "Jade ID": 8140600, Sapphire: 6366300 },
+        5: { Diamond: 37629400, Ruby: 25430900, Emerald: 14056600, Topaz: 10041400, "Topaz ID": 7840300, Jade: 7724200, "Jade ID": 6087800, Sapphire: 4758000 },
+        10: { Diamond: 37781500, Ruby: 25534200, Emerald: 14115000, Topaz: 10079800, "Topaz ID": 7916800, Jade: 7755100, "Jade ID": 6122400, Sapphire: 4777100 },
+        15: { Diamond: 37837500, Ruby: 25575300, Emerald: 14144100, Topaz: 10098300, "Topaz ID": 7966200, Jade: 7768000, "Jade ID": 6241500, Sapphire: 4785000 },
+        20: { Diamond: 39213900, Ruby: 26546500, Emerald: 15034800, Topaz: 10187400, "Topaz ID": 8454400, Jade: 8273400, "Jade ID": 6616300, Sapphire: 4813500 },
+        25: { Diamond: 42434600, Ruby: 30908300, Emerald: 16563200, Topaz: 11683300, "Topaz ID": 9601300, Jade: 9395800, "Jade ID": 7774500, Sapphire: 5787600 },
+        30: { Diamond: 43284600, Ruby: 31296600, Emerald: 17834500, Topaz: 11899100, "Topaz ID": 10033000, Jade: 9569300, "Jade ID": 8555000, Sapphire: 6150800 },
+        35: { Diamond: 44843600, Ruby: 32242000, Emerald: 19574800, Topaz: 13613900, "Topaz ID": 11759100, Jade: 9921000, "Jade ID": 9035800, Sapphire: 6377100 },
+        40: { Diamond: 51238700, Ruby: 38263200, Emerald: 21831700, Topaz: 15582200, "Topaz ID": 14003200, Jade: 11298600, "Jade ID": 10210000, Sapphire: 7107600 },
+        45: { Diamond: 65336400, Ruby: 48774900, Emerald: 27597200, Topaz: 20826100, "Topaz ID": 17445600, Jade: 14381700, "Jade ID": 13037500, Sapphire: 8875700 },
+        50: { Diamond: 89312600, Ruby: 66683900, Emerald: 39345900, Topaz: 26254800, "Topaz ID": 23048800, Jade: 20367200, "Jade ID": 18399700, Sapphire: 12117600 },
+        55: { Diamond: 126224300, Ruby: 90308500, Emerald: 53304900, Topaz: 35301800, "Topaz ID": 31764500, Jade: 28939700, "Jade ID": 25535000, Sapphire: 17001600 },
+        60: { Diamond: 160461200, Ruby: 111704100, Emerald: 62412400, Topaz: 42709500, "Topaz ID": 38751600, Jade: 34450400, "Jade ID": 30885300, Sapphire: 20372600 },
+        65: { Diamond: 193867000, Ruby: 137419300, Emerald: 80806300, Topaz: 54317900, "Topaz ID": 47193100, Jade: 42041700, "Jade ID": 38137800, Sapphire: 24504300 },
+        70: { Diamond: 250226600, Ruby: 176741200, Emerald: 98610200, Topaz: 73047500, "Topaz ID": 65935400, Jade: 58828800, "Jade ID": 53434100, Sapphire: 33132700 },
+        75: { Diamond: 275402600, Ruby: 196462600, Emerald: 117850100, Topaz: 89861900, "Topaz ID": 81151400, Jade: 69124600, "Jade ID": 62666900, Sapphire: 42580700 }
+      },
+      W: {
+        0: { Diamond: 46106700, Ruby: 32345900, Emerald: 18643400, Topaz: 13465300, "Topaz ID": 10447600, Jade: 10357900, "Jade ID": 8317300, Sapphire: 6380500 },
+        5: { Diamond: 35560200, Ruby: 24875600, Emerald: 14237800, Topaz: 10178000, "Topaz ID": 7983500, Jade: 7829100, "Jade ID": 6319800, Sapphire: 4963500 },
+        10: { Diamond: 35705000, Ruby: 24982000, Emerald: 14302700, Topaz: 10223000, "Topaz ID": 8205900, Jade: 7865500, "Jade ID": 6535100, Sapphire: 5205500 },
+        15: { Diamond: 35748600, Ruby: 25014800, Emerald: 14324600, Topaz: 10236100, "Topaz ID": 8280500, Jade: 7873900, "Jade ID": 6881700, Sapphire: 5447600 },
+        20: { Diamond: 39767800, Ruby: 27596500, Emerald: 15801700, Topaz: 10716800, "Topaz ID": 9093200, Jade: 8754500, "Jade ID": 7980600, Sapphire: 5689600 },
+        25: { Diamond: 46153200, Ruby: 32895200, Emerald: 18822800, Topaz: 11999600, "Topaz ID": 10835400, Jade: 10014000, "Jade ID": 9168700, Sapphire: 6151400 },
+        30: { Diamond: 48728000, Ruby: 34987700, Emerald: 20270300, Topaz: 13481200, "Topaz ID": 12319100, Jade: 10841500, "Jade ID": 10000400, Sapphire: 6968800 },
+        35: { Diamond: 56293300, Ruby: 40422000, Emerald: 23099300, Topaz: 15661500, "Topaz ID": 14329200, Jade: 12047300, "Jade ID": 11126300, Sapphire: 8095700 },
+        40: { Diamond: 69513000, Ruby: 47882700, Emerald: 26825100, Topaz: 18089700, "Topaz ID": 16470500, Jade: 14547700, "Jade ID": 13096700, Sapphire: 9151500 },
+        45: { Diamond: 82715400, Ruby: 58553700, Emerald: 32844600, Topaz: 22314900, "Topaz ID": 19124600, Jade: 17945600, "Jade ID": 16065400, Sapphire: 11342500 },
+        50: { Diamond: 104497500, Ruby: 73421600, Emerald: 40918600, Topaz: 27105300, "Topaz ID": 24206100, Jade: 21408800, "Jade ID": 19402300, Sapphire: 13531300 },
+        55: { Diamond: 138114500, Ruby: 93140700, Emerald: 50779900, Topaz: 35487100, "Topaz ID": 30974500, Jade: 27669000, "Jade ID": 24830200, Sapphire: 17240600 },
+        60: { Diamond: 156689000, Ruby: 104581800, Emerald: 55477300, Topaz: 39640900, "Topaz ID": 37680500, Jade: 32408000, "Jade ID": 29325100, Sapphire: 19772300 },        65: { Diamond: 181090900, Ruby: 119874600, Emerald: 74779500, Topaz: 52530200, "Topaz ID": 44461800, Jade: 37969800, "Jade ID": 34245700, Sapphire: 22786400 },
+        70: { Diamond: 233614800, Ruby: 163600900, Emerald: 96885600, Topaz: 69974700, "Topaz ID": 60205000, Jade: 53040000, "Jade ID": 47470900, Sapphire: 32296100 },
+        75: { Diamond: 268504200, Ruby: 187598200, Emerald: 112297600, Topaz: 83562400, "Topaz ID": 71783300, Jade: 64278700, "Jade ID": 58068100, Sapphire: 39595800 }
+      }
+    },
+    sya: {
+      P: {
+        0: { Diamond: 42551900, Ruby: 28974500, Emerald: 16316400, Topaz: 11996000, "Topaz ID": 9344800, Jade: 9227700, "Jade ID": 7268400, Sapphire: 5684200 },
+        5: { Diamond: 33597700, Ruby: 22706200, Emerald: 12550500, Topaz: 8965500, "Topaz ID": 7000300, Jade: 6896600, "Jade ID": 5435500, Sapphire: 4248200 },
+        10: { Diamond: 33733500, Ruby: 22798400, Emerald: 12602700, Topaz: 8999800, "Topaz ID": 7068600, Jade: 6924200, "Jade ID": 5466400, Sapphire: 4265300 },
+        15: { Diamond: 33783500, Ruby: 22835100, Emerald: 12628700, Topaz: 9016300, "Topaz ID": 7112700, Jade: 6935700, "Jade ID": 5572800, Sapphire: 4272300 },
+        20: { Diamond: 35012400, Ruby: 23702200, Emerald: 13423900, Topaz: 9095900, "Topaz ID": 7548600, Jade: 7387000, "Jade ID": 5907400, Sapphire: 4432200 },
+        25: { Diamond: 37888000, Ruby: 27596700, Emerald: 14788600, Topaz: 10431500, "Topaz ID": 8572600, Jade: 8389100, "Jade ID": 6941500, Sapphire: 5167500 },
+        30: { Diamond: 38647000, Ruby: 27943400, Emerald: 15923700, Topaz: 10624200, "Topaz ID": 8958000, Jade: 8544000, "Jade ID": 7638400, Sapphire: 5491800 },
+        35: { Diamond: 40038900, Ruby: 28787500, Emerald: 17477500, Topaz: 12155300, "Topaz ID": 10499200, Jade: 8858000, "Jade ID": 8067700, Sapphire: 5693800 },
+        40: { Diamond: 45748800, Ruby: 34163600, Emerald: 19492600, Topaz: 13912700, "Topaz ID": 12502900, Jade: 10088000, "Jade ID": 9116100, Sapphire: 6346100 },
+        45: { Diamond: 58336100, Ruby: 43549000, Emerald: 24640400, Topaz: 18594700, "Topaz ID": 15576400, Jade: 12840800, "Jade ID": 11640600, Sapphire: 7924700 },
+        50: { Diamond: 79743400, Ruby: 59539200, Emerald: 35130300, Topaz: 23441800, "Topaz ID": 20579300, Jade: 18185000, "Jade ID": 16428300, Sapphire: 10819300 },
+        55: { Diamond: 112700300, Ruby: 80632600, Emerald: 47593700, Topaz: 31519500, "Topaz ID": 28361200, Jade: 25839000, "Jade ID": 22799100, Sapphire: 15180000 },
+        60: { Diamond: 143268900, Ruby: 99735800, Emerald: 55725400, Topaz: 38133500, "Topaz ID": 34599600, Jade: 30759300, "Jade ID": 27576200, Sapphire: 18189800 },
+        65: { Diamond: 173095500, Ruby: 119874600, Emerald: 72148500, Topaz: 48498100, "Topaz ID": 42136700, Jade: 37537200, "Jade ID": 34051600, Sapphire: 22522000 },
+        70: { Diamond: 223416600, Ruby: 157804600, Emerald: 88044800, Topaz: 65221000, "Topaz ID": 58870900, Jade: 52525700, "Jade ID": 47709000, Sapphire: 29098000 },
+        75: { Diamond: 245895200, Ruby: 175413000, Emerald: 105223300, Topaz: 80233800, "Topaz ID": 72456600, Jade: 61718400, "Jade ID": 58068100, Sapphire: 35353400 }
+      },
+      W: {
+        0: { Diamond: 41166700, Ruby: 28880300, Emerald: 16645900, Topaz: 12022600, "Topaz ID": 9328200, Jade: 9248100, "Jade ID": 7426200, Sapphire: 5696900 },
+        5: { Diamond: 31750200, Ruby: 24875600, Emerald: 14237800, Topaz: 10178000, "Topaz ID": 7983500, Jade: 7829100, "Jade ID": 6319800, Sapphire: 4963500 },
+        10: { Diamond: 31875400, Ruby: 24982000, Emerald: 14302700, Topaz: 10223000, "Topaz ID": 8205900, Jade: 7865500, "Jade ID": 6535100, Sapphire: 5205500 },
+        15: { Diamond: 31918400, Ruby: 25014800, Emerald: 14324600, Topaz: 10236100, "Topaz ID": 8280500, Jade: 7873900, "Jade ID": 6881700, Sapphire: 5447600 },
+        20: { Diamond: 32296100, Ruby: 25895600, Emerald: 14892700, Topaz: 10361500, "Topaz ID": 8761800, Jade: 8451700, "Jade ID": 7696800, Sapphire: 5494800 },
+        25: { Diamond: 41208200, Ruby: 29370700, Emerald: 16806100, Topaz: 10713900, "Topaz ID": 9674500, Jade: 8941100, "Jade ID": 8186300, Sapphire: 5492300 },
+        30: { Diamond: 43507100, Ruby: 31239000, Emerald: 18098500, Topaz: 12036800, "Topaz ID": 10999200, Jade: 9679900, "Jade ID": 8928900, Sapphire: 6222100 },
+        35: { Diamond: 50261900, Ruby: 36091100, Emerald: 20624400, Topaz: 13983500, "Topaz ID": 12793900, Jade: 10756500, "Jade ID": 9934200, Sapphire: 7228300 },
+        40: { Diamond: 62065200, Ruby: 42752400, Emerald: 23951000, Topaz: 16151500, "Topaz ID": 14705800, Jade: 12989000, "Jade ID": 11693500, Sapphire: 8171000 },
+        45: { Diamond: 73853000, Ruby: 52280100, Emerald: 29325500, Topaz: 19924000, "Topaz ID": 17075500, Jade: 16022900, "Jade ID": 14344100, Sapphire: 10127200 },
+        50: { Diamond: 93301300, Ruby: 65555000, Emerald: 36534500, Topaz: 24201200, "Topaz ID": 21612600, Jade: 19115000, "Jade ID": 17323500, Sapphire: 12081500 },
+        55: { Diamond: 123316500, Ruby: 83161300, Emerald: 45339200, Topaz: 31684900, "Topaz ID": 27655800, Jade: 24704500, "Jade ID": 22169800, Sapphire: 15393400 },
+        60: { Diamond: 139900900, Ruby: 93376600, Emerald: 49533300, Topaz: 35393700, "Topaz ID": 33643300, Jade: 28935700, "Jade ID": 26183100, Sapphire: 17653800 },
+        65: { Diamond: 165494000, Ruby: 109874600, Emerald: 66767400, Topaz: 46902000, "Topaz ID": 42136700, Jade: 37537200, "Jade ID": 34051600, Sapphire: 22522000 },
+        70: { Diamond: 213467300, Ruby: 151401600, Emerald: 83614200, Topaz: 59980300, "Topaz ID": 52952700, Jade: 47904100, "Jade ID": 43528500, Sapphire: 28740800 },
+        75: { Diamond: 239735900, Ruby: 167498400, Emerald: 100265700, Topaz: 74609300, "Topaz ID": 66406600, Jade: 56068100, "Jade ID": 51846500, Sapphire: 35353400 }
+      }
+    }
+  };
+
+  // Smart Plan multipliers (hemat ~40%)
+  const smartPlanMultipliers = {
+    'Diamond': 0.6,
+    'Ruby': 0.6,
+    'Emerald': 0.6,    'Topaz': 0.6,
+    'Topaz ID': 0.6,
+    'Jade': 0.6,
+    'Jade ID': 0.6,
+    'Sapphire': 0.6
+  };
+
+  function formatRupiah(num) {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
+    }).format(num);
+  }
+
+  function calculatePremium() {
+    const product = document.querySelector('input[name="product"]:checked').value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;
+    const age = parseInt(document.getElementById('age').value);
+    const plan = document.getElementById('plan').value;
+    const smartPlan = document.getElementById('smart-plan').checked;
+    
+    // Get base premium
+    let basePremium = premiumData[product]?.[gender]?.[age]?.[plan] || 0;
+    
+    if (!basePremium) {
+      alert('Data premi untuk kombinasi ini belum tersedia');
+      return;
+    }
+    
+    // Apply Smart Plan discount
+    let finalPremium = basePremium;
+    if (smartPlan && smartPlanMultipliers[plan]) {
+      finalPremium = Math.round(basePremium * smartPlanMultipliers[plan]);
+    }
+    
+    // Update result
+    document.getElementById('result-price').textContent = formatRupiah(finalPremium);
+    document.getElementById('result-product').textContent = product === 'konv' ? 'Konvensional' : 'Syariah';
+    document.getElementById('result-plan').textContent = smartPlan ? `${plan} Smart` : plan;
+    document.getElementById('result-age').textContent = `${age} tahun`;
+    document.getElementById('result-gender').textContent = gender === 'P' ? 'Pria' : 'Wanita';
+    
+    // Update WhatsApp link
+    const waText = `Halo Petrus, saya tertarik dengan MiUHC ${smartPlan ? plan + ' Smart' : plan} (${product === 'konv' ? 'Konvensional' : 'Syariah'}) untuk ${gender === 'P' ? 'Pria' : 'Wanita'} usia ${age} tahun. Estimasi premi: ${formatRupiah(finalPremium)}/tahun.`;
+    document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(waText)}`;
+    
+    // Show result
+    document.getElementById('calc-result').style.display = 'block';    document.getElementById('calc-result').scrollIntoView({ behavior: 'smooth', behavior: 'smooth' });
+  }
+
+  // Add event listeners
+  document.querySelectorAll('input[name="product"], input[name="gender"], #age, #plan, #smart-plan').forEach(el => {
+    el.addEventListener('change', calculatePremium);
+  });
+
+  // Initial calculation
+  calculatePremium();
+</script>
+</body>
+</html>

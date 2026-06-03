@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProActive Plus (PAP) - Asuransi Jiwa Berjangka | Project Cuan</title>
+  <meta name="description" content="PAP - Asuransi jiwa berjangka Manulife. Premi terjangkau mulai Rp 380rb/bulan, UP mulai Rp 100 juta.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="pap">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link"><i data-lucide="arrow-left"></i> Kembali</a>
+        <span class="badge badge-emerald">🎯 Term Life</span>
+        <h1>ProActive Plus (PAP) <span class="gradient-text">Asuransi Jiwa Berjangka</span></h1>
+        <p>Proteksi jiwa dengan premi terjangkau mulai Rp 380rb/bulan. UP mulai Rp 100 juta. Premi tetap selama masa bayar.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>6 Keunggulan PAP 🌟</h2></div>
+        <div class="grid grid-3">
+          <div class="card"><div class="card-icon">🛡️</div><h3>Proteksi Optimal</h3><p>Manfaat meninggal dunia 100% UP dibayarkan ke ahli waris. Perlindungan menyeluruh.</p></div>
+          <div class="card"><div class="card-icon">💰</div><h3>Premi Terjangkau</h3><p>Premi mulai Rp 380rb/bulan. Pilihan bayar tahunan/semesteran/kuartalan/bulanan.</p></div>
+          <div class="card"><div class="card-icon">📅</div><h3>Masa Fleksibel</h3><p>Pilih 5-20 tahun sesuai kebutuhan. Bisa diperpanjang otomatis sampai usia 70.</p></div>
+          <div class="card"><div class="card-icon">💵</div><h3>Premi Tetap</h3><p>Premi tidak naik selama masa pembayaran. Bayar sama dari awal sampai akhir.</p></div>
+          <div class="card"><div class="card-icon">🔄</div><h3>Perpanjang Tanpa Cek</h3><p>Polis bisa diperpanjang otomatis sampai usia 70 tanpa tes kesehatan ulang.</p></div>
+          <div class="card"><div class="card-icon">💲</div><h3>Pilihan Mata Uang</h3><p>Tersedia dalam IDR dan USD sesuai preferensi Anda.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>Kalkulator Premi PAP 🧮</h2><p>Hitung estimasi premi PAP sesuai profil Anda</p></div>
+        <div class="calc-wrapper">
+          <div class="form-group">
+            <label class="form-label">Jenis Kelamin</label>
+            <select id="gender" class="form-control">
+              <option value="pria">Pria</option>
+              <option value="wanita">Wanita</option>
+            </select>          </div>
+          <div class="form-group">
+            <label class="form-label">Status Merokok</label>
+            <select id="smoker" class="form-control">
+              <option value="non">Tidak Merokok</option>
+              <option value="smoker">Merokok</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Usia Saat Ini</label>
+            <select id="age" class="form-control">
+              <option value="25">25 Tahun</option>
+              <option value="30" selected>30 Tahun</option>
+              <option value="35">35 Tahun</option>
+              <option value="40">40 Tahun</option>
+              <option value="45">45 Tahun</option>
+              <option value="50">50 Tahun</option>
+              <option value="55">55 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Masa Pembayaran (Tahun)</label>
+            <select id="ppp" class="form-control">
+              <option value="5" selected>5 Tahun</option>
+              <option value="10">10 Tahun</option>
+              <option value="15">15 Tahun</option>
+              <option value="20">20 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Uang Pertanggungan (UP)</label>
+            <select id="up" class="form-control">
+              <option value="100">Rp 100 Juta</option>
+              <option value="250">Rp 250 Juta</option>
+              <option value="500">Rp 500 Juta</option>
+              <option value="1000" selected>Rp 1 Miliar</option>
+              <option value="2000">Rp 2 Miliar</option>
+              <option value="5000">Rp 5 Miliar</option>
+            </select>
+          </div>
+          <button id="calc-btn" class="btn btn-primary btn-block">Hitung Estimasi Premi</button>
+          <div id="calc-result" class="calc-result">
+            <div class="calc-result-label">Estimasi Premi Tahunan</div>
+            <div class="calc-result-price" id="result-price">Rp 0</div>
+            <div class="calc-result-info" id="result-info"></div>
+            <a href="#" id="wa-link" class="btn" style="background:white;color:var(--emerald-dark);margin-top:1rem;">
+              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>Tabel Minimum Premi 📊</h2></div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead><tr><th>Mode Pembayaran</th><th>Minimum Premi (IDR)</th><th>Frekuensi</th></tr></thead>
+            <tbody>
+              <tr><td>Tahunan</td><td>Rp 4.000.000</td><td>1x setahun</td></tr>
+              <tr><td>Semesteran</td><td>Rp 2.100.000</td><td>2x setahun</td></tr>
+              <tr><td>Kuartalan</td><td>Rp 1.100.000</td><td>4x setahun</td></tr>
+              <tr><td>Bulanan</td><td>Rp 380.000</td><td>12x setahun</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>FAQ ❓</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item"><summary>Apa itu PAP?</summary><p>ProActive Plus - asuransi jiwa berjangka (term life) dari Manulife. Manfaat 100% UP jika meninggal. Ini asuransi murni tanpa investasi, premi sangat terjangkau.</p></details>
+          <details class="faq-item"><summary>Siapa yang bisa beli?</summary><p>Usia 18 tahun sampai maksimal 70 dikurangi masa bayar. Contoh: PPP 20 tahun, usia max 50 thn. PPP 5 tahun, max 65 tahun.</p></details>
+          <details class="faq-item"><summary>Bagaimana jika telat bayar?</summary><p>Masa tenggang 45 hari. Polis masih aktif. Jika lewat 45 hari, polis lapse. Masih bisa dipulihkan dalam 2 tahun.</p></details>
+          <details class="faq-item"><summary>Apa saja yang tidak ditanggung?</summary><p>Bunuh diri dalam 2 tahun pertama, tindakan melawan hukum, perang, senjata nuklir/kimia/biologi.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Siap Proteksi Keluarga?</h2>
+          <p>Mulai dari Rp 380rb/bulan, keluarga terlindungi hingga miliaran rupiah.</p>
+          <a href="https://wa.me/6287781896087" class="btn" style="background:white;color:var(--emerald-dark);">💬 Chat Aku Sekarang</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+  <a href="https://wa.me/6287781896087" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    const formatRp = n => 'Rp ' + n.toLocaleString('id-ID');
+    const rates = {      pria: {
+        non: { 25: 4.5, 30: 5.2, 35: 5.8, 40: 6.39, 45: 7.5, 50: 9.2, 55: 11.5 },
+        smoker: { 25: 5.8, 30: 6.8, 35: 7.8, 40: 8.9, 45: 10.5, 50: 12.8, 55: 15.8 }
+      },
+      wanita: {
+        non: { 25: 3.8, 30: 4.5, 35: 5.1, 40: 5.8, 45: 6.8, 50: 8.2, 55: 10.2 },
+        smoker: { 25: 5.1, 30: 6.0, 35: 7.0, 40: 8.1, 45: 9.5, 50: 11.5, 55: 14.2 }
+      }
+    };
+
+    document.getElementById('calc-btn').addEventListener('click', () => {
+      const gender = document.getElementById('gender').value;
+      const smoker = document.getElementById('smoker').value;
+      const age = parseInt(document.getElementById('age').value);
+      const ppp = parseInt(document.getElementById('ppp').value);
+      const up = parseInt(document.getElementById('up').value);
+      const rate = rates[gender][smoker][age];
+      if (!rate) { alert('Kombinasi belum tersedia'); return; }
+      let prem = rate * (up / 1000) * 1000000;
+      if (ppp === 5) prem *= 1.5;
+      if (ppp === 15) prem *= 0.8;
+      if (ppp === 20) prem *= 0.7;
+      document.getElementById('result-price').textContent = formatRp(Math.round(prem));
+      document.getElementById('result-info').innerHTML = `
+        <div class="calc-result-row"><span>Profil</span><span>${gender === 'pria' ? 'Pria' : 'Wanita'} ${smoker === 'smoker' ? 'Merokok' : 'Non-Merokok'}</span></div>
+        <div class="calc-result-row"><span>Usia</span><span>${age} tahun</span></div>
+        <div class="calc-result-row"><span>UP</span><span>Rp ${up >= 1000 ? (up/1000) + ' Miliar' : up + ' Juta'}</span></div>
+        <div class="calc-result-row"><span>Masa Bayar</span><span>${ppp} tahun</span></div>`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(`Halo Kak Petrus, saya tertarik PAP, ${gender} ${smoker === 'smoker' ? 'merokok' : 'non-merokok'} ${age} thn, UP Rp ${up >= 1000 ? (up/1000) + 'M' : up + 'jt'}. Estimasi ${formatRp(Math.round(prem))}/thn.`)}`;
+      document.getElementById('calc-result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

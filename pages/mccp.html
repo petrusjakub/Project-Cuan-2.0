@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCCP - Manulife Critical Care Protection | Project Cuan</title>
+  <meta name="description" content="MCCP - Asuransi penyakit kritis Manulife. 150 penyakit kritis, tanpa Survival Period, hingga usia 85 tahun.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="mccp">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link"><i data-lucide="arrow-left"></i> Kembali</a>
+        <span class="badge badge-ruby">🫀 Penyakit Kritis</span>
+        <h1>MCCP <span class="gradient-text-warm">Manulife Critical Care Protection</span></h1>
+        <p>Asuransi penyakit kritis menyeluruh. 150 penyakit (65 awal + 85 lanjut), tanpa Survival Period, hingga usia 85 tahun.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>2 Pilihan Plan 🎯</h2></div>
+        <div class="grid grid-2">
+          <div class="card">
+            <div class="card-icon">🌟</div>
+            <h3>Plan 1 - Basic</h3>
+            <p><strong>85 penyakit kritis tahap lanjut.</strong> Manfaat meninggal (100% UP + bonus), Angioplasty 25% UP, End of Term Benefit usia 85. MPP 10/15/20/Regular.</p>
+            <span class="card-tag">Premi Terjangkau</span>
+          </div>
+          <div class="card">
+            <div class="card-icon">💎</div>
+            <h3>Plan 2 - Complete</h3>
+            <p><strong>150 penyakit (65 awal + 85 lanjut).</strong> Semua Plan 1 PLUS: Penyakit Awal 25% UP, ICU 120 jam, Cancer UP Renewal 25% UP.</p>
+            <span class="card-tag">Paling Lengkap</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>Kalkulator Premi MCCP 🧮</h2><p>Hitung estimasi premi sesuai profil Anda</p></div>
+        <div class="calc-wrapper">          <div class="form-group">
+            <label class="form-label">Pilih Plan</label>
+            <select id="plan" class="form-control">
+              <option value="1">Plan 1 - Basic (85 Penyakit Lanjut)</option>
+              <option value="2">Plan 2 - Complete (150 Penyakit)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Jenis Kelamin</label>
+            <select id="gender" class="form-control">
+              <option value="pria">Pria</option>
+              <option value="wanita">Wanita</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Usia Masuk</label>
+            <select id="age" class="form-control">
+              <option value="25">25 Tahun</option>
+              <option value="30" selected>30 Tahun</option>
+              <option value="35">35 Tahun</option>
+              <option value="40">40 Tahun</option>
+              <option value="45">45 Tahun</option>
+              <option value="50">50 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Masa Bayar (Tahun)</label>
+            <select id="ppp" class="form-control">
+              <option value="10" selected>10 Tahun</option>
+              <option value="15">15 Tahun</option>
+              <option value="20">20 Tahun</option>
+              <option value="regular">Regular (s/d usia 85)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Uang Pertanggungan (UP)</label>
+            <select id="up" class="form-control">
+              <option value="500">Rp 500 Juta</option>
+              <option value="1000" selected>Rp 1 Miliar</option>
+              <option value="1500">Rp 1.5 Miliar</option>
+              <option value="2000">Rp 2 Miliar</option>
+              <option value="5000">Rp 5 Miliar</option>
+            </select>
+          </div>
+          <button id="calc-btn" class="btn btn-primary btn-block">Hitung Estimasi Premi</button>
+          <div id="calc-result" class="calc-result">
+            <div class="calc-result-label">Estimasi Premi Tahunan</div>
+            <div class="calc-result-price" id="result-price">Rp 0</div>
+            <div class="calc-result-info" id="result-info"></div>
+            <a href="#" id="wa-link" class="btn" style="background:white;color:var(--emerald-dark);margin-top:1rem;">              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>Tabel Premi Quick Reference 📊</h2><p>UP Rp 1 Miliar (Juta Rupiah/tahun)</p></div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead><tr><th>Usia</th><th>Plan 1 (Pria)</th><th>Plan 1 (Wanita)</th><th>Plan 2 (Pria)</th><th>Plan 2 (Wanita)</th></tr></thead>
+            <tbody>
+              <tr><td>25 thn</td><td>25.8 Juta</td><td>23.3 Juta</td><td>28.8 Juta</td><td>27.1 Juta</td></tr>
+              <tr><td>30 thn</td><td>32.4 Juta</td><td>28.3 Juta</td><td>36.2 Juta</td><td>32.7 Juta</td></tr>
+              <tr><td>35 thn</td><td>41.2 Juta</td><td>35.1 Juta</td><td>45.8 Juta</td><td>40.5 Juta</td></tr>
+              <tr><td>40 thn</td><td>52.7 Juta</td><td>44.1 Juta</td><td>58.5 Juta</td><td>50.7 Juta</td></tr>
+              <tr><td>45 thn</td><td>67.5 Juta</td><td>55.5 Juta</td><td>74.7 Juta</td><td>63.3 Juta</td></tr>
+              <tr><td>50 thn</td><td>87.1 Juta</td><td>69.7 Juta</td><td>95.9 Juta</td><td>79.0 Juta</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>FAQ ❓</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item"><summary>Apa itu MCCP?</summary><p>Manulife Critical Care Protection - asuransi penyakit kritis dari tahap awal hingga lanjut. Masa perlindungan hingga usia 85 tahun.</p></details>
+          <details class="faq-item"><summary>Apa bedanya Plan 1 & 2?</summary><p><strong>Plan 1:</strong> 85 penyakit kritis lanjut. <strong>Plan 2:</strong> Semua Plan 1 + 65 penyakit awal + ICU + Cancer UP Renewal. Total 150 penyakit.</p></details>
+          <details class="faq-item"><summary>Apa itu Periode Eliminasi 90 hari?</summary><p>Masa tunggu 90 hari sejak polis aktif. Selama periode ini klaim belum bisa diajukan (kecuali karena kecelakaan).</p></details>
+          <details class="faq-item"><summary>Bagaimana jika sehat hingga usia 85?</summary><p>Menerima 100% UP + Tambahan Nilai Tunai. Premi tidak hilang, tetap dapat manfaat.</p></details>
+          <details class="faq-item"><summary>Apa itu manfaat akselerasi?</summary><p>Manfaat yang mengurangi UP tersisa. Contoh: UP 1 Miliar, klaim tahap awal 25% = 250 juta. Sisa UP = 750 juta.</p></details>
+          <details class="faq-item"><summary>Apa itu Cancer UP Renewal?</summary><p>Manfaat TAMBAHAN 25% UP untuk kanker. Tidak mengurangi UP tersisa. Perlindungan ekstra untuk melawan kanker.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Siap Proteksi dari Penyakit Kritis?</h2>
+          <p>Konsultasi gratis, tanpa paksaan.</p>
+          <a href="https://wa.me/6287781896087" class="btn" style="background:white;color:var(--emerald-dark);">💬 Chat Aku Sekarang</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="footer-container"></div>
+  <a href="https://wa.me/6287781896087" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+
+  <script src="../assets/js/app.js"></script>
+  <script>
+    const formatRp = n => 'Rp ' + n.toLocaleString('id-ID');
+    const rates = {
+      '1': { pria: { 25: 25800000, 30: 32400000, 35: 41200000, 40: 52700000, 45: 67500000, 50: 87100000 }, wanita: { 25: 23300000, 30: 28300000, 35: 35100000, 40: 44100000, 45: 55500000, 50: 69700000 } },
+      '2': { pria: { 25: 28800000, 30: 36200000, 35: 45800000, 40: 58500000, 45: 74700000, 50: 95900000 }, wanita: { 25: 27100000, 30: 32700000, 35: 40500000, 40: 50700000, 45: 63300000, 50: 79000000 } }
+    };
+
+    document.getElementById('calc-btn').addEventListener('click', () => {
+      const plan = document.getElementById('plan').value;
+      const gender = document.getElementById('gender').value;
+      const age = parseInt(document.getElementById('age').value);
+      const ppp = document.getElementById('ppp').value;
+      const up = parseInt(document.getElementById('up').value);
+      const rate = rates[plan][gender][age];
+      if (!rate) { alert('Kombinasi belum tersedia'); return; }
+      let prem = (rate / 1000000) * (up / 1000);
+      if (ppp === '15') prem *= 0.75;
+      if (ppp === '20') prem *= 0.65;
+      if (ppp === 'regular') prem *= 0.55;
+      document.getElementById('result-price').textContent = formatRp(Math.round(prem * 1000000));
+      document.getElementById('result-info').innerHTML = `
+        <div class="calc-result-row"><span>Plan</span><span>Plan ${plan}</span></div>
+        <div class="calc-result-row"><span>UP</span><span>Rp ${up >= 1000 ? (up/1000) + ' Miliar' : up + ' Juta'}</span></div>
+        <div class="calc-result-row"><span>Profil</span><span>${gender === 'pria' ? 'Pria' : 'Wanita'}, ${age} thn</span></div>
+        <div class="calc-result-row"><span>Masa Bayar</span><span>${ppp === 'regular' ? 'Regular (s/d 85)' : ppp + ' tahun'}</span></div>`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(`Halo Kak Petrus, saya tertarik MCCP Plan ${plan}, ${gender} ${age} thn, UP Rp ${up >= 1000 ? (up/1000) + 'M' : up + 'jt'}. Estimasi ${formatRp(Math.round(prem*1000000))}/thn.`)}`;
+      document.getElementById('calc-result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>

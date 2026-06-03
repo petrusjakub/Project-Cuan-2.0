@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MDLA - Manulife Dynamic Life Assurance | Project Cuan</title>
+  <meta name="description" content="MDLA - Asuransi jiwa tradisional dengan 3 plan fleksibel: Amanah, Berkah, Cermat. Bukan unit-link, manfaat pasti.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body data-page="mdla">
+  <div id="navbar-container"></div>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <a href="../index.html" class="back-link"><i data-lucide="arrow-left"></i> Kembali</a>
+        <span class="badge badge-emerald">💎 Dwiguna</span>
+        <h1>MDLA <span class="gradient-text">Manulife Dynamic Life Assurance</span></h1>
+        <p>Asuransi jiwa tradisional (bukan unit-link). 3 plan fleksibel: Amanah, Berkah, Cermat. Manfaat pasti sejak awal.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>3 Plan MDLA 🎯</h2><p>Bebas pilih sesuai kebutuhan & budget</p></div>
+        <div class="grid grid-3">
+          <div class="card"><div class="card-icon">🌟</div><h3>Plan A - Amanah</h3><p><strong>Syariah Term Life</strong> - Premi paling murah, hangus. Murni proteksi jiwa. Bayar 5/10/15/20 thn, term 20-30 thn.</p><span class="card-tag">Budget Friendly</span></div>
+          <div class="card"><div class="card-icon">💚</div><h3>Plan B - Berkah</h3><p><strong>Syariah Balik Modal 100%</strong> - Kontribusi kembali 120%. Bayar 5-20 thn, term 20-40 thn.</p><span class="card-tag">Uang Kembali 120%</span></div>
+          <div class="card"><div class="card-icon">💎</div><h3>Plan C - Cermat</h3><p><strong>Konvensional UP Cair</strong> - UP cair jika meninggal ATAU hidup di akhir masa. Cocok dana pensiun.</p><span class="card-tag">UP Cair</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>Kalkulator Premi MDLA 🧮</h2><p>Hitung estimasi kontribusi/premi MDLA</p></div>
+        <div class="calc-wrapper">
+          <div class="form-group">
+            <label class="form-label">Pilih Plan</label>
+            <select id="plan" class="form-control">
+              <option value="A">Plan A - Amanah (Syariah)</option>
+              <option value="B">Plan B - Berkah (Syariah)</option>
+              <option value="C">Plan C - Cermat (Konvensional)</option>
+            </select>
+          </div>
+          <div class="form-group">            <label class="form-label">Jenis Kelamin</label>
+            <select id="gender" class="form-control">
+              <option value="pria">Pria</option>
+              <option value="wanita">Wanita</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Usia Masuk</label>
+            <select id="age" class="form-control">
+              <option value="25">25 Tahun</option>
+              <option value="30" selected>30 Tahun</option>
+              <option value="35">35 Tahun</option>
+              <option value="40">40 Tahun</option>
+              <option value="45">45 Tahun</option>
+              <option value="50">50 Tahun</option>
+              <option value="55">55 Tahun</option>
+              <option value="60">60 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Masa Pembayaran (Tahun)</label>
+            <select id="ppp" class="form-control">
+              <option value="5">5 Tahun</option>
+              <option value="10" selected>10 Tahun</option>
+              <option value="15">15 Tahun</option>
+              <option value="20">20 Tahun</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Uang Pertanggungan (UP)</label>
+            <select id="up" class="form-control">
+              <option value="1" selected>Rp 1 Miliar</option>
+              <option value="1.5">Rp 1.5 Miliar</option>
+              <option value="2">Rp 2 Miliar</option>
+              <option value="3">Rp 3 Miliar</option>
+              <option value="5">Rp 5 Miliar</option>
+              <option value="10">Rp 10 Miliar</option>
+            </select>
+          </div>
+          <button id="calc-btn" class="btn btn-primary btn-block">Hitung Estimasi Premi</button>
+          <div id="calc-result" class="calc-result">
+            <div class="calc-result-label">Estimasi Premi Tahunan</div>
+            <div class="calc-result-price" id="result-price">Rp 0</div>
+            <div class="calc-result-info" id="result-info"></div>
+            <a href="#" id="wa-link" class="btn" style="background:white;color:var(--emerald-dark);margin-top:1rem;">
+              <i data-lucide="message-circle"></i> Konsultasi via WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-header"><h2>Tabel Premi Quick Reference 📊</h2><p>UP Rp 1 Miliar, Term 20, MPP 10, Pria</p></div>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead><tr><th>Usia</th><th>Plan A (Amanah)</th><th>Plan B (Berkah)</th><th>Plan C (Cermat)</th></tr></thead>
+            <tbody>
+              <tr><td>25 thn</td><td>-</td><td>Rp 7.100.000</td><td>Rp 55.800.000</td></tr>
+              <tr><td>30 thn</td><td>-</td><td>Rp 8.200.000</td><td>Rp 55.800.000</td></tr>
+              <tr><td>35 thn</td><td>Rp 6.400.000</td><td>Rp 10.900.000</td><td>Rp 57.000.000</td></tr>
+              <tr><td>40 thn</td><td>Rp 8.900.000</td><td>Rp 15.400.000</td><td>Rp 58.100.000</td></tr>
+              <tr><td>45 thn</td><td>Rp 12.900.000</td><td>Rp 22.400.000</td><td>Rp 59.200.000</td></tr>
+              <tr><td>50 thn</td><td>Rp 18.800.000</td><td>Rp 31.300.000</td><td>Rp 60.300.000</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="background: var(--bg-secondary);">
+      <div class="container">
+        <div class="section-header"><h2>FAQ ❓</h2></div>
+        <div class="faq-grid">
+          <details class="faq-item"><summary>Apa itu MDLA?</summary><p>Manulife Dynamic Life Assurance - asuransi jiwa tradisional (bukan unit-link) dengan 3 plan fleksibel. Manfaat pasti dan jelas sejak awal.</p></details>
+          <details class="faq-item"><summary>Apa bedanya dengan unit-link?</summary><p>MDLA adalah asuransi tradisional dengan manfaat pasti. Tidak ada komponen investasi, jadi tidak ada risiko nilai polis turun karena pasar modal.</p></details>
+          <details class="faq-item"><summary>Berapa usia masuk?</summary><p>0 sampai 70 tahun untuk semua plan (A, B, C).</p></details>
+          <details class="faq-item"><summary>Kapan Plan B mengembalikan kontribusi?</summary><p>Usia 0-60: 20% di tahun ke-20 + 100% di tahun ke-30 (total 120%). Usia 61-70: 30% di tahun ke-15.</p></details>
+          <details class="faq-item"><summary>Bagaimana cara kerja Plan C (UP Cair)?</summary><p>UP pasti cair: jika meninggal = ahli waris terima 100% UP. Jika hidup di akhir masa = Tertanggung terima 100% UP. Cocok untuk dana pensiun.</p></details>
+          <details class="faq-item"><summary>Apakah ada masa tunggu?</summary><p>2 tahun untuk meninggal karena sakit. Jika meninggal akibat kecelakaan, tidak ada masa tunggu.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="cta-final">
+          <h2>Siap Proteksi Keluarga & Masa Depan?</h2>
+          <p>Konsultasi gratis, tanpa paksaan.</p>
+          <a href="https://wa.me/6287781896087" class="btn" style="background:white;color:var(--emerald-dark);">💬 Chat Aku Sekarang</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div id="footer-container"></div>
+  <a href="https://wa.me/6287781896087" class="floating-wa" target="_blank"><i data-lucide="message-circle"></i></a>
+
+  <script src="../assets/js/app.js"></script>  <script>
+    const formatRp = n => 'Rp ' + n.toLocaleString('id-ID');
+    const rates = {
+      A: { pria: { 25: 11400000, 30: 11400000, 35: 6400000, 40: 8900000, 45: 12900000, 50: 18800000, 55: 27800000, 60: 43200000 }, wanita: { 25: 10800000, 30: 10800000, 35: 6000000, 40: 8500000, 45: 12200000, 50: 17800000, 55: 26200000, 60: 40800000 } },
+      B: { pria: { 25: 7100000, 30: 8200000, 35: 10900000, 40: 15400000, 45: 22400000, 50: 31300000, 55: 43400000, 60: 59800000 }, wanita: { 25: 6700000, 30: 7700000, 35: 10200000, 40: 14400000, 45: 20900000, 50: 29200000, 55: 40500000, 60: 55800000 } },
+      C: { pria: { 25: 55800000, 30: 55800000, 35: 57000000, 40: 58100000, 45: 59200000, 50: 60300000, 55: 65000000, 60: 73100000 }, wanita: { 25: 52500000, 30: 52500000, 35: 53500000, 40: 54600000, 45: 55600000, 50: 56700000, 55: 61100000, 60: 68700000 } }
+    };
+
+    document.getElementById('calc-btn').addEventListener('click', () => {
+      const plan = document.getElementById('plan').value;
+      const gender = document.getElementById('gender').value;
+      const age = parseInt(document.getElementById('age').value);
+      const ppp = document.getElementById('ppp').value;
+      const up = parseFloat(document.getElementById('up').value);
+      const rate = rates[plan][gender][age];
+      if (!rate) { alert('Kombinasi belum tersedia'); return; }
+      let prem = rate * up;
+      if (ppp === '5') prem *= 1.8;
+      if (ppp === '15') prem *= 0.7;
+      if (ppp === '20') prem *= 0.6;
+      document.getElementById('result-price').textContent = formatRp(prem);
+      document.getElementById('result-info').innerHTML = `
+        <div class="calc-result-row"><span>Plan</span><span>Plan ${plan}</span></div>
+        <div class="calc-result-row"><span>UP</span><span>Rp ${up} Miliar</span></div>
+        <div class="calc-result-row"><span>Profil</span><span>${gender === 'pria' ? 'Pria' : 'Wanita'}, ${age} thn</span></div>
+        <div class="calc-result-row"><span>Masa Bayar</span><span>${ppp} tahun</span></div>`;
+      document.getElementById('wa-link').href = `https://wa.me/6287781896087?text=${encodeURIComponent(`Halo Kak Petrus, saya tertarik MDLA Plan ${plan}, ${gender} ${age} thn, UP ${up}M. Estimasi ${formatRp(prem)}/thn.`)}`;
+      document.getElementById('calc-result').style.display = 'block';
+    });
+  </script>
+</body>
+</html>
