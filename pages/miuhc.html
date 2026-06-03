@@ -1,324 +1,457 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MiUHC | Project Cuan</title>
-    <meta name="description" content="Mi Ultimate Healthcare. Asuransi kesehatan murni sesuai tagihan dari Manulife Indonesia.">
+    <title>MiUHC - Proteksi Kesehatan Seumur Hidup | Project Cuan</title>
     
-    <!-- Memuat aset desain utama -->
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Memuat PapaParse untuk membaca CSV -->
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- PapaParse for CSV -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/style.css">
     
     <style>
-        /* Elemen Kalkulator Cerdas */
-        .calc-field select { width: 100%; padding: 10px 12px; border: 2px solid rgba(128, 128, 128, 0.2); border-radius: 8px; font-size: 1rem; background: var(--card-bg); color: var(--text-color); margin-top: 5px; transition: all 0.3s ease; }
-        .calc-field select:focus { border-color: var(--primary); outline: none; }
-        .calc-row { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
-        .calc-field { flex: 1; min-width: 200px; text-align: left; }
+        /* Page Specific Styles */
+        .product-hero {
+            background: linear-gradient(135deg, var(--soft-lav) 0%, var(--white) 100%);
+            padding: 80px 0 60px;
+            text-align: center;
+        }
+        [data-theme="dark"] .product-hero {
+            background: linear-gradient(135deg, #1F2933 0%, var(--bg-body) 100%);
+        }
+        .hero-badge {
+            background: var(--jade);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        .content-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: -40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 10;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        .feature-item {
+            background: var(--light-gray);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--jade);
+        }
+        .feature-item h4 { color: var(--navy); margin-bottom: 10px; font-size: 1.1rem; }
+        [data-theme="dark"] .feature-item h4 { color: var(--jade); }
+        .feature-item p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.6; }
         
-        /* Tabbing Kustom MiUHC */
-        .miuhc-tabs { display: flex; gap: 10px; margin-bottom: 2rem; background: rgba(128,128,128,0.1); padding: 5px; border-radius: 12px; }
-        .miuhc-tab-btn { flex: 1; padding: 12px 20px; border: none; background: transparent; font-size: 1rem; font-weight: 700; color: var(--text-color); cursor: pointer; border-radius: 8px; transition: all 0.3s ease; }
-        .miuhc-tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); }
+        /* Calculator Styles */
+        .calculator-wrapper {
+            background: var(--bg-section);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
         
-        /* Promo & Badge */
-        .promo-box { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(6,182,212,0.1)); border-left: 4px solid var(--success); padding: 1.5rem; border-radius: 0 12px 12px 0; margin: 2rem 0; text-align: left; }
-        .deductible-badge { display: inline-block; background: rgba(245, 158, 11, 0.15); color: #B45309; font-size: 0.75rem; padding: 4px 10px; border-radius: 6px; font-weight: 700; margin-top: 8px; }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-main);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            font-family: 'Open Sans', sans-serif;
+        }
+        .calc-result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #d4edda;
+            color: #155724;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        [data-theme="dark"] .calc-result {
+            background: #1e4620;
+            color: #d4edda;
+        }
+        .calc-result h3 { margin: 0; font-size: 1.5rem; color: inherit; }
+        .calc-result p { margin: 5px 0 0; font-size: 0.9rem; opacity: 0.9; }
         
-        /* Tombol Ekspansi Plan */
-        .expand-btn { width: 100%; padding: 15px; border: 2px dashed var(--secondary); border-radius: 12px; background: transparent; color: var(--primary); font-size: 1rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; margin-top: 2rem; }
-        .expand-btn:hover { background: rgba(37, 99, 235, 0.05); border-color: var(--primary); }
-        .all-plans { display: none; margin-top: 2rem; }
-        .all-plans.show { display: block; animation: fadeIn 0.4s ease forwards; }
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--jade);
+        }
         
-        #loading-indicator { font-weight: 600; color: var(--primary); margin: 20px 0; padding: 15px; background: rgba(37, 99, 235, 0.05); border-radius: 8px; display: none; }
+        /* FAQ */
+        .faq-section { margin-top: 60px; }
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 20px 0;
+        }
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--navy);
+        }
+        [data-theme="dark"] .faq-question { color: var(--jade); }
+        .faq-answer {
+            display: none;
+            margin-top: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .faq-item.active .faq-answer { display: block; }
+        .faq-item.active .faq-question i { transform: rotate(180deg); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-    
-    <!-- Injeksi Navbar Universal -->
-    <div id="navbar-container"></div>
 
-    <main style="padding-top: 100px;">
-        <section class="section-container" style="padding-top: 4rem; padding-bottom: 2rem;">
-            <span class="section-badge">Asuransi Kesehatan Premium</span>
-            <h1 class="section-title">MiUHC</h1>
-            <p class="section-subtitle">Mi Ultimate Healthcare memastikan perawatan medis terbaik di seluruh dunia sesuai tagihan (As Charged). Cerdas finansial, tenang masa depan.</p>
-        </section>
-
-        <!-- Area Promo No Claim -->
-        <section class="section-container">
-            <div class="promo-box">
-                <h3 style="color: var(--success); margin-bottom: 10px;">🏆 Keuntungan Hidup Sehat (No-Claim Benefit)</h3>
-                <ul style="list-style-type: none; margin-left: 0; line-height: 1.8;">
-                    <li>✅ <strong>No-Claim BONUS:</strong> Setahun tanpa klaim? Limit tahunan kartu otomatis naik 10% per tahun (maksimal 50%).</li>
-                    <li>✅ <strong>No-Claim DISCOUNT:</strong> Setahun tanpa klaim? Nikmati diskon premi 10% di tahun berikutnya (maksimal 15%).</li>
-                </ul>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="../index.html" class="logo">
+                <span class="logo-project">PROJECT</span><span class="logo-cuan">CUAN</span>
+            </a>
+            <nav class="desktop-nav">
+                <a href="bisnis.html">Bisnis</a>
+                <a href="../index.html#produk">Produk</a>
+                <a href="tentang.html">Tentang</a>
+            </nav>
+            <div class="header-actions">
+                <button id="search-btn" class="icon-btn"><i class="fas fa-search"></i></button>
+                <button id="theme-toggle" class="icon-btn"><i class="fas fa-moon"></i></button>
+                <button id="menu-toggle" class="icon-btn hamburger"><i class="fas fa-bars"></i></button>
             </div>
-        </section>
+        </div>
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="bisnis.html">Mulai Bisnis</a>
+            <a href="../index.html#produk">Produk Asuransi</a>
+            <a href="tentang.html">Tentang Kami</a>
+        </div>
+        <div class="search-overlay" id="search-overlay">
+            <input type="text" id="search-input" placeholder="Cari produk...">
+            <button id="close-search"><i class="fas fa-times"></i></button>
+        </div>
+    </header>
 
-        <!-- UI Kalkulator -->
-        <section class="section-container" style="margin-bottom: 4rem;">
-            <div class="glassmorphism" style="padding: 3rem 2rem; border-radius: 20px; text-align: center;">
-                <h2>Kalkulator Premi Cerdas MiUHC</h2>
-                <p style="margin-bottom: 2rem; opacity: 0.8;">Temukan solusi proteksi kesehatan terbaik Anda di sini.</p>
-                
-                <div class="miuhc-tabs">
-                    <button class="miuhc-tab-btn active" id="tab-konv" onclick="switchTab('konvensional')">Konvensional</button>
-                    <button class="miuhc-tab-btn" id="tab-sya" onclick="switchTab('syariah')">Syariah</button>
+    <!-- Hero Section -->
+    <section class="product-hero">
+        <div class="container">
+            <span class="hero-badge">#1 Health Care Indonesia</span>
+            <h1>Sakit Keras Bisa Bikin Hancur Finansial?<br><span class="highlight">Apa Kamu Siap?</span></h1>
+            <p style="max-width: 700px; margin: 20px auto; color: var(--text-muted);">
+                MiUHC adalah benteng pertahanan finansialmu. Produk asuransi kesehatan dengan garansi perpanjangan hingga usia 110 tahun. 
+                Satu-satunya yang menawarkan pemulihan limit otomatis dan fasilitas Premium Medix.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="container">
+        <div class="content-card">
+            
+            <!-- Why MiUHC -->
+            <h2 style="text-align: center; margin-bottom: 30px;">Kenapa Harus <span class="highlight">MiUHC</span>?</h2>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <h4><i class="fas fa-shield-alt" style="color:var(--jade)"></i> Proteksi Hingga Usia 110 Tahun</h4>
+                    <p>Takut putus proteksi saat tua? MiUHC menjamin perpanjangan hingga usia 110 tahun. Kenaikan premi hanya berdasarkan usia, bukan karena kamu sering klaim.</p>
                 </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-sync" style="color:var(--jade)"></i> Pemulihan Limit Otomatis</h4>
+                    <p>Satu-satunya di Indonesia! Jika limit habis karena sakit keras, limit akan pulih otomatis maksimal 6 bulan kemudian. Tidak perlu tunggu tahun polis baru.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-percent" style="color:var(--jade)"></i> Tidak Klaim? Dapat Diskon!</h4>
+                    <p>Manfaat No Claim Bonus: Premi tahun depan turun 10% (maksimal 50%). Semakin sehat kamu, semakin hemat premimu.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-user-md" style="color:var(--jade)"></i> Fasilitas Premium Medix & Halodoc</h4>
+                    <p>Akses dokter spesialis terbaik dan konsultasi via WhatsApp dengan Halodoc. Hanya Manulife dan AIA yang punya fasilitas sekelas ini.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-file-invoice-dollar" style="color:var(--jade)"></i> E-Claim Mudah</h4>
+                    <p>Ribet urus klaim? Cukup foto kwitansi asli di aplikasi Manulife, proses klaim jadi lebih cepat dan tanpa ribet.</p>
+                </div>
+                <div class="feature-item">
+                    <h4><i class="fas fa-heartbeat" style="color:var(--jade)"></i> Cover Kanker & Transplantasi</h4>
+                    <p>Klaim kanker cair sejak terdiagnosa meski tanpa rawat inap. Biaya transplantasi untuk donor juga ditanggung!</p>
+                </div>
+            </div>
 
-                <div class="calc-row">
-                    <div class="calc-field">
+            <!-- Calculator Section -->
+            <div class="calculator-wrapper">
+                <h3 style="text-align: center; margin-bottom: 20px;">Hitung Estimasi Premimu</h3>
+                <p style="text-align: center; font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">
+                    Data diambil langsung dari tabel resmi MiUHC 2025. Akurat & Terpercaya.
+                </p>
+                
+                <div class="calc-grid">
+                    <div class="form-group">
                         <label>Jenis Kelamin</label>
-                        <select id="gender" onchange="renderResults()">
+                        <select id="gender" class="form-control">
                             <option value="PRIA">Pria</option>
                             <option value="WANITA">Wanita</option>
                         </select>
                     </div>
-                    <div class="calc-field">
+                    <div class="form-group">
                         <label>Usia Masuk</label>
-                        <select id="age" onchange="renderResults()"></select>
+                        <input type="number" id="age" class="form-control" value="30" min="0" max="70">
                     </div>
-                    <div class="calc-field">
-                        <label>Jenis Manfaat Tambahan</label>
-                        <select id="benefitType" onchange="renderResults()">
-                            <option value="inap">Rawat Inap</option>
-                            <option value="jalan">Rawat Jalan</option>
-                            <option value="gigi" id="optGigi" style="display:none;" disabled>Rawat Gigi</option>
+                    <div class="form-group">
+                        <label>Jenis Manfaat</label>
+                        <select id="benefit" class="form-control">
+                            <option value="konv_inap">Rawat Inap Saja (Lebih Hemat)</option>
+                            <option value="konv_jalan">Rawat Inap + Jalan (Lengkap)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pilihan Plan</label>
+                        <select id="plan" class="form-control">
+                            <!-- Option will be populated dynamically based on data availability or static list -->
+                            <option value="Diamond">Diamond (VIP)</option>
+                            <option value="Ruby">Ruby</option>
+                            <option value="Emerald">Emerald</option>
+                            <option value="Topaz" selected>Topaz (Best Seller)</option>
+                            <option value="Topaz ID">Topaz ID</option>
+                            <option value="Jade">Jade</option>
+                            <option value="Jade ID">Jade ID</option>
+                            <option value="Sapphire">Sapphire (Entry Level)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Mode Pembayaran</label>
+                        <select id="mode" class="form-control">
+                            <option value="tahunan">Tahunan (Hemat 2 Bulan)</option>
+                            <option value="semesteran">Semesteran (6 Bulan)</option>
+                            <option value="kuartalan">Kuartalan (3 Bulan)</option>
+                            <option value="bulanan">Bulanan</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- Indikator Loading Ekstraksi CSV -->
-                <div id="loading-indicator">🔄 Memuat modul aktuaria presisi tinggi...</div>
+                <button onclick="calculatePremium()" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                    <i class="fas fa-calculator"></i> Hitung Premi Sekarang
+                </button>
 
-                <!-- Area Hasil Kalkulasi O(1) -->
-                <div id="results" style="text-align: left; margin-top: 2rem;"></div>
+                <div id="loading" class="loading-spinner">
+                    <i class="fas fa-circle-notch fa-spin"></i> Menghitung data...
+                </div>
 
-                <div style="margin-top: 3rem;">
-                    <a href="https://wa.me/6287781896087?text=Halo%20Financial%20Buddy%20@petrusjakub,%20saya%20ingin%20diskusi%20lanjut%20soal%20plan%20MiUHC." target="_blank" class="btn btn-primary">Konsultasi Gratis via WhatsApp</a>
+                <div id="result" class="calc-result">
+                    <h3 id="premium-display">Rp 0</h3>
+                    <p id="premium-detail">Estimasi per periode</p>
+                    <div style="margin-top: 15px; font-size: 0.8rem; border-top: 1px solid rgba(0,0,0,0.1); padding-top: 10px;">
+                        *Ini adalah estimasi. Premi sebenarnya mungkin berbeda sedikit karena pembulatan perusahaan. Hubungi agen untuk ilustrasi resmi.
+                    </div>
                 </div>
             </div>
-        </section>
 
-    </main>
-
-    <!-- Injeksi Footer Universal -->
-    <div id="footer-container"></div>
-
-    <!-- Memuat Modul Inti -->
-    <script src="assets/js/app.js"></script>
-    
-    <!-- Memuat Modul Data & Kalkulator yang Anda Unggah -->
-    <script src="assets/js/miuhc-data.js"></script>
-    <script src="assets/js/miuhc-calculator.js"></script>
-
-    <!-- Logika Interaksi UI Khusus MiUHC -->
-    <script>
-        let currentTab = 'konvensional';
-
-        // Konfigurasi Detail Manfaat Tiap Plan
-        const PLAN_DETAILS = {
-            "Diamond": { wilayah: "Worldwide", kamar: "1 Bed", limit: "Unlimited", deductible: null },
-            "Ruby": { wilayah: "Worldwide (kec. USA)", kamar: "1 Bed", limit: "Rp 90 Miliar", deductible: null },
-            "Emerald": { wilayah: "Seluruh Asia", kamar: "1 Bed", limit: "Rp 35 Miliar", deductible: null },
-            "Topaz": { wilayah: "Asia (Kec. JPN/HKG/SGP)", kamar: "1 Bed", limit: "Rp 18 Miliar", deductible: null },
-            "Topaz ID": { wilayah: "Indonesia", kamar: "1 Bed", limit: "Rp 18 Miliar", deductible: null },
-            "Jade": { wilayah: "Asia (Kec. JPN/HKG/SGP)", kamar: "2 Bed", limit: "Rp 10 Miliar", deductible: null },
-            "Jade ID": { wilayah: "Indonesia", kamar: "2 Bed", limit: "Rp 10 Miliar", deductible: null },
-            "Sapphire": { wilayah: "Indonesia", kamar: "2 Bed (No RI)", limit: "Rp 5 Miliar", deductible: null },
-            "Diamond Smart": { wilayah: "Worldwide", kamar: "1 Bed", limit: "Unlimited", deductible: "Rp 16.000.000" },
-            "Ruby Smart": { wilayah: "Worldwide (kec. USA)", kamar: "1 Bed", limit: "Rp 90 Miliar", deductible: "Rp 16.000.000" },
-            "Emerald Smart": { wilayah: "Seluruh Asia", kamar: "1 Bed", limit: "Rp 35 Miliar", deductible: "Rp 8.000.000" },
-            "Topaz Smart": { wilayah: "Asia (Kec. JPN/HKG/SGP)", kamar: "1 Bed", limit: "Rp 18 Miliar", deductible: "Rp 8.000.000" },
-            "Topaz ID Smart": { wilayah: "Indonesia", kamar: "1 Bed", limit: "Rp 18 Miliar", deductible: "Rp 8.000.000" },
-            "Jade Smart": { wilayah: "Asia (Kec. JPN/HKG/SGP)", kamar: "2 Bed", limit: "Rp 10 Miliar", deductible: "Rp 5.000.000" },
-            "Jade ID Smart": { wilayah: "Indonesia", kamar: "2 Bed", limit: "Rp 10 Miliar", deductible: "Rp 5.000.000" }
-        };
-
-        // Inisialisasi Usia (0-85 Tahun)
-        function initMiuhcUI() {
-            const ageSelect = document.getElementById('age');
-            ageSelect.innerHTML = '';
-            for (let i = 0; i <= 85; i++) {
-                let opt = document.createElement('option');
-                opt.value = i;
-                opt.textContent = i + ' Tahun';
-                if (i === 30) opt.selected = true; // Set default 30 tahun
-                ageSelect.appendChild(opt);
-            }
-        }
-
-        // Fungsionalitas Ganti Tab
-        function switchTab(tab) {
-            currentTab = tab;
-            document.getElementById('tab-konv').classList.toggle('active', tab === 'konvensional');
-            document.getElementById('tab-sya').classList.toggle('active', tab === 'syariah');
-            
-            const gigiOpt = document.getElementById('optGigi');
-            const benefitSel = document.getElementById('benefitType');
-            
-            if (tab === 'konvensional') {
-                gigiOpt.disabled = true;
-                gigiOpt.style.display = 'none';
-                if (benefitSel.value === 'gigi') benefitSel.value = 'inap';
-            } else {
-                gigiOpt.disabled = false;
-                gigiOpt.style.display = 'block';
-            }
-            renderResults();
-        }
-
-        // Format Uang Cerdas
-        function formatRp(n) {
-            if (n === 0 || isNaN(n)) return 'Rp 0';
-            return 'Rp ' + n.toLocaleString('id-ID');
-        }
-
-        // Fungsi Tombol Ekspansi "Lihat Semua Plan"
-        function toggleAllPlans() {
-            const section = document.getElementById('all-plans-section');
-            const btn = document.getElementById('expand-btn');
-            if (section.classList.contains('show')) {
-                section.classList.remove('show');
-                btn.textContent = 'Eksplorasi 7 Plan Lainnya';
-            } else {
-                section.classList.add('show');
-                btn.textContent = 'Sembunyikan Plan Lainnya';
-            }
-        }
-
-        // Merakit Kartu Plan UI
-        function buildCard(planName, premiTahunan, benefitLabel) {
-            const isSmart = planName.toLowerCase().includes('smart');
-            const details = PLAN_DETAILS[planName];
-            
-            // Hitungan Faktor Bulanan Manulife
-            const premiBulanan = Math.round(premiTahunan * 1.14 / 12 / 100) * 100;
-            
-            const deductibleHtml = (details && details.deductible) 
-                ? `<span class="deductible-badge">Deductible: ${details.deductible}</span>` 
-                : '';
-                
-            const wilayah = details ? details.wilayah : '-';
-            const kamar = details ? details.kamar : '-';
-            const limit = details ? details.limit : '-';
-            
-            return `
-            <div class="produk-card" style="${isSmart ? 'border: 2px solid var(--accent);' : ''}">
-                <div class="card-accent" style="background: ${isSmart ? 'var(--accent)' : 'var(--primary)'};"></div>
-                <div class="card-content" style="padding: 1.5rem;">
-                    <span class="prod-tag" style="color: ${isSmart ? 'var(--accent)' : 'var(--primary)'}">${planName}</span>
-                    <h3 style="font-size: 1.6rem; color: var(--success); margin: 10px 0 5px;">${formatRp(premiTahunan)}<span style="font-size: 0.85rem; color: var(--text-color); font-weight: 500;">/thn</span></h3>
-                    <div style="font-size: 0.9rem; opacity: 0.8; margin-bottom: 15px;">Atau ${formatRp(premiBulanan)} / bulan</div>
-                    
-                    <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(0,0,0,0.1); padding: 5px 0; font-size: 0.9rem;">
-                        <span>Wilayah</span><strong style="text-align: right;">${wilayah}</strong>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(0,0,0,0.1); padding: 5px 0; font-size: 0.9rem;">
-                        <span>Kamar</span><strong>${kamar}</strong>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(0,0,0,0.1); padding: 5px 0; font-size: 0.9rem;">
-                        <span>Limit Tahunan</span><strong>${limit}</strong>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(0,0,0,0.1); padding: 5px 0; font-size: 0.9rem;">
-                        <span>${benefitLabel}</span><strong>Sesuai Tagihan</strong>
-                    </div>
-                    ${deductibleHtml}
+            <!-- FAQ -->
+            <div class="faq-section">
+                <h3>Pertanyaan Sering Diajukan</h3>
+                <div class="faq-item">
+                    <div class="faq-question">Apakah pre-existing disease (penyakit bawaan) ditanggung? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Tergantung hasil underwriting. MiUHC terkenal cukup adil dalam menilai risiko. Beberapa kondisi mungkin dikenakan ekskusi (tidak ditanggung) atau loading premi, namun banyak juga yang diterima normal. Konsultasikan riwayat kesehatanmu pada agen.</div>
                 </div>
-            </div>`;
-        }
+                <div class="faq-item">
+                    <div class="faq-question">Bagaimana jika limit tahunan habis? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Tenang! MiUHC memiliki fitur unik <strong>Pemulihan Otomatis</strong>. Jika limit habis karena satu kejadian sakit, limit akan kembali penuh setelah 6 bulan, tanpa menunggu tahun polis berganti.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Apa bedanya plan Regular dan Smart? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Plan "Smart" adalah varian dengan premi lebih terjangkau karena memiliki mekanisme deductible (klaim pertama ditanggung sebagian oleh nasabah) atau batasan tertentu, cocok untuk kamu yang ingin proteksi tinggi dengan budget terbatas.</div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Bisa bayar bulanan tanpa kartu kredit? <i class="fas fa-chevron-down"></i></div>
+                    <div class="faq-answer">Untuk pembayaran bulanan murni, biasanya memerlukan kartu kredit. Namun, kamu bisa bayar semesteran atau tahunan via transfer bank langsung.</div>
+                </div>
+            </div>
 
-        // Merender Hasil ke Layar menggunakan fungsi pencarian `getPremi()`
-        function renderResults() {
-            const resultsContainer = document.getElementById('results');
-            
-            // Cek kesiapan index (merujuk pada variabel di miuhc-data.js)[span_2](start_span)[span_2](end_span)
-            if (typeof premiIndex === 'undefined' || Object.keys(premiIndex).length === 0) {
-                return; // Tunggu hingga data termuat penuh
-            }
+            <!-- CTA Final -->
+            <div style="text-align: center; margin-top: 60px; padding: 40px; background: var(--soft-lav); border-radius: 15px;">
+                <h3>Masih Bingung Pilih Plan yang Tepat?</h3>
+                <p>Jangan ambil risiko salah pilih proteksi. Konsultasikan kebutuhan spesifik kamu dan dapatkan ilustrasi resmi sekarang.</p>
+                <br>
+                <a href="https://wa.me/6287781896087?text=Halo%20Agen,%20saya%20sudah%20hitung%20estimasi%20MiUHC%20tapi%20mau%20konfirmasi%20detailnya" class="btn btn-primary">
+                    <i class="fab fa-whatsapp"></i> Chat Agen via WhatsApp
+                </a>
+            </div>
 
-            const benefit = document.getElementById('benefitType').value;
-            const benefitLabel = benefit === 'jalan' ? 'Rawat Jalan' : benefit === 'gigi' ? 'Rawat Gigi' : 'Rawat Inap';
-            
-            const kategoriCari = (currentTab === 'konvensional' ? 'konv_' : 'sya_') + benefit;
-            const gender = document.getElementById('gender').value;
-            const age = document.getElementById('age').value;
+        </div>
+    </section>
 
-            // Kategori Pengelompokan Tampilan
-            const mostWanted = ['Jade ID', 'Jade', 'Topaz ID', 'Topaz'];
-            const hemat = currentTab === 'konvensional' ? 
-                ['Jade ID Smart', 'Jade Smart', 'Topaz ID Smart', 'Topaz Smart'] : 
-                ['Jade Smart', 'Topaz Smart'];
-            const otherPlans = ['Diamond', 'Ruby', 'Emerald', 'Sapphire', 'Diamond Smart', 'Ruby Smart', 'Emerald Smart'];
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h3>PROJECT<span class="logo-cuan">CUAN</span></h3>
+                <p>Partner terbaik proteksi dan bisnismu.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigasi</h4>
+                <a href="bisnis.html">Bisnis</a>
+                <a href="../index.html#produk">Produk</a>
+                <a href="tentang.html">Tentang</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Hubungi Agen</h4>
+                <p><i class="fab fa-whatsapp"></i> 0877-8189-6087</p>
+                <p><i class="far fa-envelope"></i> petrusjakub.asn@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Project Cuan. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-            let html = '<h3 style="color: var(--primary); margin-bottom: 1rem; border-bottom: 2px solid var(--primary); padding-bottom: 5px; display: inline-block;">Rekomendasi Utama (Tanpa Deductible)</h3><div class="produk-grid" style="margin-bottom: 2rem;">';
-            
-            let dataFound = false;
+    <!-- Floating Elements -->
+    <a href="#" class="scroll-top" id="scroll-top"><i class="fas fa-arrow-up"></i></a>
+    <a href="https://wa.me/6287781896087?text=Halo%20Agen,%20saya%20tertarik%20dengan%20MiUHC" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>Chat Agen</span>
+    </a>
 
-            // 1. Ekstrak Rekomendasi Utama (Menggunakan fungsi getPremi dari miuhc-calculator.js)[span_3](start_span)[span_3](end_span)
-            mostWanted.forEach(planName => {
-                const premiAngka = getPremi(kategoriCari, gender, age, planName);
-                if (premiAngka > 0) {
-                    html += buildCard(planName, premiAngka, benefitLabel);
-                    dataFound = true;
-                }
+    <script src="../assets/main.js"></script>
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(item => {
+            item.addEventListener('click', () => {
+                const parent = item.parentElement;
+                parent.classList.toggle('active');
             });
-            
-            html += '</div><h3 style="color: var(--accent); margin-bottom: 1rem; border-bottom: 2px solid var(--accent); padding-bottom: 5px; display: inline-block;">Smart Plan (Hemat Hingga 40%)</h3><div class="produk-grid">';
-            
-            // 2. Ekstrak Plan Hemat (Smart)
-            hemat.forEach(planName => {
-                const premiAngka = getPremi(kategoriCari, gender, age, planName);
-                if (premiAngka > 0) {
-                    html += buildCard(planName, premiAngka, benefitLabel);
-                    dataFound = true;
-                }
-            });
-            
-            html += '</div><button class="expand-btn" id="expand-btn" onclick="toggleAllPlans()">Eksplorasi 7 Plan Lainnya</button><div class="all-plans" id="all-plans-section"><h3 style="color: var(--text-color); margin-bottom: 1rem; border-bottom: 2px solid var(--text-color); padding-bottom: 5px; display: inline-block;">Pilihan Eksklusif Lainnya</h3><div class="produk-grid">';
-            
-            // 3. Ekstrak Sisa Plan (Disembunyikan)
-            otherPlans.forEach(planName => {
-                const premiAngka = getPremi(kategoriCari, gender, age, planName);
-                if (premiAngka > 0) {
-                    html += buildCard(planName, premiAngka, benefitLabel);
-                    dataFound = true;
-                }
-            });
-            
-            html += '</div></div>';
-
-            if (!dataFound) {
-                resultsContainer.innerHTML = `<div style="color: #EF4444; font-weight: 600; padding: 20px; text-align: center; background: rgba(239, 68, 68, 0.1); border-radius: 8px;">Mohon maaf, data premi untuk usia ${age} tahun tidak tersedia di kategori ini.</div>`;
-            } else {
-                resultsContainer.innerHTML = html;
-            }
-        }
-
-        // Inisialisasi Saat Dokumen Terbuka
-        window.addEventListener('load', async function() {
-            initMiuhcUI();
-            
-            const loadingIndicator = document.getElementById('loading-indicator');
-            loadingIndicator.style.display = 'block';
-
-            try {
-                // Eksekusi janji (Promise) muat data CSV dari miuhc-data.js[span_4](start_span)[span_4](end_span)
-                await loadPremiData(); 
-                loadingIndicator.style.display = 'none';
-                renderResults();
-            } catch (err) {
-                console.error("Gagal memuat arsitektur CSV:", err);
-                loadingIndicator.style.display = 'none';
-                document.getElementById('results').innerHTML = '<div style="color: #EF4444; font-weight: 600; padding: 20px; text-align: center;">Gagal mengunduh struktur aktuaria. Pastikan file "miuhc.csv" berada di direktori assets/data/.</div>';
-            }
         });
+
+        // Calculator Logic
+        let premiumData = [];
+
+        function calculatePremium() {
+            const gender = document.getElementById('gender').value;
+            const age = parseInt(document.getElementById('age').value);
+            const benefitType = document.getElementById('benefit').value; // konv_inap or konv_jalan
+            const plan = document.getElementById('plan').value;
+            const mode = document.getElementById('mode').value;
+
+            const resultDiv = document.getElementById('result');
+            const loadingDiv = document.getElementById('loading');
+            const display = document.getElementById('premium-display');
+            const detail = document.getElementById('premium-detail');
+
+            // Reset
+            resultDiv.style.display = 'none';
+            loadingDiv.style.display = 'block';
+
+            // Load CSV if not loaded
+            if (premiumData.length === 0) {
+                Papa.parse("../assets/data/miuhc.csv", {
+                    download: true,
+                    header: true,
+                    complete: function(results) {
+                        premiumData = results.data;
+                        processCalculation(gender, age, benefitType, plan, mode, display, detail, loadingDiv, resultDiv);
+                    },
+                    error: function(err) {
+                        loadingDiv.style.display = 'none';
+                        alert("Gagal memuat data premi. Pastikan file assets/data/miuhc.csv ada.");
+                        console.error(err);
+                    }
+                });
+            } else {
+                processCalculation(gender, age, benefitType, plan, mode, display, detail, loadingDiv, resultDiv);
+            }
+        }
+
+        function processCalculation(gender, age, benefitType, plan, mode, display, detail, loadingDiv, resultDiv) {
+            // Find matching row
+            // CSV columns: kategori, gender, usia, plan, premi
+            const row = premiumData.find(r => 
+                r.gender.trim() === gender && 
+                parseInt(r.usia) === age && 
+                r.kategori.trim() === benefitType && 
+                r.plan.trim() === plan
+            );
+
+            loadingDiv.style.display = 'none';
+
+            if (row && row.premi) {
+                let basePremium = parseInt(row.premi);
+                
+                // Factors
+                const factors = {
+                    'tahunan': 1.00,
+                    'semesteran': 0.525,
+                    'kuartalan': 0.275,
+                    'bulanan': 0.095
+                };
+
+                const factor = factors[mode];
+                const finalPremium = Math.round((basePremium * factor) / 100) * 100;
+
+                // Format Currency
+                const formatted = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(finalPremium);
+                
+                let periodText = "";
+                if(mode === 'tahunan') periodText = "per tahun (Sekali bayar)";
+                else if(mode === 'semesteran') periodText = "per 6 bulan";
+                else if(mode === 'kuartalan') periodText = "per 3 bulan";
+                else if(mode === 'bulanan') periodText = "per bulan";
+
+                display.textContent = formatted;
+                detail.textContent = `Estimasi ${periodText} untuk ${plan}`;
+                resultDiv.style.display = 'block';
+            } else {
+                // Fallback if data not found (e.g., age out of range in sample)
+                display.textContent = "Data tidak ditemukan";
+                detail.textContent = `Maaf, kombinasi Usia ${age}, Plan ${plan}, dan Manfaat tersebut belum tersedia di database sampel.`;
+                resultDiv.style.display = 'block';
+                resultDiv.style.background = "#f8d7da";
+                resultDiv.style.color = "#721c24";
+            }
+        }
     </script>
 </body>
 </html>
