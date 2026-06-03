@@ -1,192 +1,314 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Cuan | Cerdas Finansial, Tenang Masa Depan</title>
-  <meta name="description" content="Financial Buddy-mu untuk proteksi keuangan & income exponential. Bareng Petrus Jakub.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Cuan - Proteksi & Bisnis Asuransi</title>
+    <meta name="description" content="Solusi asuransi kesehatan, jiwa, dan investasi terbaik untuk masa depan Anda.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/style.css">
+    <style>
+        /* Additional Index Specific Styles */
+        .category-header {
+            margin: 60px 0 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--jade);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .category-header i { font-size: 1.8rem; color: var(--jade); }
+        .category-header h2 { margin: 0; font-size: 1.8rem; }
+        
+        .product-card-question {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 10px;
+            font-style: italic;
+            line-height: 1.5;
+            min-height: 60px;
+        }
+        .product-card:hover .product-card-question { color: var(--jade); }
+        
+        .hero {
+            background: linear-gradient(135deg, var(--bg-soft) 0%, var(--bg-body) 100%);
+            padding: 100px 0;
+            text-align: center;
+        }
+        [data-theme="dark"] .hero {
+            background: linear-gradient(135deg, #1F2933 0%, var(--bg-body) 100%);
+        }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 40px; max-width: 700px; margin-left: auto; margin-right: auto; }
+        
+        .section-intro { text-align: center; margin-bottom: 50px; }
+        .section-intro h2 { font-size: 2.2rem; margin-bottom: 15px; }
+    </style>
 </head>
-<body data-page="home">
-  <div id="navbar-container"></div>
+<body>
 
-  <main>
+    <!-- Header / Navbar -->
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <span class="logo-project">PROJECT</span><span class="logo-cuan">CUAN</span>
+            </a>
+            
+            <nav class="desktop-nav">
+                <a href="pages/bisnis.html">Bisnis</a>
+                <a href="#produk">Produk</a>
+                <a href="pages/tentang.html">Tentang</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="search-btn" class="icon-btn" aria-label="Cari"><i class="fas fa-search"></i></button>
+                <button id="theme-toggle" class="icon-btn" aria-label="Dark Mode"><i class="fas fa-moon"></i></button>
+                <button id="menu-toggle" class="icon-btn hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobile-menu">
+            <a href="pages/bisnis.html">Mulai Bisnis</a>
+            <a href="#produk">Produk Asuransi</a>
+            <a href="pages/tentang.html">Tentang Kami</a>
+        </div>
+        
+        <!-- Search Overlay -->
+        <div class="search-overlay" id="search-overlay">
+            <input type="text" id="search-input" placeholder="Cari produk (cth: MiUHC, Mobil)...">
+            <button id="close-search"><i class="fas fa-times"></i></button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
     <section class="hero">
-      <div class="hero-content">
-        <span class="badge badge-jade">✨ Financial Buddy-mu</span>
-        <h1>
-          Gaji Naik Belum Tentu Kaya.<br>
-          <span class="kw-jade">Punya <span class="kw-jade">Proteksi</span> Baru Bikin Tenang.</span>
-        </h1>
-        <p>
-          Hey! Aku Petrus. Aku bantu kamu bangun <span class="kw-jade">proteksi keuangan</span> + <span class="kw-tangerine">income exponential</span> lewat bisnis asuransi. Santai, edukatif, no pressure. 💚
-        </p>
-        <div class="hero-cta">
-          <a href="#quiz" class="btn btn-jade btn-lg">
-            🎯 Cek Profil Risikomu
-          </a>
-          <a href="#produk" class="btn btn-outline btn-lg">
-            Lihat Produk
-          </a>
+        <div class="container hero-content">
+            <h1>Masa Depan <span class="highlight">Proteksi</span> atau <span class="highlight">Cuan</span>?</h1>
+            <p>Jangan tunggu sakit dulu baru sadar butuh asuransi. Jangan tunggu miskin dulu baru sadar butuh bisnis.</p>
+            <div class="hero-buttons">
+                <a href="pages/bisnis.html" class="btn btn-primary">Mulai Bisnis</a>
+                <a href="#produk" class="btn btn-outline">Lihat Produk</a>
+            </div>
         </div>
-      </div>
     </section>
 
-    <section class="section" style="background: var(--bg-soft);">
-      <div class="container">
-        <div class="section-header">
-          <h2>Pernah Mikirin Ini Nggak? 🤔</h2>
-          <p>Pertanyaan yang sering bikin orang melek finansial</p>
+    <!-- Produk Grid -->
+    <section id="produk" class="products-section">
+        <div class="container">
+            <div class="section-intro">
+                <h2>Pilih <span class="highlight">Proteksi</span>mu</h2>
+                <p style="color: var(--text-muted);">Klik kartu produk untuk melihat detail dan kalkulator premi.</p>
+            </div>
+            
+            <!-- Kategori: Kesehatan & Penyakit Kritis -->
+            <div class="category-header">
+                <i class="fas fa-heartbeat"></i>
+                <h2>Kesehatan & Penyakit Kritis</h2>
+            </div>
+            <div class="product-grid">
+                <!-- MiUHC -->
+                <a href="pages/miuhc.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-hospital-user"></i></div>
+                    <h4>MIUHC</h4>
+                    <p class="product-card-question">"Jika harus dirawat di rumah sakit besok, apakah tabungan Anda siap menghadapi biaya medis yang terus meningkat setiap tahun?"</p>
+                </a>
+                <!-- MIUCC -->
+                <a href="pages/miucc.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-notes-medical"></i></div>
+                    <h4>MIUCC</h4>
+                    <p class="product-card-question">"Jika kanker, stroke, atau serangan jantung datang tanpa peringatan, apakah kondisi keuangan keluarga tetap aman?"</p>
+                </a>
+                <!-- MCCP -->
+                <a href="pages/mccp.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-stethoscope"></i></div>
+                    <h4>MCCP</h4>
+                    <p class="product-card-question">"Apakah Anda sudah menyiapkan perlindungan finansial jika penyakit kritis mengganggu kemampuan Anda untuk bekerja?"</p>
+                </a>
+            </div>
+
+            <!-- Kategori: Asuransi Jiwa & Perlindungan -->
+            <div class="category-header">
+                <i class="fas fa-shield-alt"></i>
+                <h2>Asuransi Jiwa & Perlindungan</h2>
+            </div>
+            <div class="product-grid">
+                <!-- PAP -->
+                <a href="pages/pap.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-user-injured"></i></div>
+                    <h4>PAP</h4>
+                    <p class="product-card-question">"Jika penghasilan Anda hilang besok, berapa lama keluarga dapat bertahan tanpa mengubah gaya hidup mereka?"</p>
+                </a>
+                <!-- MDLA -->
+                <a href="pages/mdla.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-users"></i></div>
+                    <h4>MDLA</h4>
+                    <p class="product-card-question">"Jika pencari nafkah utama tidak lagi ada, siapa yang akan melanjutkan tanggung jawab finansial keluarga?"</p>
+                </a>
+                <!-- MDSA -->
+                <a href="pages/mdsa.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-piggy-bank"></i></div>
+                    <h4>MDSA</h4>
+                    <p class="product-card-question">"Apakah uang yang Anda hasilkan hari ini hanya disimpan, atau sudah dipersiapkan untuk masa depan keluarga?"</p>
+                </a>
+            </div>
+
+            <!-- Kategori: Dana Pensiun & Masa Depan -->
+            <div class="category-header">
+                <i class="fas fa-chair"></i>
+                <h2>Dana Pensiun & Masa Depan</h2>
+            </div>
+            <div class="product-grid">
+                <!-- MSP -->
+                <a href="pages/msp.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-graduation-cap"></i></div>
+                    <h4>MSP</h4>
+                    <p class="product-card-question">"Ketika gaji bulanan berhenti suatu hari nanti, dari mana sumber penghasilan yang akan menopang kehidupan Anda?"</p>
+                </a>
+                <!-- MiFIP -->
+                <a href="pages/mifip.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+                    <h4>MiFIP</h4>
+                    <p class="product-card-question">"Apakah dana pensiun yang Anda siapkan hari ini cukup untuk membiayai puluhan tahun kehidupan setelah berhenti bekerja?"</p>
+                </a>
+                <!-- MDWA -->
+                <a href="pages/mdwa.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                    <h4>MDWA</h4>
+                    <p class="product-card-question">"Jika ingin menikmati masa pensiun dengan tenang, persiapan apa yang sudah Anda lakukan mulai hari ini?"</p>
+                </a>
+                <!-- MiPrecious -->
+                <a href="pages/miprecious.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-gem"></i></div>
+                    <h4>MiPrecious</h4>
+                    <p class="product-card-question">"Sudahkah Anda menyiapkan warisan yang dapat dinikmati oleh generasi berikutnya?"</p>
+                </a>
+            </div>
+
+            <!-- Kategori: Solusi Syariah -->
+            <div class="category-header">
+                <i class="fas fa-mosque"></i>
+                <h2>Solusi Syariah</h2>
+            </div>
+            <div class="product-grid">
+                <!-- MPS Flexi -->
+                <a href="pages/mps-flexi.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-sync"></i></div>
+                    <h4>MPS Flexi</h4>
+                    <p class="product-card-question">"Apakah keluarga Anda sudah memiliki perlindungan finansial yang sesuai dengan prinsip syariah?"</p>
+                </a>
+                <!-- MPPS -->
+                <a href="pages/mpps.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-book-open"></i></div>
+                    <h4>MPPS</h4>
+                    <p class="product-card-question">"Jika sesuatu terjadi pada Anda, apakah pendidikan anak tetap berjalan sesuai rencana?"</p>
+                </a>
+                <!-- MPDS -->
+                <a href="pages/mpds.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-shield-virus"></i></div>
+                    <h4>MPDS</h4>
+                    <p class="product-card-question">"Berapa besar dampak finansial yang harus ditanggung keluarga jika risiko hidup datang lebih cepat dari perkiraan?"</p>
+                </a>
+            </div>
+
+            <!-- Kategori: Solusi Kombinasi -->
+            <div class="category-header">
+                <i class="fas fa-link"></i>
+                <h2>Solusi Kombinasi</h2>
+            </div>
+            <div class="product-grid">
+                <!-- MiSSION -->
+                <a href="pages/mission.html" class="product-card">
+                    <div class="card-icon"><i class="fas fa-flag-checkered"></i></div>
+                    <h4>MiSSION</h4>
+                    <p class="product-card-question">"Mengapa memilih antara proteksi, kesehatan, atau investasi jika ketiganya dapat dipersiapkan dalam satu solusi?"</p>
+                </a>
+            </div>
+
+            <!-- Kategori: Asuransi Umum (Placeholder) -->
+            <div class="category-header">
+                <i class="fas fa-car"></i>
+                <h2>Asuransi Umum</h2>
+            </div>
+            <div class="product-grid">
+                <a href="#" class="product-card">
+                    <div class="card-icon"><i class="fas fa-car"></i></div>
+                    <h4>Asuransi Mobil</h4>
+                    <p class="product-card-question">"Siapkah Anda menanggung biaya perbaikan mobil jutaan rupiah jika terjadi kecelakaan?"</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="card-icon"><i class="fas fa-home"></i></div>
+                    <h4>Asuransi Properti</h4>
+                    <p class="product-card-question">"Jika rumah terbakar atau terkena bencana, apakah Anda punya dana untuk membangun ulang?"</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="card-icon"><i class="fas fa-plane"></i></div>
+                    <h4>Asuransi Perjalanan</h4>
+                    <p class="product-card-question">"Siapa yang menanggung biaya medis mahal jika Anda sakit saat berada di luar negeri?"</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="card-icon"><i class="fas fa-building"></i></div>
+                    <h4>Asuransi Kumpulan</h4>
+                    <p class="product-card-question">"Sudahkah perusahaan Anda melindungi aset paling berharga yaitu karyawannya?"</p>
+                </a>
+            </div>
+            
+             <!-- Kategori: Layanan Khusus -->
+             <div class="category-header">
+                <i class="fas fa-star"></i>
+                <h2>Layanan Khusus</h2>
+            </div>
+            <div class="product-grid">
+                <a href="pages/magna-sehat-premium.html" class="product-card featured">
+                    <div class="card-icon"><i class="fas fa-crown"></i></div>
+                    <h4>Magna Sehat Premium</h4>
+                    <p class="product-card-question">"Ingin akses layanan kesehatan prioritas tanpa antre dan dengan fasilitas VIP?"</p>
+                </a>
+            </div>
+
         </div>
-        <div class="grid grid-3">
-          <div class="card">
-            <div class="card-icon">💓</div>
-            <h3>Kalo besok masuk RS?</h3>
-            <p>Biaya ICU bisa 10-50 juta/hari. Tabunganmu kuat berapa hari?</p>
-          </div>
-          <div class="card">            <div class="card-icon">🎓</div>
-            <h3>Kalo anak mau kuliah?</h3>
-            <p>Biaya kuliah naik 15%/tahun. Siap dengan dananya?</p>
-          </div>
-          <div class="card">
-            <div class="card-icon">🏖️</div>
-            <h3>Kalo pensiun nanti?</h3>
-            <p>Mau bergantung anak atau punya passive income?</p>
-          </div>
-        </div>
-      </div>
     </section>
 
-    <section class="section" id="produk">
-      <div class="container">
-        <div class="section-header">
-          <h2>Produk <span class="kw-jade">Proteksi</span> & Investasi</h2>
-          <p>Klik card buat lihat detail. Semua produk legal & terawasi OJK.</p>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-content">
+            <div class="footer-brand">
+                <h3>PROJECT<span class="logo-cuan">CUAN</span></h3>
+                <p>Partner terbaik proteksi dan bisnismu.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigasi</h4>
+                <a href="pages/bisnis.html">Bisnis</a>
+                <a href="pages/tentang.html">Tentang</a>
+                <a href="#produk">Produk</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Hubungi Agen</h4>
+                <p><i class="fab fa-whatsapp"></i> 0877-8189-6087</p>
+                <p><i class="far fa-envelope"></i> petrusjakub.asn@gmail.com</p>
+            </div>
         </div>
-        <div class="grid grid-3">
-          <a href="pages/miuhc.html" class="card" style="border-color: var(--jade);">
-            <span class="badge badge-jade">⭐ Best Seller</span>
-            <div class="card-icon">🏥</div>
-            <h3>MiUHC</h3>
-            <p><span class="kw-jade">Kalo sakit, siapa yang bayar tagihan RS?</span> Bayar SESUAI TAGIHAN di RS mana pun.</p>
-          </a>
-          <a href="pages/mdla.html" class="card">
-            <div class="card-icon">💎</div>
-            <h3>MDLA</h3>
-            <p><span class="kw-jade">Pensiun nanti mau hidup dari mana?</span> Dana pensiun pasti cair di akhir masa.</p>
-          </a>
-          <a href="pages/flexi.html" class="card">
-            <div class="card-icon">🕌</div>
-            <h3>MPS Flexi</h3>
-            <p><span class="kw-jade">Butuh proteksi jiwa fleksibel?</span> Syariah & Konvensional, pilihanmu.</p>
-          </a>
-          <a href="pages/mdwa.html" class="card">
-            <div class="card-icon">📈</div>
-            <h3>MDWA</h3>
-            <p><span class="kw-tangerine">Mau <span class="kw-jade">cuan</span> pasti tanpa risiko pasar?</span> Tabungan terstruktur, dijamin.</p>
-          </a>
-          <a href="pages/pap.html" class="card">
-            <div class="card-icon">🎯</div>
-            <h3>PAP</h3>
-            <p><span class="kw-jade">Punya utang tapi belum ada <span class="kw-jade">proteksi</span>?</span> Mulai Rp 380rb/bulan.</p>
-          </a>
-          <a href="pages/bisnis.html" class="card" style="border-color: var(--tangerine);">
-            <span class="badge badge-tangerine">🚀 Career</span>
-            <div class="card-icon">🚀</div>
-            <h3>Peluang Bisnis</h3>            <p><span class="kw-tangerine">Gaji numpang lewat tiap bulan?</span> Bangun sistem income exponential.</p>
-          </a>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Project Cuan. All Rights Reserved.</p>
         </div>
-      </div>
-    </section>
+    </footer>
 
-    <section class="section" id="quiz" style="background: var(--bg-lavender);">
-      <div class="container">
-        <div class="section-header">
-          <h2>Cek Profil <span class="kw-lavender">Risikomu</span> 🎯</h2>
-          <p>Jawab 3 pertanyaan simpel, aku kasih rekomendasi yang pas buat kamu</p>
-        </div>
-        <div class="calc-wrapper" id="home-quiz">
-          <div id="step-1">
-            <h3 style="text-align: center; margin-bottom: 1rem;">1. Berapa umur kamu?</h3>
-            <div class="radio-grid">
-              <button class="btn btn-outline" onclick="nextStep(1, 'age', 'young')">🎓 18-25 tahun</button>
-              <button class="btn btn-outline" onclick="nextStep(1, 'age', 'adult')">💼 26-35 tahun</button>
-              <button class="btn btn-outline" onclick="nextStep(1, 'age', 'mature')">👨‍👩‍👧 36+ tahun</button>
-            </div>
-          </div>
-          <div id="step-2" style="display: none;">
-            <h3 style="text-align: center; margin-bottom: 1rem;">2. Status kamu?</h3>
-            <div class="radio-grid">
-              <button class="btn btn-outline" onclick="nextStep(2, 'status', 'single')">🙋 Single</button>
-              <button class="btn btn-outline" onclick="nextStep(2, 'status', 'married')">💑 Menikah</button>
-              <button class="btn btn-outline" onclick="nextStep(2, 'status', 'family')">👨‍👩‍👧‍👦 Punya Anak</button>
-            </div>
-          </div>
-          <div id="step-3" style="display: none;">
-            <h3 style="text-align: center; margin-bottom: 1rem;">3. Prioritas finansialmu?</h3>
-            <div class="radio-grid">
-              <button class="btn btn-outline" onclick="showResult('health')">🏥 Kesehatan</button>
-              <button class="btn btn-outline" onclick="showResult('invest')">📈 Investasi</button>
-              <button class="btn btn-outline" onclick="showResult('business')">🚀 Bisnis</button>
-            </div>
-          </div>
-          <div id="step-result" style="display: none;">
-            <h3 style="text-align: center; margin-bottom: 1rem;">🎉 Rekomendasi Untukmu</h3>
-            <div id="quiz-results"></div>
-            <button class="btn btn-outline" onclick="resetQuiz()" style="width: 100%; margin-top: 1rem;">🔄 Ulangi Quiz</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
+    <!-- Floating Elements -->
+    <a href="#" class="scroll-top" id="scroll-top"><i class="fas fa-arrow-up"></i></a>
+    <a href="https://wa.me/6287781896087?text=Halo%20Agen,%20saya%20tertarik%20dengan%20produk%20Project%20Cuan" class="wa-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>Chat Agen</span>
+    </a>
 
-  <div id="footer-container"></div>
-
-  <script>    fetch('components/navbar.html').then(r => r.text()).then(h => document.getElementById('navbar-container').innerHTML = h);
-    fetch('components/footer.html').then(r => r.text()).then(h => document.getElementById('footer-container').innerHTML = h);
-    
-    let quizData = {};
-    function nextStep(current, key, value) {
-      quizData[key] = value;
-      document.getElementById(`step-${current}`).style.display = 'none';
-      document.getElementById(`step-${current + 1}`).style.display = 'block';
-    }
-    
-    function showResult(priority) {
-      document.getElementById('step-3').style.display = 'none';
-      document.getElementById('step-result').style.display = 'block';
-      
-      let recs = [];
-      if (priority === 'health') {
-        recs = [{ name: 'MiUHC', desc: 'Proteksi kesehatan as charged', link: 'pages/miuhc.html' }];
-        if (quizData.status === 'family') recs.push({ name: 'Magna Sehat', desc: 'Proteksi keluarga 1 polis', link: 'pages/magna.html' });
-      } else if (priority === 'invest') {
-        recs = [{ name: 'MDWA', desc: 'Tabungan pasti tanpa risiko', link: 'pages/mdwa.html' }, { name: 'MDLA', desc: 'Dana pensiun pasti cair', link: 'pages/mdla.html' }];
-      } else {
-        recs = [{ name: 'Peluang Bisnis', desc: 'Income exponential', link: 'pages/bisnis.html' }];
-      }
-      
-      document.getElementById('quiz-results').innerHTML = recs.map(r => `
-        <a href="${r.link}" class="card" style="margin-bottom: 0.75rem;">
-          <div style="display: flex; align-items: center; justify-content: space-between;">
-            <div>
-              <h3 style="font-size: 1rem; margin-bottom: 0.25rem;">${r.name}</h3>
-              <p style="font-size: 0.85rem; margin: 0;">${r.desc}</p>
-            </div>
-            <span style="color: var(--jade); font-size: 1.25rem;">→</span>
-          </div>
-        </a>
-      `).join('');
-    }
-    
-    function resetQuiz() {
-      quizData = {};
-      document.querySelectorAll('#home-quiz > div').forEach(d => d.style.display = 'none');
-      document.getElementById('step-1').style.display = 'block';
-    }
-  </script>
+    <script src="assets/main.js"></script>
 </body>
 </html>
