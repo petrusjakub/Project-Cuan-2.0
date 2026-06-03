@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}} - Project Cuan</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+
+    <!-- Header / Navbar -->
+    <header class="main-header">
+        <div class="container header-content">
+            <a href="../index.html" class="logo">
+                <span class="logo-project">PROJECT</span><span class="logo-cuan">CUAN</span>
+            </a>
+            
+            <nav id="navMenu" class="nav-menu">
+                <a href="../index.html">Beranda</a>
+                <a href="../index.html#produk">Produk</a>
+                <a href="bisnis.html">Bisnis</a>
+                <a href="tentang.html">Tentang</a>
+            </nav>
+
+            <div class="header-actions">
+                <button id="searchBtn" class="icon-btn" aria-label="Cari Produk">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+                <button id="darkModeToggle" class="icon-btn" aria-label="Toggle Dark Mode">
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                <button id="hamburgerBtn" class="icon-btn hamburger" aria-label="Menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Modal -->
+    <div id="searchModal" class="search-modal">
+        <div class="search-content">
+            <div class="search-header">
+                <input type="text" id="searchInput" placeholder="Cari produk asuransi...">
+                <button id="closeSearch" class="close-btn">&times;</button>
+            </div>
+            <div id="searchResults" class="search-results"></div>
+        </div>
+    </div>
+
+    <!-- Overlay for Mobile Menu -->
+    <div id="navOverlay" class="nav-overlay"></div>
+
+    <!-- Main Content -->
+    <main class="product-page">
+        
+        <!-- Hero Section -->
+        <section class="product-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="../index.html">Beranda</a> &rsaquo; <a href="../index.html#produk">Produk</a> &rsaquo; <span>{{PRODUCT_NAME}}</span>
+                </div>
+                <h1>{{PRODUCT_NAME}}</h1>
+                <p class="hero-sub">{{HERO_SUBTITLE}}</p>
+                <a href="https://wa.me/6287781896087?text=Halo%20Agen,%20saya%20tertarik%20dengan%20{{PRODUCT_NAME}}" class="btn btn-primary">Chat Agen Sekarang</a>
+            </div>
+        </section>
+
+        <!-- Pain Point Section -->
+        <section class="pain-section">
+            <div class="container">
+                <h2>Apa yang terjadi jika kamu <span class="highlight-text">tidak punya proteksi</span> ini?</h2>
+                <div class="pain-grid">
+                    <div class="pain-item">
+                        <div class="pain-icon">⚠️</div>
+                        <h3>Risiko Finansial Besar</h3>
+                        <p>Tanpa asuransi, satu musibah bisa menghabiskan tabungan bertahun-tahun yang sudah kamu kumpulkan dengan susah payah.</p>
+                    </div>
+                    <div class="pain-item">
+                        <div class="pain-icon">😰</div>
+                        <h3>Beban Keluarga</h3>
+                        <p>Keluarga yang kamu cintai terpaksa menanggung beban biaya yang seharusnya bisa ditanggung oleh perusahaan asuransi.</p>
+                    </div>
+                    <div class="pain-item">
+                        <div class="pain-icon">📉</div>
+                        <h3>Masa Depan Terganggu</h3>
+                        <p>Rencana pendidikan anak, pensiun nyaman, atau impian lainnya bisa buyar seketika karena kejadian tak terduga.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution / Benefits Section -->
+        <section class="benefits-section">
+            <div class="container">
+                <h2>Solusi {{PRODUCT_NAME}} untuk Kamu</h2>
+                <div class="benefits-list">
+                    {{BENEFITS_CONTENT}}
+                </div>
+            </div>
+        </section>
+
+        <!-- Calculator Section -->
+        <section class="calculator-section">
+            <div class="container">
+                <h2>Hitung Estimasi Premi {{PRODUCT_NAME}}</h2>
+                <p class="calc-desc">Gunakan kalkulator sederhana ini untuk mendapatkan gambaran premi bulanan kamu.</p>
+                
+                <div class="calculator-card">
+                    <form id="premiumCalculator" class="calc-form">
+                        <div class="form-group">
+                            <label for="usia">Usia Kamu (tahun)</label>
+                            <input type="number" id="usia" min="17" max="65" value="30" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="gender">Jenis Kelamin</label>
+                            <select id="gender">
+                                <option value="pria">Pria</option>
+                                <option value="wanita">Wanita</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="plan">Pilihan Plan</label>
+                            <select id="plan">
+                                <option value="basic">Basic (Rp 800rb/thn)</option>
+                                <option value="silver">Silver (Rp 1.5jt/thn)</option>
+                                <option value="gold" selected>Gold (Rp 2.5jt/thn)</option>
+                                <option value="platinum">Platinum (Rp 4jt/thn)</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary calc-btn">Hitung Premi</button>
+                    </form>
+                    
+                    <div id="calcResult" class="calc-result" style="display:none;">
+                        <h3>Estimasi Premi Kamu</h3>
+                        <div class="result-box">
+                            <span class="label">Per Bulan</span>
+                            <span class="value" id="resultMonthly">-</span>
+                        </div>
+                        <div class="result-box">
+                            <span class="label">Per Tahun</span>
+                            <span class="value" id="resultAnnual">-</span>
+                        </div>
+                        <p class="disclaimer">*Ini adalah estimasi. Premi aktual dapat bervariasi tergantung kondisi kesehatan dan detail polis. <a href="https://wa.me/6287781896087" target="_blank">Chat Agen</a> untuk penawaran pasti.</p>
+                        <a href="https://wa.me/6287781896087?text=Halo%20Agen,%20saya%20mau%20tanya%20detail%20premi%20{{PRODUCT_NAME}}" class="btn btn-secondary" target="_blank">Konsultasi Gratis</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <h2>Pertanyaan yang Sering Diajukan</h2>
+                <div class="faq-container">
+                    <details class="faq-item">
+                        <summary>Apakah {{PRODUCT_NAME}} cocok untuk saya?</summary>
+                        <p>{{PRODUCT_NAME}} dirancang untuk memberikan perlindungan maksimal dengan premi yang terjangkau. Sangat cocok untuk kamu yang ingin melindungi masa depan finansial keluarga.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Bagaimana cara klaimnya?</summary>
+                        <p>Proses klaim sangat mudah. Cukup hubungi agen kamu atau call center kami, lengkapi dokumen yang diperlukan, dan tim kami akan membantu hingga proses selesai.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Apakah ada masa tunggu?</summary>
+                        <p>Ya, terdapat masa tunggu umum 30 hari sejak polis aktif. Untuk kondisi tertentu mungkin ada penyesuaian. Detail lengkap bisa diskusikan dengan agen.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Bisakah saya mengubah nominal premi nanti?</summary>
+                        <p>Tentu! Salah satu keunggulan produk kami adalah fleksibilitas. Kamu bisa menyesuaikan proteksi seiring perubahan kebutuhan dan kemampuan finansialmu.</p>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="final-cta">
+            <div class="container">
+                <h2>Jangan Tunggu Sampai Terlambat!</h2>
+                <p>Proteksi terbaik adalah yang dimulai hari ini. Semakin muda usia kamu, semakin murah preminya.</p>
+                <a href="https://wa.me/6287781896087?text=Halo%20Agen,%20saya%20siap%20untuk%20proteksi%20dengan%20{{PRODUCT_NAME}}" class="btn btn-primary btn-large">Chat Agen Sekarang</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="../index.html" class="logo">
+                    <span class="logo-project">PROJECT</span><span class="logo-cuan">CUAN</span>
+                </a>
+                <p>Partner terpercaya untuk proteksi keuangan dan pertumbuhan bisnis Anda.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Produk Unggulan</h4>
+                <ul>
+                    <li><a href="miuhc.html">MiUHC</a></li>
+                    <li><a href="mdla.html">MDLA</a></li>
+                    <li><a href="asuransi-mobil.html">Asuransi Mobil</a></li>
+                    <li><a href="magna-sehat-premium.html">Magna Sehat</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Perusahaan</h4>
+                <ul>
+                    <li><a href="tentang.html">Tentang Kami</a></li>
+                    <li><a href="bisnis.html">Karir & Bisnis</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Hubungi Kami</h4>
+                <p>WhatsApp: 0877-8189-6087</p>
+                <p>Email: petrusjakub.asn@gmail.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Project Cuan. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Floating Elements -->
+    <div class="floating-group">
+        <button id="scrollUpBtn" class="float-btn scroll-nav" aria-label="Scroll Up">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"></polyline></svg>
+        </button>
+        <button id="scrollDownBtn" class="float-btn scroll-nav" aria-label="Scroll Down">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <a href="https://wa.me/6287781896087?text=Halo%20Agen,%20saya%20tertarik%20dengan%20info%20asuransi" class="float-btn wa-float" target="_blank" rel="noopener" aria-label="Chat Agen">
+            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../assets/js/main.js"></script>
+    <script>
+        // Product Specific Data
+        const PRODUCT_DATA = {
+            name: "{{PRODUCT_NAME}}",
+            type: "{{PRODUCT_TYPE}}" // 'health', 'life', 'general'
+        };
+
+        // Calculator Logic for this page
+        document.getElementById('premiumCalculator').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const usia = parseInt(document.getElementById('usia').value);
+            const gender = document.getElementById('gender').value;
+            const plan = document.getElementById('plan').value;
+            
+            if (!usia || usia < 17 || usia > 65) {
+                alert('Masukkan usia antara 17-65 tahun');
+                return;
+            }
+            
+            // Use universal calculator
+            const result = window.CuanCalculator.calculateHealthPremium(usia, plan, gender);
+            
+            document.getElementById('resultMonthly').textContent = result.formattedMonthly;
+            document.getElementById('resultAnnual').textContent = result.formattedAnnual;
+            document.getElementById('calcResult').style.display = 'block';
+            
+            // Scroll to result
+            document.getElementById('calcResult').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
