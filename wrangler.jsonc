@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "projectcuan",
+  "name": "project-cuan",
   "compatibility_date": "2026-06-02",
   "observability": {
     "enabled": true
@@ -12,3 +12,4 @@
     "nodejs_compat"
   ]
 }
+Ku 
